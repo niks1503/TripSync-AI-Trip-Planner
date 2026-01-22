@@ -15,12 +15,18 @@ export const getRestaurants = async (lat, lon, radius = 1000) => {
         console.log("Fetching dining data...");
         const response = await axios.post(overpassUrl, `data=${encodeURIComponent(query)}`, {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            timeout: 5000 // Client side timeout 5s
+            timeout: 8000 // Increased timeout to 8s
         });
 
         const restaurants = [];
 
-        for (const element of data.elements || []) {
+        // Check for valid response structure
+        if (!response.data || !response.data.elements) {
+            console.log("No dining data received");
+            return [];
+        }
+
+        for (const element of response.data.elements) {
             const tags = element.tags || {};
             const name = tags.name;
             const cuisine = tags.cuisine;

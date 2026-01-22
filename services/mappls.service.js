@@ -68,10 +68,39 @@ export async function geocode(location) {
             };
         }
 
-        return null;
+        throw new Error("Geoapify returned no results");
     } catch (error) {
-        console.error("Error geocoding location:", error.response?.data || error.message);
-        return null;
+        console.log(`Geoapify failed for ${location}, trying Nominatim fallback...`);
+        try {
+            // Fallback to Nominatim (OpenStreetMap)
+            const response = await axios.get(
+                `https://nominatim.openstreetmap.org/search`,
+                {
+                    params: {
+                        q: location,
+                        format: 'json',
+                        limit: 1
+                    },
+                    headers: {
+                        'User-Agent': 'TripPlannerApp/1.0'
+                    }
+                }
+            );
+
+            if (response.data && response.data.length > 0) {
+                const feature = response.data[0];
+                return {
+                    lat: parseFloat(feature.lat),
+                    lng: parseFloat(feature.lon),
+                    name: feature.display_name || location
+                };
+            }
+        } catch (nominatimError) {
+            console.error("Nominatim fallback also failed:", nominatimError.message);
+        }
+
+        console.error("Geocoding failed for:", location, error.message);
+        return null; // Both failed
     }
 }
 

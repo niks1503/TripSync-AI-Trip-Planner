@@ -15,7 +15,7 @@ export const getHotels = async (lat, lon, radius = 2000) => {
         console.log("Fetching hotel data...");
         const response = await axios.post(overpassUrl, `data=${encodeURIComponent(query)}`, {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            timeout: 10000 // Client side timeout 10s
+            timeout: 15000 // Client side timeout 15s to match API query timeout
         });
 
         const data = response.data;
