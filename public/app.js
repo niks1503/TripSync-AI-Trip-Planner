@@ -577,31 +577,6 @@ function handleDrop(event, day, slot) {
     draggedFromSlot = null;
 }
 
-// Highlight place on map when card is clicked (keeping for compatibility)
-function highlightPlace(index) {
-    const place = window.placesData[index];
-    const markerData = window.placeMarkers.find(m => m.index === index);
-
-    if (place && place.lat && place.lng && window.tripMap) {
-        // Pan and zoom to the place
-        window.tripMap.setCenter([place.lat, place.lng]);
-        window.tripMap.setZoom(14);
-
-        // Highlight the selected card
-        document.querySelectorAll('.place-card').forEach(card => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-            card.style.borderColor = '';
-        });
-        const selectedCard = document.querySelector(`.place-card[data-index="${index}"]`);
-        if (selectedCard) {
-            selectedCard.style.transform = 'translateY(-6px) scale(1.02)';
-            selectedCard.style.boxShadow = '0 12px 35px rgba(99, 102, 241, 0.5)';
-            selectedCard.style.borderColor = 'var(--accent)';
-        }
-    }
-}
-
 // Utility function to escape HTML
 function escapeHtml(text) {
     const map = {
@@ -613,3 +588,4 @@ function escapeHtml(text) {
     };
     return text.replace(/[&<>"']/g, m => map[m]);
 }
+
