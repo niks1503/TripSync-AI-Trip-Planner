@@ -4,389 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trip Planner</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-            background-size: cover;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 900px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-
-        }
-
-        .form-section h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .preferences-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 8px 12px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            font-weight: normal;
-            font-size: 14px;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .checkbox-label:hover {
-            background: #e9ecef;
-            transform: translateX(2px);
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #667eea;
-        }
-
-        .output-section {
-            background: #f8f9fa;
-            border-radius: 5px;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .map-section {
-            grid-column: 1 / -1;
-            background: #f8f9fa;
-            border-radius: 5px;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            display: none;
-        }
-
-        .map-section.visible {
-            display: block;
-        }
-
-        .map-section h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        #mapContainer {
-            width: 100%;
-            height: 450px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid #ddd;
-        }
-
-        .map-loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 450px;
-            background: #e9ecef;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .places-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .place-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .place-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .place-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .place-card-content {
-            padding: 12px;
-        }
-
-        .place-card h4 {
-            margin: 0 0 5px 0;
-            color: #333;
-            font-size: 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .place-card p {
-            margin: 0;
-            color: #666;
-            font-size: 12px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .place-card .place-type {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            margin-top: 8px;
-        }
-
-        .map-legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: #666;
-        }
-
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .legend-dot.source {
-            background: #22c55e;
-        }
-
-        .legend-dot.destination {
-            background: #ef4444;
-        }
-
-        .legend-dot.place {
-            background: #667eea;
-        }
-
-        .legend-line {
-            width: 20px;
-            height: 3px;
-            background: #667eea;
-            border-radius: 2px;
-        }
-
-        /* Custom popup styling */
-        .custom-popup {
-            min-width: 200px;
-            padding: 0;
-        }
-
-        .popup-image {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .popup-content {
-            padding: 10px;
-        }
-
-        .popup-content h4 {
-            margin: 0 0 5px 0;
-            color: #333;
-        }
-
-        .popup-content p {
-            margin: 0;
-            color: #666;
-            font-size: 12px;
-        }
-
-        .output-section h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .chat-message {
-            line-height: 1.8;
-            color: #333;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 14px;
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            background-color: #667eea;
-            animation: blink 0.7s infinite;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-
-            0%,
-            49% {
-                opacity: 1;
-            }
-
-            50%,
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .error {
-            display: none;
-            padding: 15px;
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .loading-skeleton {
-            background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            height: 20px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        @keyframes loading {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>TripSync - AI Trip Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="container">
         <!-- Form Section -->
         <div class="form-section">
-            <h1>🏝️Trip Planner</h1>
-            <p class="subtitle">Plan your perfect trip</p>
+            <h1>
+                <img src="images/logo.png" alt="TripSync Logo" class="logo">
+                TripSync
+            </h1>
+            <p class="subtitle">AI-powered travel planning at your fingertips</p>
 
             <form id="tripForm">
                 <div class="form-group">
-                    <label for="source">Source (Starting Point)</label>
+                    <label for="source">Starting Point</label>
                     <input type="text" id="source" name="source" placeholder="e.g., Mumbai, Delhi" required>
                 </div>
 
@@ -402,12 +46,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="people">Number of People</label>
+                    <label for="people">Number of Travelers</label>
                     <input type="number" id="people" name="people" min="1" max="50" placeholder="e.g., 2" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="days">Number of Days</label>
+                    <label for="days">Trip Duration (Days)</label>
                     <input type="number" id="days" name="days" min="1" max="365" placeholder="e.g., 3" required>
                 </div>
 
@@ -453,7 +97,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="submitBtn">Plan My Trip</button>
+                <button type="submit" id="submitBtn">Generate Itinerary ✨</button>
             </form>
 
             <div class="error" id="error"></div>
@@ -461,9 +105,10 @@
 
         <!-- Output Section -->
         <div class="output-section" id="outputSection">
-            <h2>Trip Itinerary</h2>
+            <h2>Your Itinerary</h2>
             <div class="chat-message" id="output">
-                <p style="color: #999; font-style: italic;">Your itinerary will appear here...</p>
+                <p style="color: var(--text-muted); font-style: italic;">Your personalized trip plan will appear here...
+                </p>
             </div>
         </div>
 
@@ -471,7 +116,7 @@
         <div class="map-section" id="mapSection">
             <h2>🗺️ Route Map</h2>
             <div id="mapContainer">
-                <div class="map-loading">Map will load here after planning...</div>
+                <div class="map-loading">Loading map...</div>
             </div>
 
             <!-- Map Legend -->
@@ -495,317 +140,42 @@
             </div>
 
             <!-- Places to Visit -->
-            <h3 style="margin-top: 20px; color: #333;">📍 Places to Explore</h3>
+            <h3 class="section-title">📍 Places to Explore <span
+                    style="font-size: 12px; font-weight: 400; color: var(--text-muted);">(drag to add to
+                    itinerary)</span></h3>
             <div class="places-grid" id="placesGrid">
                 <!-- Places will be dynamically inserted here -->
             </div>
         </div>
+
+        <!-- Itinerary Builder -->
+        <div class="itinerary-builder" id="itineraryBuilder">
+            <h2>📅 Customize Your Itinerary</h2>
+            <div class="days-container" id="daysContainer">
+                <!-- Day columns will be dynamically inserted here -->
+            </div>
+        </div>
     </div>
 
-    <script>
-        document.getElementById('tripForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+    <!-- Place Details Modal -->
+    <div class="modal-overlay" id="placeModal" onclick="closePlaceModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePlaceModal()">✕</button>
+            <img class="modal-image" id="modalImage" src="" alt="Place image">
+            <div class="modal-body">
+                <h3 class="modal-title" id="modalTitle">Place Name</h3>
+                <p class="modal-address" id="modalAddress">
+                    <span>📍</span>
+                    <span id="modalAddressText">Address</span>
+                </p>
+                <div class="modal-actions" id="modalActions">
+                    <!-- Day buttons will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-            const submitBtn = document.getElementById('submitBtn');
-            const output = document.getElementById('output');
-            const errorEl = document.getElementById('error');
-
-            // Collect selected preferences
-            const preferencesCheckboxes = document.querySelectorAll('input[name="preferences"]:checked');
-            const preferences = Array.from(preferencesCheckboxes).map(cb => cb.value);
-
-            const formData = {
-                source: document.getElementById('source').value,
-                destination: document.getElementById('destination').value,
-                budget: document.getElementById('budget').value,
-                people: parseInt(document.getElementById('people').value),
-                days: parseInt(document.getElementById('days').value),
-                transport: document.getElementById('transport').value,
-                preferences: preferences
-            };
-
-            // Disable button and clear previous output
-            submitBtn.disabled = true;
-            output.innerHTML = '<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>';
-            errorEl.style.display = 'none';
-
-            try {
-                const response = await fetch('/api/plan-trip', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Failed to plan trip');
-                }
-
-                // Stream the response
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let fullText = '';
-                output.innerHTML = '';
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    const chunk = decoder.decode(value, { stream: true });
-                    fullText += chunk;
-
-                    // Display with typing effect
-                    output.innerHTML = `<div class="chat-message">${escapeHtml(fullText)}<span class="typing-cursor"></span></div>`;
-                    document.getElementById('outputSection').scrollTop = document.getElementById('outputSection').scrollHeight;
-                }
-
-                // Remove cursor after done
-                output.innerHTML = `<div class="chat-message">${escapeHtml(fullText)}</div>`;
-
-                // Load the map after itinerary is generated
-                loadMap(formData.source, formData.destination);
-
-            } catch (error) {
-                errorEl.textContent = '❌ Error: ' + error.message;
-                errorEl.style.display = 'block';
-                output.innerHTML = '<p style="color: #999; font-style: italic;">Your itinerary will appear here...</p>';
-            } finally {
-                submitBtn.disabled = false;
-            }
-        });
-
-        // Load map with route and markers
-        let mapplsSdkLoaded = false;
-
-        async function loadMapplsSdk(accessToken) {
-            if (mapplsSdkLoaded) return Promise.resolve();
-
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = `https://apis.mappls.com/advancedmaps/api/${accessToken}/map_sdk?layer=vector&v=3.0`;
-                script.onload = () => {
-                    mapplsSdkLoaded = true;
-                    resolve();
-                };
-                script.onerror = () => reject(new Error('Failed to load Mappls SDK'));
-                document.head.appendChild(script);
-            });
-        }
-
-        async function loadMap(source, destination) {
-            const mapSection = document.getElementById('mapSection');
-            const mapContainer = document.getElementById('mapContainer');
-
-            try {
-                mapContainer.innerHTML = '<div class="map-loading">🗺️ Loading map...</div>';
-                mapSection.classList.add('visible');
-
-                // Fetch map data from our API
-                const response = await fetch('/api/map-data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ source, destination })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to load map data');
-                }
-
-                const mapData = await response.json();
-
-                if (mapData.error) {
-                    mapContainer.innerHTML = `<div class="map-loading">⚠️ ${mapData.error}</div>`;
-                    return;
-                }
-
-                // Load Mappls SDK with the access token
-                await loadMapplsSdk(mapData.accessToken);
-
-                // Clear loading message
-                mapContainer.innerHTML = '';
-
-                // Initialize Mappls map
-                const map = new mappls.Map('mapContainer', {
-                    center: [mapData.destination.lat, mapData.destination.lng],
-                    zoom: 7,
-                    zoomControl: true,
-                    hybrid: false
-                });
-
-                // Wait for map to load
-                map.on('load', () => {
-                    // Add source marker (green)
-                    if (mapData.source) {
-                        new mappls.Marker({
-                            map: map,
-                            position: { lat: mapData.source.lat, lng: mapData.source.lng },
-                            fitbounds: true,
-                            popupHtml: `<div><b>🟢 Start:</b> ${mapData.source.name}</div>`
-                        });
-                    }
-
-                    // Add destination marker (red)
-                    if (mapData.destination) {
-                        new mappls.Marker({
-                            map: map,
-                            position: { lat: mapData.destination.lat, lng: mapData.destination.lng },
-                            fitbounds: true,
-                            popupHtml: `<div><b>🔴 Destination:</b> ${mapData.destination.name}</div>`
-                        });
-                    }
-
-                    // Add route polyline if available
-                    if (mapData.route && mapData.route.geometry) {
-                        try {
-                            mappls.Polyline({
-                                map: map,
-                                path: mapData.route.geometry,
-                                strokeColor: '#667eea',
-                                strokeWeight: 4,
-                                strokeOpacity: 0.8,
-                                fitbounds: true
-                            });
-                        } catch (e) {
-                            console.log('Could not draw route polyline:', e);
-                        }
-                    }
-
-                    // Store markers for interaction
-                    const placeMarkers = [];
-
-                    // Add place markers with enhanced popups
-                    if (mapData.places && mapData.places.length > 0) {
-                        mapData.places.forEach((place, index) => {
-                            // Generate a placeholder image URL based on place type
-                            const imageUrl = getPlaceImage(place.type || 'POI', place.name);
-
-                            const popupHtml = `
-                                <div class="custom-popup">
-                                    <img src="${imageUrl}" alt="${place.name}" class="popup-image" onerror="this.style.display='none'">
-                                    <div class="popup-content">
-                                        <h4>📍 ${place.name}</h4>
-                                        <p>${place.address || 'Near ' + mapData.destination.name}</p>
-                                        ${place.type ? `<span class="place-type">${place.type}</span>` : ''}
-                                    </div>
-                                </div>
-                            `;
-
-                            if (place.lat && place.lng) {
-                                const marker = new mappls.Marker({
-                                    map: map,
-                                    position: { lat: place.lat, lng: place.lng },
-                                    popupHtml: popupHtml
-                                });
-                                placeMarkers.push({ marker, place, index });
-                            }
-                        });
-                    }
-
-                    // Populate places grid with photo cards
-                    renderPlacesGrid(mapData.places, mapData.destination.name, map, placeMarkers);
-
-                    // Fit map to show all markers
-                    if (mapData.source && mapData.destination) {
-                        const bounds = [
-                            [mapData.source.lat, mapData.source.lng],
-                            [mapData.destination.lat, mapData.destination.lng]
-                        ];
-                        map.fitBounds(bounds, { padding: 50 });
-                    }
-                });
-
-            } catch (error) {
-                console.error('Map loading error:', error);
-                mapContainer.innerHTML = `<div class="map-loading">⚠️ Could not load map: ${error.message}</div>`;
-            }
-        }
-
-        // Generate a placeholder image URL based on place type
-        function getPlaceImage(type, name) {
-            // Use Unsplash random images with relevant keywords
-            const keywords = {
-                'POI': 'travel,landmark',
-                'WATERFALL': 'waterfall,nature',
-                'TEMPLE': 'temple,india',
-                'BEACH': 'beach,ocean',
-                'PARK': 'nature,park',
-                'MUSEUM': 'museum,art',
-                'FORT': 'fort,castle',
-                'GARDEN': 'garden,flowers',
-                'LAKE': 'lake,water',
-                'MOUNTAIN': 'mountain,hiking'
-            };
-            const keyword = keywords[type] || 'travel,india';
-            // Use picsum.photos for consistent, fast placeholder images
-            const hash = name.split('').reduce((a, b) => ((a << 5) - a) + b.charCodeAt(0), 0);
-            return `https://picsum.photos/seed/${Math.abs(hash)}/400/300`;
-        }
-
-        // Render places grid with photo cards
-        function renderPlacesGrid(places, destinationName, map, placeMarkers) {
-            const placesGrid = document.getElementById('placesGrid');
-
-            if (!places || places.length === 0) {
-                placesGrid.innerHTML = '<p style="color: #666; font-style: italic;">No places found nearby</p>';
-                return;
-            }
-
-            placesGrid.innerHTML = places.map((place, index) => {
-                const imageUrl = getPlaceImage(place.type || 'POI', place.name);
-                return `
-                    <div class="place-card" data-index="${index}" onclick="highlightPlace(${index})">
-                        <img src="${imageUrl}" alt="${place.name}" loading="lazy">
-                        <div class="place-card-content">
-                            <h4>${place.name}</h4>
-                            <p>${place.address || 'Near ' + destinationName}</p>
-                            ${place.type ? `<span class="place-type">${place.type}</span>` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            // Store map and markers globally for click handling
-            window.tripMap = map;
-            window.placeMarkers = placeMarkers;
-            window.placesData = places;
-        }
-
-        // Highlight place on map when card is clicked
-        function highlightPlace(index) {
-            const place = window.placesData[index];
-            const markerData = window.placeMarkers.find(m => m.index === index);
-
-            if (place && place.lat && place.lng && window.tripMap) {
-                // Pan and zoom to the place
-                window.tripMap.setCenter([place.lat, place.lng]);
-                window.tripMap.setZoom(14);
-
-                // Highlight the selected card
-                document.querySelectorAll('.place-card').forEach(card => {
-                    card.style.transform = '';
-                    card.style.boxShadow = '';
-                });
-                const selectedCard = document.querySelector(`.place-card[data-index="${index}"]`);
-                if (selectedCard) {
-                    selectedCard.style.transform = 'translateY(-5px) scale(1.02)';
-                    selectedCard.style.boxShadow = '0 10px 30px rgba(102, 126, 234, 0.4)';
-                }
-            }
-        }
-
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return text.replace(/[&<>"']/g, m => map[m]);
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 
 </html>

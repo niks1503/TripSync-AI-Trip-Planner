@@ -113,6 +113,50 @@ export async function getRoute(sourceCoords, destCoords) {
 }
 
 /**
+ * Get formatted distance and duration between two locations
+ */
+export async function getDistanceInfo(source, destination) {
+    try {
+        const [sourceCoords, destCoords] = await Promise.all([
+            geocode(source),
+            geocode(destination)
+        ]);
+
+        if (!sourceCoords || !destCoords) {
+            return null;
+        }
+
+        const route = await getRoute(sourceCoords, destCoords);
+
+        if (!route) {
+            return null;
+        }
+
+        // Format distance (meters to km)
+        const distanceKm = (route.distance / 1000).toFixed(1);
+
+        // Format duration (seconds to hours and minutes)
+        const hours = Math.floor(route.duration / 3600);
+        const minutes = Math.floor((route.duration % 3600) / 60);
+        const durationStr = hours > 0
+            ? `${hours} hour${hours > 1 ? 's' : ''} ${minutes} min`
+            : `${minutes} minutes`;
+
+        return {
+            distanceKm: parseFloat(distanceKm),
+            distanceText: `${distanceKm} km`,
+            durationSeconds: route.duration,
+            durationText: durationStr,
+            source: sourceCoords,
+            destination: destCoords
+        };
+    } catch (error) {
+        console.error("Error getting distance info:", error);
+        return null;
+    }
+}
+
+/**
  * Search for places/attractions near a location
  */
 export async function searchPlaces(lat, lng, query = "tourist attraction", radius = 10000) {
