@@ -1,12 +1,4 @@
-export const getPlaces = async (query) => {
-  // TODO: implement places service
-  return [];
-};
 
-export const getPlaceDetails = async (placeId) => {
-  // TODO: implement place details
-  return null;
-};
 
 export const getPlacesByLocation = async (lat, lon, radius = 5000, category = "tourism") => {
   try {

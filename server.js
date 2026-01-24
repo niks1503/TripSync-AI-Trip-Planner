@@ -2,13 +2,9 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { callLLM } from "./services/llm.service.js";
-import { buildPrompt } from "./services/prompt.builder.js";
-import { getPlacesByName, getCoordinates } from "./services/places.service.js";
-import { getRestaurants } from "./services/dining.service.js";
-import { getHotels } from "./services/hotel.service.js";
-import { getMapData, getAccessToken, getDistanceInfo } from "./services/mappls.service.js";
+import { getMapData, getAccessToken } from "./services/mappls.service.js";
 import { getPlaceImages } from "./services/image.service.js";
+import { TripPlannerAgent } from "./services/agent.service.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,101 +17,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// Stream itinerary generation
-app.post("/api/plan-trip", async (req, res) => {
-  const { destination, budget, people, days, source, transport, preferences } = req.body;
-
-  if (!destination || !budget || !people || !days || !source) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  // Calculate Budget Tier based on Total Budget
-  const totalBudget = parseInt(budget);
-  let budgetTier = "Medium"; // Default
-
-  if (totalBudget < 20000) {
-    budgetTier = "Low";
-  } else if (totalBudget >= 20000 && totalBudget <= 30000) {
-    budgetTier = "Medium";
-  } else if (totalBudget > 30000) {
-    budgetTier = "High";
-  }
-
-  // Map transport mode
-  const transportModes = {
-    any: "Best available option (flight/train/bus)",
-    flight: "Flight",
-    train: "Train",
-    bus: "Bus",
-    car: "Car / Self-Drive",
-    bike: "Bike / Motorcycle"
-  };
-  const transportMode = transportModes[transport] || transportModes.any;
-
-  // Format preferences
-  const userPreferences = preferences && preferences.length > 0
-    ? preferences.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(", ")
-    : "General sightseeing";
-
-  // Set headers for streaming
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.setHeader('Transfer-Encoding', 'chunked');
-
-  // Stream function (simulating typing effect, but faster)
-  const stream = async (text) => {
-    // Send larger chunks for better performance
-    const chunkSize = 5;
-    for (let i = 0; i < text.length; i += chunkSize) {
-      await new Promise(resolve => {
-        res.write(text.slice(i, i + chunkSize));
-        setTimeout(resolve, 5); // Faster typing speed
-      });
-    }
-  };
-
-  try {
-    // 1. Get Context (Real places, Dining, Hotels, Distance)
-    console.log(`Fetching context for ${destination}...`);
-
-    // Fetch coordinates first for specific searches
-    const coords = await getCoordinates(destination);
-
-    let placesPromise = getPlacesByName(destination);
-    let diningPromise = Promise.resolve([]);
-    let hotelsPromise = Promise.resolve([]);
-    let distancePromise = getDistanceInfo(source, destination);
-
-    if (coords) {
-      // If we have coords, we can fetch dining and hotels nearby
-      diningPromise = getRestaurants(coords.lat, coords.lon);
-      hotelsPromise = getHotels(coords.lat, coords.lon);
-    }
-
-    const [places, dining, hotels, distanceInfo] = await Promise.all([placesPromise, diningPromise, hotelsPromise, distancePromise]);
-
-    // 2. Build Prompt
-    console.log("Building prompt...");
-    const prompt = buildPrompt({ destination, source, budget: totalBudget, budgetTier, people, days, transportMode, preferences: userPreferences }, { places, dining, hotels, distanceInfo });
-
-    // 3. Call LLM
-    console.log("Calling LLM...");
-    const itinerary = await callLLM(prompt);
-
-    // 4. Stream response
-    await stream(itinerary);
-    res.end();
-  } catch (error) {
-    console.error("Error in plan-trip:", error);
-    // If headers aren't sent yet
-    if (!res.headersSent) {
-      res.status(500).json({ message: "Error generating itinerary" });
-    } else {
-      res.write("\n\nError: Failed to complete itinerary generation.");
-      res.end();
-    }
-  }
 });
 
 // Get map data (route + places) for display
@@ -207,6 +108,65 @@ app.get("/api/place-photo", async (req, res) => {
   } catch (error) {
     console.error("Error proxying place photo:", error);
     res.status(500).send("Error fetching photo");
+  }
+});
+
+// Agent-based trip planning endpoint
+// Uses LLM to decide which tools to call dynamically
+app.post("/api/plan-trip", async (req, res) => {
+  const { destination, budget, people, days, source, transport, preferences } = req.body;
+
+  if (!destination || !budget || !people || !days || !source) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  // Set headers for streaming
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Transfer-Encoding', 'chunked');
+
+  // Stream function
+  const stream = async (text) => {
+    const chunkSize = 5;
+    for (let i = 0; i < text.length; i += chunkSize) {
+      await new Promise(resolve => {
+        res.write(text.slice(i, i + chunkSize));
+        setTimeout(resolve, 5);
+      });
+    }
+  };
+
+  try {
+    console.log("[Agent Mode] Starting trip planning...");
+
+    const agent = new TripPlannerAgent();
+
+    const tripContext = {
+      destination,
+      source,
+      budget: parseInt(budget),
+      people: parseInt(people),
+      days: parseInt(days),
+      transport: transport || "any",
+      preferences: preferences && preferences.length > 0
+        ? preferences.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(", ")
+        : "General sightseeing"
+    };
+
+    const itinerary = await agent.processRequest(
+      `Plan a ${days}-day trip from ${source} to ${destination}`,
+      tripContext
+    );
+
+    await stream(itinerary);
+    res.end();
+  } catch (error) {
+    console.error("[Agent Mode] Error:", error);
+    if (!res.headersSent) {
+      res.status(500).json({ message: "Error generating itinerary" });
+    } else {
+      res.write("\n\nError: Failed to complete itinerary generation.");
+      res.end();
+    }
   }
 });
 

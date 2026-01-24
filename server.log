@@ -1,0 +1,867 @@
+🚀 Server running on http://localhost:3000
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa",
+      "budget": 25000,
+      "people": 2
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "Beach"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+Mappls token generated successfully
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+✓ Found Google image for: Dr. B. R. Ambedkar
+✓ Found Google image for: Kuskem Waterfall
+✓ Found Google image for: Braganza House West Wing
+✓ Found Google image for: Braganza House
+✓ Found Google image for: Shivaji
+✓ Found Google image for: Braganza House East Wing
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 30000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+Error fetching restaurants: Request failed with status code 504
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 30000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 30000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 30000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Failed to parse tool plan: SyntaxError: Unexpected token ',', ..." "budget":, "people""... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at TripPlannerAgent.planTools (file:///Users/niks/Desktop/Trip-Planner/services/agent.service.js:136:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async TripPlannerAgent.processRequest (file:///Users/niks/Desktop/Trip-Planner/services/agent.service.js:68:24)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:155:23
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 2,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 3,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+Error fetching restaurants: timeout of 8000ms exceeded
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 1500,
+      "people": 2,
+      "days": 3,
+      "transport": "car",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+Fetching images for 6 places in Goa, India...
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:822::200a:443, 142.250.195.10:443, 2404:6800:4009:809::200a:443, 142.250.207.202:443, 2404:6800:4009:80d::200a:443, 142.250.195.42:443, 2404:6800:4009:81a::200a:443, 142.250.206.106:443, 142.250.205.202:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, 142.251.43.10:443, 142.251.222.74:443, 142.250.194.234:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:822::200a:443, 142.250.195.10:443, 2404:6800:4009:809::200a:443, 142.250.207.202:443, 2404:6800:4009:80d::200a:443, 142.250.195.42:443, 2404:6800:4009:81a::200a:443, 142.250.206.106:443, 142.250.205.202:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, 142.251.43.10:443, 142.251.222.74:443, 142.250.194.234:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:822::200a:443, 142.250.195.10:443, 2404:6800:4009:809::200a:443, 142.250.207.202:443, 2404:6800:4009:80d::200a:443, 142.250.195.42:443, 2404:6800:4009:81a::200a:443, 142.250.206.106:443, 142.250.205.202:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, 142.251.43.10:443, 142.251.222.74:443, 142.250.194.234:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:822::200a:443, 142.250.195.10:443, 2404:6800:4009:809::200a:443, 142.250.207.202:443, 2404:6800:4009:80d::200a:443, 142.250.195.42:443, 2404:6800:4009:81a::200a:443, 142.250.206.106:443, 142.250.205.202:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, 142.251.43.10:443, 142.251.222.74:443, 142.250.194.234:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:822::200a:443, 142.250.195.10:443, 2404:6800:4009:809::200a:443, 142.250.207.202:443, 2404:6800:4009:80d::200a:443, 142.250.195.42:443, 2404:6800:4009:81a::200a:443, 142.250.206.106:443, 142.250.205.202:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, 142.251.43.10:443, 142.251.222.74:443, 142.250.194.234:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error proxying place photo: TypeError: fetch failed
+    at node:internal/deps/undici/undici:16416:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///Users/niks/Desktop/Trip-Planner/server.js:94:22 {
+  [cause]: ConnectTimeoutError: Connect Timeout Error (attempted addresses: 2404:6800:4009:80d::200a:443, 142.250.205.202:443, 2404:6800:4009:822::200a:443, 142.251.222.74:443, 2404:6800:4009:809::200a:443, 142.251.43.10:443, 2404:6800:4009:81a::200a:443, 142.250.194.234:443, 142.250.207.202:443, 142.250.195.42:443, 142.250.206.106:443, 142.250.195.10:443, 142.251.222.106:443, 142.251.220.74:443, 142.250.76.202:443, 142.250.207.170:443, 142.250.67.202:443, 142.250.76.170:443, 142.251.221.234:443, 142.250.183.74:443, timeout: 10000ms)
+      at onConnectTimeout (node:internal/deps/undici/undici:1946:23)
+      at Immediate._onImmediate (node:internal/deps/undici/undici:1927:11)
+      at process.processImmediate (node:internal/timers:504:21) {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+[Agent Mode] Starting trip planning...
+[Agent] Processing request: Plan a 3-day trip from Mumbai to Goa
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
+[Agent] Tool plan: [
+  {
+    "name": "get_places",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_restaurants",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_hotels",
+    "parameters": {
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "get_distance",
+    "parameters": {
+      "source": "Mumbai",
+      "destination": "Goa"
+    }
+  },
+  {
+    "name": "generate_itinerary",
+    "parameters": {
+      "destination": "Goa",
+      "source": "Mumbai",
+      "budget": 25000,
+      "people": 3,
+      "days": 3,
+      "transport": "any",
+      "preferences": "General sightseeing"
+    }
+  }
+]
+[Agent] Executing tool: get_places
+[Agent] Executing tool: get_restaurants
+Fetching dining data...
+[Agent] Executing tool: get_hotels
+Fetching hotel data...
+[Agent] Executing tool: get_distance
+[Agent] Executing tool: generate_itinerary
+[Agent] Generating final response...
+[LLM Service] Using provider: https://openrouter.ai/api/v1/chat/completions with model: meta-llama/llama-3.3-70b-instruct
