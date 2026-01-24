@@ -104,6 +104,13 @@ document.getElementById('tripForm').addEventListener('submit', async (e) => {
 
         if (!response.ok) {
             const error = await response.json();
+
+            // Check for Structured Validation Error
+            if (error.details && error.suggestions) {
+                showValidationModal(error);
+                throw new Error("Validation Failed"); // Stop execution but don't show generic error
+            }
+
             throw new Error(error.message || 'Failed to plan trip');
         }
 
@@ -888,3 +895,56 @@ function toggleDay(index) {
 window.toggleDay = toggleDay;
 
 
+
+// =====================
+// Validation Modal Logic
+// =====================
+function showValidationModal(errorData) {
+    // Create Modal HTML if not exists
+    if (!document.getElementById('validationModal')) {
+        const modalHtml = `
+            <div id="validationModal" class="error-modal">
+                <div class="error-modal-content">
+                    <h3>⚠️ Trip Not Possible</h3>
+                    
+                    <div class="error-details">
+                        <strong>Logistical Issues Found:</strong>
+                        <ul id="valErrorList"></ul>
+                    </div>
+
+                    <div class="suggestion-box">
+                        <strong>💡 AI Suggestions:</strong>
+                        <p id="valSuggestionText"></p>
+                    </div>
+
+                    <button class="error-close-btn" onclick="closeValidationModal()">Okay, I'll Fix It</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+
+    // Populate Data
+    const errorList = document.getElementById('valErrorList');
+    errorList.innerHTML = errorData.details.map(msg => `<li>${msg}</li>`).join('');
+
+    const suggestionText = document.getElementById('valSuggestionText');
+    let suggestions = [];
+    if (errorData.suggestions.min_budget) {
+        suggestions.push(`Calculated Minimum Budget: <b>₹${errorData.suggestions.min_budget}</b>`);
+    }
+    if (errorData.suggestions.reduce_days_to !== undefined && errorData.suggestions.reduce_days_to < errorData.suggestions.days) {
+        suggestions.push(`Or reduce trip duration to <b>${errorData.suggestions.reduce_days_to} days</b>`);
+    }
+    suggestionText.innerHTML = suggestions.join('<br>') || "Please adjust your parameters.";
+
+    // Show Modal
+    document.getElementById('validationModal').classList.add('visible');
+}
+
+function closeValidationModal() {
+    const modal = document.getElementById('validationModal');
+    if (modal) {
+        modal.classList.remove('visible');
+    }
+}

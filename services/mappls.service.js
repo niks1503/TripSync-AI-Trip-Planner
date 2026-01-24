@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getPlacesByLocation } from "./places.service.js";
 
 // Token cache
 let cachedToken = null;
@@ -246,14 +245,10 @@ export async function getMapData(source, destination) {
         }
 
         // Get route and nearby places in parallel
-        // Use Geoapify for places as it's more reliable
-        const [route, placesRaw] = await Promise.all([
+        const [route, places] = await Promise.all([
             getRoute(sourceCoords, destCoords),
-            getPlacesByLocation(destCoords.lat, destCoords.lng)
+            searchPlaces(destCoords.lat, destCoords.lng)
         ]);
-
-        // Map lon to lng for consistent frontend usage
-        const places = placesRaw.map(p => ({ ...p, lng: p.lon }));
 
         return {
             source: sourceCoords,

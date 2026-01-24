@@ -2,52 +2,29 @@ import axios from "axios";
 
 export async function callLLM(prompt) {
   try {
-    const baseURL = process.env.LLM_API_BASE_URL || "https://openrouter.ai/api/v1/chat/completions";
-    const model = process.env.LLM_MODEL || "meta-llama/llama-3.3-70b-instruct";
-    const apiKey = process.env.LLM_API_KEY || process.env.OPENAI_API_KEY;
-
-    console.log(`[LLM Service] Using provider: ${baseURL} with model: ${model}`);
-
     const response = await axios.post(
-      baseURL,
+      "https://openrouter.ai/api/v1/chat/completions",
       {
-        model: model,
+        model: "openai/gpt-4o-mini",
         messages: [
-          {
-            role: "system",
-            content: "You are a travel planning assistant. You MUST respond with ONLY valid JSON. No markdown, no explanatory text, no code blocks. Just the raw JSON object starting with { and ending with }."
-          },
           { role: "user", content: prompt }
         ],
-        temperature: 0.3,
-        // Some Colab/Local endpoints might require max_tokens or stream
-        max_tokens: 4096
+        temperature: 0.7
       },
       {
         headers: {
-          "Authorization": `Bearer ${apiKey}`,
+          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
           "HTTP-Referer": "http://localhost:3000",
-          "X-Title": "Trip Planner",
-          "Content-Type": "application/json"
+          "X-Title": "Trip Planner"
         }
       }
     );
 
-    if (!response.data) {
-      throw new Error("Invalid response format from LLM Provider");
+    if (!response.data || !response.data.choices || !response.data.choices[0]) {
+      throw new Error("Invalid response format from OpenRouter");
     }
 
-    // Support OpenAI format (choices[0].message.content)
-    if (response.data.choices && response.data.choices[0]) {
-      return response.data.choices[0].message.content;
-    }
-
-    // Support Ollama native format (message.content)
-    if (response.data.message && response.data.message.content) {
-      return response.data.message.content;
-    }
-
-    throw new Error("Unknown response format from LLM");
+    return response.data.choices[0].message.content;
   } catch (error) {
     if (error.response && error.response.status === 401) {
       console.error("LLM API Key Invalid or Expired. Using fallback generator.");
