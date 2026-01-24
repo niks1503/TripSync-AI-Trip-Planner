@@ -1,0 +1,322 @@
+spot_id,place_id,spot_name,description
+1,1,Venna Lake,Popular lake for boating and leisure
+2,1,Arthur Seat,Scenic viewpoint overlooking deep valleys
+3,1,Wilson Point,Highest point famous for sunrise
+4,1,Mapro Garden,Famous food and strawberry outlet
+5,2,Bhushi Dam,Seasonal waterfall and picnic spot
+6,2,Lion Point,Valley viewpoint with misty views
+7,2,Rajmachi Point,Viewpoint facing Rajmachi fort
+8,2,Karla Caves,Ancient Buddhist rock cut caves
+9,3,Duke Nose,Cliff viewpoint and trekking spot
+10,3,Amrutanjan Point,Popular valley viewpoint
+11,3,Shooting Point,Film shooting location
+12,4,Panorama Point,Wide panoramic hill views
+13,4,Charlotte Lake,Water reservoir and picnic area
+14,4,Echo Point,Natural echo location
+15,4,One Tree Hill,Unique hilltop viewpoint
+16,5,Alibaug Beach,Main beach with sunset views
+17,5,Kolaba Fort,Sea fort near coastline
+18,5,Varsoli Beach,Quiet beach near town
+19,5,Nagaon Beach,Water sports beach
+20,6,Murud Janjira Fort,Historic island fort
+21,6,Murud Beach,Long sandy beach
+22,6,Datta Mandir,Local religious temple
+23,7,Tarkarli Beach,Clear water beach
+24,7,Devbagh Beach,Backwater and beach confluence
+25,7,Karli Backwaters,Boat ride experience
+26,8,Ganpatipule Temple,Beachside Ganesh temple
+27,8,Ganpatipule Beach,White sand beach
+28,8,Jaigad Fort,Fort overlooking creek
+29,9,Bhatye Beach,Scenic Ratnagiri beach
+30,9,Thibaw Palace,Historical palace
+31,9,Pawas Village,Spiritual retreat village
+32,10,Sindhudurg Fort,Historic sea fort
+33,10,Malvan Beach,Popular Konkan beach
+34,10,Tsunami Island,Water sports location
+35,11,Table Land,Asia largest plateau
+36,11,Sydney Point,Valley viewpoint
+37,11,Parsi Point,Popular scenic spot
+38,12,Vipassana Center,Meditation retreat
+39,12,Ashoka Waterfall,Seasonal waterfall
+40,12,Tringalwadi Fort,Trekking fort
+41,13,Arthur Lake,Calm scenic lake
+42,13,Randha Falls,Large waterfall
+43,13,Wilson Dam,Historic dam
+44,14,Ajanta Cave 1,Buddhist painting cave
+45,14,Ajanta Cave 2,Ancient sculpture cave
+46,14,Ajanta Viewpoint,Panoramic cave view
+47,15,Kailasa Temple,Monolithic rock temple
+48,15,Ellora Cave 10,Buddhist cave
+49,15,Ellora Cave 16,Hindu cave temple
+50,16,Bibi Ka Maqbara,Mughal monument
+51,16,Aurangabad Caves,Rock cut caves
+52,16,Daulatabad Fort,Historic hill fort
+53,17,Trimbakeshwar Temple,Jyotirlinga temple
+54,17,Sula Vineyards,Popular winery
+55,17,Pandavleni Caves,Ancient caves
+56,18,Sai Baba Temple,Pilgrimage temple
+57,18,Dwarkamai,Historic mosque
+58,18,Chavadi,Religious site
+59,19,Mahalaxmi Temple,Important religious temple
+60,19,Rankala Lake,Popular lake
+61,19,Panhala Fort,Historic fort
+62,20,Kaas Plateau,Seasonal flower valley
+63,20,Thoseghar Falls,Waterfall destination
+64,20,Sajjangad Fort,Historic fort
+65,21,Raigad Fort,Capital fort of Shivaji Maharaj
+66,21,Hirkani Buruj,Fort structure
+67,21,Gangasagar Lake,Historic water reservoir
+68,22,Pratapgad Fort,Historic battlefield fort
+69,22,Bhavai Devi Temple,Temple near fort
+70,22,Sunset Point,Scenic sunset spot
+71,23,Vashishti River,Boating experience
+72,23,Guhagar Beach,Nearby beach
+73,23,Koyna Backwaters,Scenic backwaters
+74,24,Dapoli Beach,Serene beach
+75,24,Ladghar Beach,Red soil beach
+76,24,Suvarnadurg Fort,Sea fort
+77,25,Harihareshwar Temple,Shiva temple
+78,25,Harihareshwar Beach,Calm beach
+79,25,Kalbhairav Temple,Ancient temple
+80,26,Guhagar Beach,Uncrowded beach
+81,26,Velneshwar Temple,Shiva temple
+82,26,Anjarle Beach,Scenic coastline
+83,27,Amboli Falls,Seasonal waterfall
+84,27,Kawalesaad Point,Valley viewpoint
+85,27,Sunset Point,Sunset location
+86,28,Dasve Viewpoint,City viewpoint
+87,28,Temghar Dam,Nearby dam
+88,28,Warasgaon Lake,Scenic lake
+89,29,Shaniwar Wada,Historic fort
+90,29,Aga Khan Palace,Freedom movement site
+91,29,Sinhagad Fort,Trekking fort
+92,30,Gateway of India,Iconic monument
+93,30,Marine Drive,Coastal promenade
+94,30,Elephanta Caves,Ancient cave temples
+95,30,Juhu Beach,Popular city beach
+96,31,Deekshabhoomi,Buddhist monument
+97,31,Ambazari Lake,Recreational lake
+98,31,Sitabuldi Fort,Historic fort
+99,32,Chikhaldara Hill View,Scenic viewpoint
+100,32,Gavilgad Fort,Historic fort
+101,32,Melghat Viewpoint,Scenic forest viewpoint
+102,32,Semadoh Lake,Forest lake area
+103,33,Tadoba Lake,Core zone lake area
+104,33,Moharli Gate,Main safari entry gate
+105,33,Kolara Gate,Tiger reserve entry gate
+106,34,Tadoba Core Zone,Wildlife safari area
+107,34,Agarzari Buffer,Buffer safari zone
+108,34,Panchdhara Viewpoint,Forest viewpoint
+109,35,Chikhaldara Lake,Recreational lake
+110,35,Gawilgarh Fort,Historic hill fort
+111,35,Panchbol Point,Five echo point
+112,36,Siddheshwar Temple,Ancient temple
+113,36,Great Indian Bustard Sanctuary,Bird sanctuary
+114,36,Hipparga Lake,Scenic lake
+115,37,Akkalkot Temple,Pilgrimage temple
+116,37,Swami Samarth Math,Religious math
+117,37,Narayanpur Dam,Nearby dam
+118,38,Tulja Bhavani Temple,Famous Shakti Peeth
+119,38,Gomukh Tirth,Religious water source
+120,38,Tuljapur Fort,Historic fort ruins
+121,39,Tuljapur Ghat,Scenic ghat area
+122,39,Ramling Temple,Ancient temple
+123,39,Yedshi Ramling,Temple complex
+124,40,Beed Fort,Historic fort
+125,40,Masjid-e-Hamidia,Historic mosque
+126,40,Kapil Dhara,Waterfall site
+127,41,Ajanta Viewpoint,Scenic cave viewpoint
+128,41,Mehrun Lake,Popular lake
+129,41,Gandhi Research Foundation,Museum and research center
+130,42,Laling Fort,Hilltop fort
+131,42,Songir Fort,Historic fort
+132,42,Bhamer Fort,Ancient fort
+133,43,Hazur Sahib,Gurudwara pilgrimage site
+134,43,Godavari Ghat,River ghat
+135,43,Kaleshwar Temple,Ancient temple
+136,44,Turabul Haq Dargah,Religious dargah
+137,44,Jintur Gate,Historic city gate
+138,44,Pathri Fort,Nearby fort
+139,45,Aundha Nagnath Temple,Jyotirlinga temple
+140,45,Sant Namdev Sansthan,Religious site
+141,45,Kayadhu River,Scenic river
+142,46,Washim Fort,Historic fort
+143,46,Balaji Temple,Religious temple
+144,46,Ansing Fort,Nearby fort
+145,47,Sevagram Ashram,Gandhi residence
+146,47,Vishwa Shanti Stupa,Peace pagoda
+147,47,Bor Dam,Water reservoir
+148,48,Tipeshwar Sanctuary,Wildlife sanctuary
+149,48,Painganga River,Forest river
+150,48,Mahur Temple,Pilgrimage temple
+151,49,Karjat Waterfalls,Seasonal waterfalls
+152,49,Kondana Caves,Ancient caves
+153,49,Peth Fort,Trekking fort
+154,50,Bhimashankar Temple,Jyotirlinga temple
+155,50,Hanuman Lake,Forest lake
+156,50,Bhimashankar Sanctuary,Wildlife sanctuary
+157,51,Kaas Plateau Trail,Flower viewing trail
+158,51,Kaas Lake,Scenic lake
+159,51,Plateau Viewpoint,Valley viewpoint
+160,52,Dabhosa Falls,High waterfall
+161,52,Shirpamal,Historic memorial
+162,52,Hanuman Point,Valley viewpoint
+163,53,Sunset Point Wilson,Hilltop sunset view
+164,53,Barumal Point,Valley viewpoint
+165,53,Ozar Falls,Seasonal waterfall
+166,54,Toranmal Lake,Scenic hill lake
+167,54,Yashwant Lake,Calm water body
+168,54,Gorakhnath Temple,Hilltop temple
+169,55,Konkan Kada,Cliff viewpoint
+170,55,Kedareshwar Cave,Ancient cave temple
+171,55,Taramati Peak,Highest peak
+172,56,Lohagad Fort,Popular trekking fort
+173,56,Bhaja Caves,Rock cut caves
+174,56,Vinchukata,Scorpion tail ridge
+175,57,Visapur Fort,Large plateau fort
+176,57,Visapur Village,Base village
+177,57,Visapur Waterfalls,Monsoon waterfalls
+178,58,Sinhagad Fort Top,Fort summit
+179,58,Kalyan Darwaja,Fort entrance
+180,58,Pune Darwaja,Historic gate
+181,59,Rajmachi Fort,Historic twin fort
+182,59,Shrivardhan Fort,Upper fort
+183,59,Manaranjan Fort,Lower fort
+184,60,Devkund Waterfall,Hidden waterfall
+185,60,Bhira Dam,Hydroelectric dam
+186,60,Forest Trail,Trekking trail
+187,61,Tamhini Viewpoint,Mountain viewpoint
+188,61,Plus Valley,Deep valley view
+189,61,Waterfall Point,Monsoon waterfall
+190,62,Malshej Falls,Seasonal waterfalls
+191,62,Flamingo Hill,Bird watching point
+192,62,Shivneri View,Fort view point
+193,63,Rajapur Ghat,Scenic ghat
+194,63,Mango Orchards,Alphonso farms
+195,63,Temple Complex,Local temples
+196,64,Velas Beach,Turtle nesting beach
+197,64,Velas Turtle Festival,Seasonal event spot
+198,64,Anjarle Lighthouse,Coastal lighthouse
+199,65,Kashid Beach,White sand beach
+200,65,Korlai Fort,Sea fort
+201,65,Revdanda Beach,Calm beach
+202,66,Nagaon Beach Main,Popular beach
+203,66,Nagaon Jet Ski,Water sports zone
+204,66,Nagaon Market,Local market
+205,67,Aarey Forest,Urban forest
+206,67,Aarey Lake,Forest lake
+207,67,Chota Kashmir,Picnic garden
+208,68,Elephanta Cave 1,Main cave
+209,68,Elephanta Cave 2,Secondary cave
+210,68,Canon Hill,Island viewpoint
+211,69,Kanheri Cave 1,Buddhist cave
+212,69,Kanheri Cave 3,Meditation cave
+213,69,Kanheri Plateau,Viewpoint area
+214,70,SGNP Safari,Forest safari
+215,70,Yeoor Hills,Green hill area
+216,70,Tulsi Lake,Freshwater lake
+217,71,Girgaon Chowpatty Beach,City beach
+218,71,Immersion Ghat,Festival immersion spot
+219,71,Marine Aquarium,Public aquarium
+220,72,Junnar Caves,Ancient caves
+221,72,Shivneri Fort,Birthplace fort
+222,72,Lenyadri Caves,Ganesh temple caves
+223,73,Bhimashankar Forest Trail,Forest walk
+224,73,Gupt Bhimashankar,Hidden temple
+225,73,Nagphani Point,Scenic viewpoint
+226,74,Rajgad Fort Top,Capital fort summit
+227,74,Bale Killa,Upper citadel
+228,74,Sanjeevani Machi,Fort plateau
+229,75,Panhala Fort Top,Historic fort
+230,75,Teen Darwaja,Fort gate
+231,75,Tabak Udyan,Garden area
+232,76,Vengurla Beach,Peaceful beach
+233,76,Redi Ganpati Temple,Coastal temple
+234,76,Kalavi Beach,Secluded beach
+235,77,Malvan Beach,Konkan beach
+236,77,Rock Garden,Coastal rocks
+237,77,Tarkarli Jetty,Boat ride point
+238,78,Sawantwadi Palace,Royal palace
+239,78,Moti Talao,Lake area
+240,78,Narayan Rane Park,City park
+241,79,Chikhaldara Wildlife View,Forest viewpoint
+242,79,Bhima Kund,Mythological site
+243,79,Kalapani Lake,Scenic lake
+244,80,Paithani Weaving Center,Saree weaving hub
+245,80,Jayakwadi Dam,Large dam
+246,80,Sant Eknath Garden,Public garden
+247,81,Aurangabad Cave 6,Buddhist cave
+248,81,Aurangabad Cave 7,Rock cut cave
+249,81,Cave Viewpoint,Hill viewpoint
+250,82,Pench Safari Zone,Wildlife safari
+251,82,Turai Gate,Entry gate
+252,82,Totladoh Dam,Large dam
+253,83,Umred Safari Zone,Wildlife safari
+254,83,Karhandla Lake,Scenic lake
+255,83,Forest Trail,Jeep trail
+256,84,Devgad Fort,Coastal fort
+257,84,Devgad Beach,Serene beach
+258,84,Windmill Viewpoint,Coastal viewpoint
+259,85,Shivneri Fort Top,Fort summit
+260,85,Shiv Janmasthan,Birthplace site
+261,85,Badami Talav,Water reservoir
+262,86,Bhandara Lake,City lake
+263,86,Ambagad Fort,Historic fort
+264,86,Forest Park,Nature park
+265,87,Gondia Lake,Urban lake
+266,87,Itiadoh Dam,Scenic dam
+267,87,Navegaon Bandh,Wildlife reserve
+268,88,Chandoli Dam,Scenic dam
+269,88,Forest Safari,Wildlife safari
+270,88,Heritage Village,Tribal village
+271,89,Koyna Dam,Major dam
+272,89,Shivsagar Lake,Reservoir lake
+273,89,Forest Trail,Wildlife trail
+274,90,Kolad Rafting Point,River rafting spot
+275,90,Kundalika River,River stretch
+276,90,Kolad Waterfall,Seasonal waterfall
+277,90,Forest Campsite,Nature campsite
+278,60,Bhira Forest,Forest area
+279,61,Mulshi Viewpoint,Valley viewpoint
+280,62,Pimpalgaon Joga Dam,Large dam
+281,63,Scenic Ghat Road,Mountain road
+282,64,Coastal Trail,Nature walk
+283,65,Revdanda Fort,Historic fort
+284,66,Nagaon Sunset Point,Sunset beach
+285,67,Film City Viewpoint,City view
+286,68,Elephanta Jetty,Boat arrival point
+287,69,Kanheri Museum,Exhibition hall
+288,70,Forest Interpretation Center,Education center
+289,71,Beach Promenade,Walking stretch
+290,72,Ancient Market Street,Old town area
+291,73,Temple Approach Path,Forest path
+292,74,Fort Base Village,Base village
+293,75,Historical Pathway,Fort path
+294,76,Coastal Watchtower,Sea view tower
+295,77,Sea Cliff Viewpoint,Cliffside view
+296,78,Local Handicraft Market,Artisan market
+297,79,Valley Fog Point,Misty viewpoint
+298,80,Godavari River Ghat,River ghat
+299,81,Sunset Hill,Evening viewpoint
+300,82,Forest Watchtower,Animal sighting point
+301,83,Bird Watching Zone,Avian habitat
+302,84,Coastal Fishing Jetty,Fishing boats area
+303,85,Fort Museum,History museum
+304,86,Sunrise Hill,Early morning view
+305,87,Forest Picnic Area,Picnic zone
+306,88,Scenic Valley Trail,Nature trail
+307,89,Dam Viewpoint,Reservoir view
+308,90,Riverside Walk,Walking trail
+309,90,Nature Photography Point,Photo spot
+310,90,Local Village Tour,Community visit
+311,58,Fort Museum,Sinhagad museum
+312,59,Trekking Base Camp,Trek start point
+313,60,River Crossing Point,Trail crossing
+314,61,Misty Hill Curve,Scenic road curve
+315,62,Seasonal Lake,Monsoon lake
+316,63,Heritage Temple,Old temple
+317,64,Observation Deck,Viewing deck
+318,65,Beach Camping Zone,Campsite area
+319,66,Coastal Food Street,Local food area
+320,67,Greenway Trail,Urban nature trail
+

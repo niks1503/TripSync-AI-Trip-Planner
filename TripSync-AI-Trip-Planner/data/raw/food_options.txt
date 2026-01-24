@@ -1,0 +1,602 @@
+food_id,spot_id,food_place_name,price_per_person,budget_range
+1,1,Venna Lake Snacks Corner,150,low
+2,1,Strawberry Treat Cafe,350,mid
+3,1,Lakeside Restaurant,700,high
+4,2,Arthur View Tea Stall,100,low
+5,2,Hilltop Dining Point,400,mid
+6,3,Sunrise Maggie Point,120,low
+7,3,Wilson Cafe,300,mid
+8,4,Mapro Food Court,350,mid
+9,4,Fresh Farm Eatery,600,high
+10,5,Bhushi Vada Pav Stall,80,low
+11,5,Dam View Snacks,150,low
+12,5,Waterfall Cafe,450,mid
+13,6,Lion Point Chai Tapri,70,low
+14,6,Valley View Restaurant,500,mid
+15,7,Rajmachi Bhojanalay,200,low
+16,7,Trekker's Cafe,400,mid
+17,8,Karla Cave Snacks,120,low
+18,8,Ancient Rock Cafe,350,mid
+19,9,Duke Nose Tea Point,90,low
+20,9,Cliffside Restaurant,550,mid
+21,10,Amrutanjan Maggie Point,100,low
+22,10,Valley Food Shack,250,low
+23,11,Shooting Point Cafe,300,mid
+24,11,Film City Diner,600,high
+25,12,Panorama View Snacks,120,low
+26,12,Mountain Breeze Cafe,380,mid
+27,13,Charlotte Lake Food Stall,150,low
+28,13,Lakeview Restaurant,500,mid
+29,14,Echo Point Corn Stall,80,low
+30,14,Hill Echo Cafe,300,mid
+31,15,One Tree Hill Snacks,100,low
+32,15,Forest View Restaurant,450,mid
+33,16,Alibaug Beach Shack,250,low
+34,16,Sunset Coast Restaurant,700,high
+35,17,Kolaba Fort Tea Stall,80,low
+36,17,Sea Breeze Diner,400,mid
+37,18,Varsoli Seafood Shack,350,mid
+38,18,Beachside Thali House,600,high
+39,19,Nagaon Beach Snacks,200,low
+40,19,Water Sports Cafe,500,mid
+41,20,Janjira Fort Tea Stall,90,low
+42,20,Fort View Restaurant,450,mid
+43,21,Murud Beach Corn Point,100,low
+44,21,Seaside Family Restaurant,600,high
+45,22,Local Temple Bhojanalay,180,low
+46,22,Village Veg Mess,250,low
+47,23,Tarkarli Beach Shack,300,mid
+48,23,Scuba Cafe,650,high
+49,24,Devbagh Seafood Hut,400,mid
+50,24,Backwater Dining Deck,700,high
+51,25,Karli River Snacks,120,low
+52,25,Boat Ride Cafe,350,mid
+53,26,Ganpatipule Prasad Bhojanalay,150,low
+54,26,Temple View Restaurant,400,mid
+55,27,Ganpatipule Beach Shack,300,mid
+56,27,Sea Pearl Restaurant,700,high
+57,28,Jaigad Fort Tea Point,90,low
+58,28,Creek View Cafe,350,mid
+59,29,Bhatye Beach Snacks,200,low
+60,29,Coastal Curry House,500,mid
+61,30,Thibaw Palace Cafe,300,mid
+62,30,Heritage Dining Hall,650,high
+63,31,Pawas Ashram Bhojanalay,200,low
+64,31,Spiritual Cafe,350,mid
+65,32,Sindhudurg Fort Snacks,150,low
+66,32,Sea Fort Restaurant,600,high
+67,33,Malvan Beach Fish Fry,250,low
+68,33,Malvani Thali House,450,mid
+69,34,Tsunami Island Snack Boat,300,mid
+70,34,Island Dining Deck,750,high
+71,35,Table Land Tea Stall,80,low
+72,35,Plateau View Restaurant,400,mid
+73,36,Sydney Point Chai Tapri,90,low
+74,36,Valley Edge Cafe,350,mid
+75,37,Parsi Point Snacks,120,low
+76,37,Sunset Plate Restaurant,500,mid
+77,38,Vipassana Simple Meals,200,low
+78,38,Meditation Cafe,350,mid
+79,39,Ashoka Falls Snack Stall,150,low
+80,39,Waterfall View Cafe,450,mid
+81,40,Tringalwadi Base Mess,200,low
+82,40,Trekker's Food Point,350,mid
+83,41,Arthur Lake Snack Point,120,low
+84,41,Lakeside Dining,450,mid
+85,42,Randha Falls Corn Stall,100,low
+86,42,Falls View Restaurant,500,mid
+87,43,Wilson Dam Tea Point,80,low
+88,43,Reservoir Cafe,350,mid
+89,44,Ajanta Cave Snacks,150,low
+90,44,Cave View Restaurant,500,mid
+91,45,Ajanta Local Bhojanalay,200,low
+92,45,Heritage Thali House,400,mid
+93,46,Ajanta View Tea Stall,100,low
+94,46,Panorama Cafe,350,mid
+95,47,Kailasa Temple Prasad Hall,200,low
+96,47,Ellora Heritage Restaurant,600,high
+97,48,Ellora Cave Snack Stall,150,low
+98,48,Buddhist Cafe,350,mid
+99,49,Ellora Tourist Canteen,250,low
+100,49,Rock Cut Dining Hall,550,mid
+101,50,Bhimashankar Temple Bhojanalay,180,low
+102,50,Forest View Cafe,400,mid
+103,51,Kaas Plateau Tea Stall,100,low
+104,51,Flower Valley Cafe,350,mid
+105,52,Dabhosa Falls Snack Point,150,low
+106,52,Waterfall View Restaurant,500,mid
+107,53,Wilson Hills Tea Point,90,low
+108,53,Valley Breeze Cafe,350,mid
+109,54,Toranmal Local Mess,200,low
+110,54,Hilltop Family Restaurant,450,mid
+111,55,Harishchandragad Base Bhojanalay,180,low
+112,55,Konkan Kada Cafe,400,mid
+113,56,Lohagad Trekker Snacks,120,low
+114,56,Fort View Restaurant,450,mid
+115,57,Visapur Plateau Food Stall,150,low
+116,57,Monsoon Cafe,380,mid
+117,58,Sinhagad Kanda Bhaji Stall,120,low
+118,58,Fort Top Zunka Bhakar,180,low
+119,59,Rajmachi Village Mess,200,low
+120,59,Firefly Cafe,400,mid
+121,60,Devkund Base Snacks,150,low
+122,60,Jungle Trail Cafe,350,mid
+123,61,Tamhini Ghat Chai Stall,100,low
+124,61,Misty Mountain Cafe,380,mid
+125,62,Malshej Ghat Corn Point,120,low
+126,62,Flamingo View Restaurant,450,mid
+127,63,Rajapur Local Seafood Shack,300,mid
+128,63,Mango Orchard Cafe,500,mid
+129,64,Velas Village Bhojanalay,180,low
+130,64,Turtle Festival Cafe,350,mid
+131,65,Kashid Beach Shack,300,mid
+132,65,White Sand Restaurant,650,high
+133,66,Nagaon Beach Chaat Stall,150,low
+134,66,Jet Ski Cafe,450,mid
+135,67,Aarey Milk Parlour,120,low
+136,67,Forest Cafe Aarey,400,mid
+137,68,Elephanta Jetty Snacks,200,low
+138,68,Island Heritage Cafe,450,mid
+139,69,Kanheri Cave Canteen,250,low
+140,69,Monk Trail Cafe,400,mid
+141,70,SGNP Safari Canteen,300,mid
+142,70,Forest Edge Restaurant,550,mid
+143,71,Girgaon Chowpatty Bhel,100,low
+144,71,Sea View Snack Center,250,low
+145,72,Junnar Local Bhojanalay,200,low
+146,72,Heritage Fort Cafe,400,mid
+147,73,Bhimashankar Forest Snacks,150,low
+148,73,Nature View Cafe,350,mid
+149,74,Rajgad Base Village Mess,200,low
+150,74,Fort Plateau Cafe,450,mid
+151,75,Panhala Fort Bhojanalay,180,low
+152,75,Heritage View Restaurant,400,mid
+153,76,Vengurla Beach Food Shack,300,mid
+154,76,Sunset Coast Cafe,550,mid
+155,77,Malvan Fish Thali Stall,250,low
+156,77,Malvani Spice Restaurant,500,mid
+157,78,Sawantwadi Palace Cafe,350,mid
+158,78,Lake View Restaurant,600,high
+159,79,Chikhaldara Hill Snacks,120,low
+160,79,Misty Forest Cafe,400,mid
+161,80,Paithan Local Bhojanalay,200,low
+162,80,Weaver’s Cafe,350,mid
+163,81,Aurangabad Cave Canteen,250,low
+164,81,Heritage Rock Cafe,450,mid
+165,82,Pench Safari Breakfast Point,300,mid
+166,82,Jungle Lodge Restaurant,650,high
+167,83,Umred Safari Tea Stall,120,low
+168,83,Tiger Trail Cafe,400,mid
+169,84,Devgad Beach Snacks,200,low
+170,84,Coastal Breeze Restaurant,550,mid
+171,85,Shivneri Fort Base Mess,180,low
+172,85,Birthplace View Cafe,350,mid
+173,86,Bhandara Lake Snack Point,150,low
+174,86,City Lake Restaurant,400,mid
+175,87,Gondia Market Street Food,120,low
+176,87,Forest Edge Cafe,350,mid
+177,88,Chandoli Forest Canteen,250,low
+178,88,Wildlife View Restaurant,500,mid
+179,89,Koyna Dam Snack Stall,150,low
+180,89,Reservoir View Cafe,400,mid
+181,90,Kolad Rafting Camp Meals,350,mid
+182,90,Riverside Grill Kolad,650,high
+183,91,Local Village Tea Stall,80,low
+184,91,Mountain View Cafe,300,mid
+185,92,Highway Food Plaza,250,low
+186,92,Traveler’s Stop Restaurant,450,mid
+187,93,Lakeside Corn Point,120,low
+188,93,Sunset Lake Cafe,380,mid
+189,94,Forest Entry Snacks,150,low
+190,94,Nature Trail Cafe,350,mid
+191,95,Temple Prasad Bhojanalay,200,low
+192,95,Pilgrim Rest Cafe,350,mid
+193,96,Local Breakfast Center,120,low
+194,96,City Cafe Express,300,mid
+195,97,Market Street Snacks,100,low
+196,97,Urban Bites Cafe,350,mid
+197,98,Bus Stand Tea Stall,80,low
+198,98,Highway Diner,400,mid
+199,99,Old Town Bhojanalay,200,low
+200,99,Heritage Street Cafe,350,mid
+201,100,Waterfront Snack Shack,250,low
+202,100,Sunset Deck Restaurant,600,high
+203,101,Forest Chai Point,90,low
+204,101,Wildlife Cafe,350,mid
+205,102,Lake Side Snacks,150,low
+206,102,Nature Retreat Cafe,400,mid
+207,103,Safari Gate Tea Stall,100,low
+208,103,Jungle View Restaurant,550,mid
+209,104,Gate Side Snacks,120,low
+210,104,Forest Edge Diner,450,mid
+211,105,Reserve Entry Cafe,300,mid
+212,105,Tiger Trail Restaurant,650,high
+213,106,Core Zone Canteen,250,low
+214,106,Safari Lodge Dining,600,high
+215,107,Buffer Zone Tea Stall,90,low
+216,107,Forest Camp Cafe,350,mid
+217,108,Panchdhara Snacks,150,low
+218,108,Viewpoint Cafe,400,mid
+219,109,Hill Lake Snacks,120,low
+220,109,Calm Waters Cafe,350,mid
+221,110,Fort Base Tea Stall,100,low
+222,110,Heritage Hill Cafe,400,mid
+223,111,Echo Point Snack Stall,120,low
+224,111,Panchbol Cafe,350,mid
+225,112,Temple Prasad Stall,180,low
+226,112,City Temple Cafe,350,mid
+227,113,Bird Sanctuary Snacks,200,low
+228,113,Watcher’s Cafe,400,mid
+229,114,Lake View Snacks,150,low
+230,114,Waterfront Diner,450,mid
+231,115,Pilgrim Bhojanalay,180,low
+232,115,Temple Street Cafe,300,mid
+233,116,Math Canteen,200,low
+234,116,Spiritual Cafe,350,mid
+235,117,Dam View Tea Stall,100,low
+236,117,Reservoir Cafe,380,mid
+237,118,Temple Prasad Hall,200,low
+238,118,Devotional Dining,350,mid
+239,119,Gomukh Snack Point,120,low
+240,119,Sacred Spring Cafe,300,mid
+241,120,Fort Entry Tea Stall,90,low
+242,120,Historic View Cafe,350,mid
+243,121,Ghat Road Snacks,120,low
+244,121,Scenic Route Cafe,350,mid
+245,122,Temple Lane Bhojanalay,200,low
+246,122,Traditional Veg Cafe,300,mid
+247,123,Temple Complex Snacks,150,low
+248,123,Pilgrim Cafe,350,mid
+249,124,Fort Base Snacks,120,low
+250,124,Heritage Rest Stop,400,mid
+251,78,Shivneri Misal House,120,Low
+252,78,Fort View Bhojanalay,180,Low
+253,79,Rajgad Desi Dhaba,250,Mid
+254,79,Puneri Misal Junction,150,Low
+255,80,Heritage Café Bhor,220,Mid
+256,80,Local Tandoor Point,280,Mid
+257,81,Sahyadri Tea Stall,60,Low
+258,81,Mountain Spice Kitchen,300,Mid
+259,82,Forest View Café,350,Mid
+260,82,Village Rasoi,200,Low
+261,83,Sunset Point Snacks,100,Low
+262,83,Hilltop Family Restaurant,320,Mid
+263,84,Riverbank Thali House,240,Mid
+264,84,Deshmukh Bhojanalay,180,Low
+265,85,Konkan Curry Express,280,Mid
+266,85,Sea Breeze Café,450,High
+267,86,Local Fish Fry Center,350,Mid
+268,86,Malvani Tadka House,300,Mid
+269,87,Coastal Treat Restaurant,500,High
+270,87,Beachside Chaat Stall,120,Low
+271,88,Temple Prasad Bhojanalay,90,Low
+272,88,Ganesh Snacks Corner,110,Low
+273,89,Valley View Restaurant,400,High
+274,89,Hill Food Court,220,Mid
+275,90,Lakeview Café,380,High
+276,90,Rural Kitchen Spot,200,Low
+277,91,Forest Side Tea Point,50,Low
+278,91,Traveller’s Food Hub,260,Mid
+279,92,Highway Star Dhaba,300,Mid
+280,92,Express Biryani Center,240,Mid
+281,93,Old Fort Canteen,160,Low
+282,93,Local Maharashtrian Mess,180,Low
+283,94,Sunrise Breakfast Point,120,Low
+284,94,Green Valley Restaurant,350,Mid
+285,95,Temple Street Snacks,100,Low
+286,95,Sattvik Bhojanalay,200,Low
+287,96,Backwater Café,420,High
+288,96,Konkan Spice Route,380,High
+289,97,Riverside Misal Spot,140,Low
+290,97,Family Garden Restaurant,320,Mid
+291,98,Hill Queen Food Court,260,Mid
+292,98,Cloud View Café,450,High
+293,99,Local Snacks & Chai,80,Low
+294,99,Traveller’s Restro,300,Mid
+295,100,Fort Base Tea Stall,60,Low
+296,100,Warrior’s Thali House,220,Mid
+297,101,Sunset View Restaurant,400,High
+298,101,Evening Chaat Plaza,130,Low
+299,102,Lakeside Veg Delight,280,Mid
+300,102,Quick Bite Corner,120,Low
+301,103,Heritage Dining Hall,350,High
+302,103,Local Mess Point,170,Low
+303,104,Peak Point Café,480,High
+304,104,Trekker’s Energy Meals,240,Mid
+305,105,Coastal Curry House,360,High
+306,105,Fish Fry Express,300,Mid
+307,106,Village Taste Bhojanalay,190,Low
+308,106,Traditional Thali Center,230,Mid
+309,107,Scenic Route Café,420,High
+310,107,Highway Snacks Stop,140,Low
+311,108,Backpacker’s Food Hub,260,Mid
+312,108,Homestyle Kitchen,210,Low
+313,109,Market Street Chaat,90,Low
+314,109,Urban Spice Restaurant,340,Mid
+315,110,Fort Edge Café,390,High
+316,110,Local Breakfast Stall,80,Low
+317,111,Mountain View Restaurant,450,High
+318,111,Simple Veg Corner,160,Low
+319,112,River Bend Café,360,High
+320,112,Fresh Catch Kitchen,320,Mid
+321,113,Forest Hut Café,400,High
+322,113,Tea & Pakora Point,70,Low
+323,114,Old Town Bhojanalay,210,Low
+324,114,Spice Junction,290,Mid
+325,115,Sunlit Garden Café,430,High
+326,115,Local Snack Bar,110,Low
+327,116,Cliffside Restaurant,480,High
+328,116,Trekker’s Fuel Stop,260,Mid
+329,117,Harbor View Seafood,520,High
+330,117,Seafood Fry Stall,280,Mid
+331,118,Heritage Street Food,130,Low
+332,118,Classic Maharashtrian Mess,200,Low
+333,119,Valley Breeze Café,410,High
+334,119,Family Food Plaza,300,Mid
+335,120,Sunrise Café,350,High
+336,120,Morning Poha Center,90,Low
+337,121,Lake Edge Restaurant,420,High
+338,121,Quick Lunch Counter,150,Low
+339,122,Forest Retreat Café,460,High
+340,122,Local Meals Point,180,Low
+341,123,Ridge Top Restaurant,480,High
+342,123,Simple Thali House,220,Mid
+343,124,Temple Road Snacks,100,Low
+344,124,Pure Veg Bhojanalay,200,Low
+345,125,Backwater Breeze Café,430,High
+346,125,Konkan Veg Kitchen,260,Mid
+347,126,Old Fort Restaurant,380,High
+348,126,Traveler’s Meal Stop,240,Mid
+349,127,Sunset Garden Dining,450,High
+350,127,Chaat & Juice Center,120,Low
+351,128,Hill Base Restaurant,320,Mid
+352,128,Tea & Bun Maska Stall,70,Low
+353,129,Scenic Lake Café,400,High
+354,129,Local Rice Plate House,190,Low
+355,130,Peak Point Dining,480,High
+356,130,Energy Snack Bar,140,Low
+357,131,Coastal Crown Restaurant,520,High
+358,131,Seafood Express Stall,300,Mid
+359,132,Temple View Bhojanalay,210,Low
+360,132,Quick Veg Bites,120,Low
+361,133,Forest View Dining,420,High
+362,133,Simple Lunch Home,180,Low
+363,134,Heritage Courtyard Café,460,High
+364,134,Local Breakfast Hub,100,Low
+365,135,Riverside Fine Dine,550,High
+366,135,Family Fish Thali House,320,Mid
+367,136,Mountain Mist Café,430,High
+368,136,Hot Chai & Snacks,80,Low
+369,137,Old Market Bhojanalay,200,Low
+370,137,Spice Box Restaurant,310,Mid
+371,138,Sunset Cliff Café,480,High
+372,138,Trekker’s Refreshments,150,Low
+373,139,Lakeside Royal Dining,520,High
+374,139,Quick South Indian Point,140,Low
+375,140,Forest Lane Café,400,High
+376,140,Village Veg Kitchen,220,Mid
+377,141,Harbor Lights Restaurant,560,High
+378,141,Sea Snack Corner,160,Low
+379,142,Temple Gully Snacks,90,Low
+380,142,Sattvik Thali Center,210,Low
+381,143,Hill Horizon Café,450,High
+382,143,Local Lunch Stop,190,Low
+383,144,Backwater Bliss Dining,500,High
+384,144,Fresh Catch Fry House,330,Mid
+385,145,Heritage Hill Restaurant,420,High
+386,145,Simple Veg Meals,170,Low
+387,146,Ridge View Café,460,High
+388,146,Chai Pakora Junction,80,Low
+389,147,Sunrise Garden Restaurant,430,High
+390,147,Poha Upma Center,100,Low
+391,148,Coastal Pearl Dining,540,High
+392,148,Fish Curry Express,310,Mid
+393,149,Forest Crown Café,480,High
+394,149,Local Snack Stop,130,Low
+395,150,Valley Luxe Restaurant,520,High
+396,150,Family Veg Kitchen,260,Mid
+397,151,Temple Side Bhojanalay,200,Low
+398,151,Quick Bites Corner,120,Low
+399,152,Lakefront Fine Dine,560,High
+400,152,Evening Street Snacks,110,Low
+401,153,Riverside Green Café,420,High
+402,153,Local Veg Thali House,210,Low
+403,154,Sunset Peak Dining,480,High
+404,154,Trekker Snacks Point,150,Low
+405,155,Temple Courtyard Bhojanalay,190,Low
+406,155,Satvik Meals Center,220,Mid
+407,156,Forest Whisper Café,450,High
+408,156,Tea Pakoda Stop,80,Low
+409,157,Valley Treat Restaurant,380,High
+410,157,Homestyle Lunch Kitchen,200,Low
+411,158,Old Fort View Café,420,High
+412,158,Traveler’s Meal Hub,260,Mid
+413,159,Scenic Ridge Restaurant,470,High
+414,159,Quick Energy Bites,140,Low
+415,160,Backwater Breeze Dining,500,High
+416,160,Konkan Veg Delight,260,Mid
+417,161,Harbor Edge Seafood,540,High
+418,161,Sea Fry Junction,310,Mid
+419,162,Temple Street Bhojanalay,200,Low
+420,162,Fresh Snack Corner,120,Low
+421,163,Hilltop Crown Café,480,High
+422,163,Local Rice Plate Center,190,Low
+423,164,Lake View Royal Dining,520,High
+424,164,Evening Tea Snacks,110,Low
+425,165,Forest Garden Café,460,High
+426,165,Village Rasoi,230,Mid
+427,166,Sunrise Point Restaurant,430,High
+428,166,Poha & Chai Center,90,Low
+429,167,Coastal Bay Fine Dine,560,High
+430,167,Fish Curry Express,320,Mid
+431,168,Temple View Sattvik Bhojanalay,210,Low
+432,168,Quick Veg Bites,130,Low
+433,169,Mountain Edge Café,450,High
+434,169,Simple Home Food,180,Low
+435,170,Old Market Heritage Dining,390,High
+436,170,Street Meal Corner,160,Low
+437,171,Cliff Side Sunset Café,480,High
+438,171,Trekker’s Refreshment Stop,150,Low
+439,172,Lake Breeze Fine Dine,530,High
+440,172,South Indian Snack Hub,140,Low
+441,173,Forest Trail Café,420,High
+442,173,Local Veg Mess,200,Low
+443,174,Harbor Lights Seafood,570,High
+444,174,Sea Snack Station,180,Low
+445,175,Temple Road Snacks Center,100,Low
+446,175,Pure Veg Thali Ghar,210,Low
+447,176,Ridge Line Café,460,High
+448,176,Tea Bun Maska Stall,80,Low
+449,177,Sunrise Garden Fine Dine,500,High
+450,177,Quick Breakfast Stop,110,Low
+451,178,Backwater Pearl Dining,540,High
+452,178,Fresh Catch Fry House,330,Mid
+453,179,Heritage Valley Restaurant,420,High
+454,179,Simple Veg Plate,170,Low
+455,180,Peak View Café,470,High
+456,180,Energy Bar Snacks,140,Low
+457,181,Coastal Crown Seafood,560,High
+458,181,Seafood Thali Center,340,Mid
+459,182,Temple Courtyard Café,230,Mid
+460,182,Street Veg Bites,120,Low
+461,183,Forest Canopy Café,480,High
+462,183,Local Lunch Box Point,190,Low
+463,184,Lakefront Heritage Dining,520,High
+464,184,Quick Rice Plate Stop,160,Low
+465,185,Sunset Ridge Fine Dine,550,High
+466,185,Chaat & Juice Bar,130,Low
+467,186,Hill Base Family Restaurant,340,Mid
+468,186,Tea Pakoda Center,90,Low
+469,187,Harbor View Royal Dining,580,High
+470,187,Sea Fry Express,320,Mid
+471,188,Temple Side Bhojanalay,210,Low
+472,188,Quick Veg Snacks,120,Low
+473,189,Forest Crown Fine Dine,520,High
+474,189,Simple Home Kitchen,180,Low
+475,190,Old Town Heritage Café,460,High
+476,190,Local Breakfast Hub,100,Low
+477,191,River Bend Luxury Dining,570,High
+478,191,Family Fish Thali,340,Mid
+479,192,Misty Mountain Café,440,High
+480,192,Hot Chai Snacks Stall,80,Low
+481,193,Market Street Bhojanalay,200,Low
+482,193,Spice Route Restaurant,310,Mid
+483,194,Cliff Horizon Café,490,High
+484,194,Trekker’s Food Stop,150,Low
+485,195,Lake Royal Fine Dine,560,High
+486,195,South Indian Tiffin Center,140,Low
+487,196,Forest Path Café,430,High
+488,196,Village Veg Meals,220,Mid
+489,197,Harbor Pearl Dining,590,High
+490,197,Sea Snack Corner,170,Low
+491,198,Temple Lane Snacks,90,Low
+492,198,Sattvik Thali Ghar,210,Low
+493,199,Hill Breeze Café,460,High
+494,199,Local Lunch Stop,190,Low
+495,200,Backwater Bliss Fine Dine,550,High
+496,200,Fresh Fish Fry House,330,Mid
+497,201,Heritage Hilltop Restaurant,430,High
+498,201,Simple Veg Bhojan,170,Low
+499,202,Ridge View Luxury Café,500,High
+500,202,Chai Pakora Junction,80,Low
+501,203,Sunrise Garden Dining,450,High
+502,203,Poha Upma Center,100,Low
+503,204,Coastal Gem Seafood,580,High
+504,204,Fish Curry Meals,320,Mid
+505,205,Forest Royal Café,520,High
+506,205,Local Snack Bar,130,Low
+507,206,Valley Luxe Fine Dine,560,High
+508,206,Family Veg Kitchen,260,Mid
+509,207,Temple View Bhojanalay,200,Low
+510,207,Quick Bites Counter,120,Low
+511,208,Lake Edge Royal Dining,580,High
+512,208,Evening Street Snacks,110,Low
+513,209,Forest Retreat Fine Dine,540,High
+514,209,Local Meal Center,190,Low
+515,210,Ridge Peak Café,490,High
+516,210,Energy Snack Hub,140,Low
+517,211,Harbor Lights Luxury Dining,600,High
+518,211,Seafood Fry Station,330,Mid
+519,212,Temple Corner Bhojanalay,210,Low
+520,212,Fresh Veg Snacks,120,Low
+521,213,Hill Horizon Fine Dine,520,High
+522,213,Local Rice Plate Center,190,Low
+523,214,Backwater Royal Café,560,High
+524,214,Quick Lunch Stop,160,Low
+525,215,Sunset Garden Luxury Dining,590,High
+526,215,Chaat Plaza,130,Low
+527,216,Mountain Base Restaurant,350,Mid
+528,216,Tea Bun Maska Stall,80,Low
+529,217,Harbor Crown Seafood,620,High
+530,217,Sea Fry Express,340,Mid
+531,218,Temple Road Bhojanalay,210,Low
+532,218,Quick Veg Meals,120,Low
+533,219,Forest Pearl Fine Dine,560,High
+534,219,Simple Home Food,180,Low
+535,220,Old Market Heritage Dining,480,High
+536,220,Local Breakfast Corner,100,Low
+537,221,Riverfront Luxury Restaurant,600,High
+538,221,Family Fish Thali Center,350,Mid
+539,222,Mist Valley Café,450,High
+540,222,Hot Chai Snacks,80,Low
+541,223,Market Lane Bhojanalay,200,Low
+542,223,Spice Junction Restaurant,320,Mid
+543,224,Cliff Crown Café,510,High
+544,224,Trekker Food Stop,150,Low
+545,225,Lake Palace Fine Dine,590,High
+546,225,South Indian Meals Point,150,Low
+547,226,Forest Walk Café,440,High
+548,226,Village Rasoi,230,Mid
+549,227,Harbor Pearl Luxury Dining,620,High
+550,227,Sea Snack Junction,180,Low
+551,228,Temple Galli Snacks,90,Low
+552,228,Sattvik Veg Thali Ghar,210,Low
+553,229,Hill Crown Café,480,High
+554,229,Local Lunch Counter,190,Low
+555,230,Backwater Jewel Fine Dine,580,High
+556,230,Fresh Catch Meals,340,Mid
+557,231,Heritage Ridge Restaurant,450,High
+558,231,Simple Veg Plate,170,Low
+559,232,Peak View Luxury Café,520,High
+560,232,Chai Pakoda Hub,80,Low
+561,233,Sunrise Valley Dining,470,High
+562,233,Poha Breakfast Stop,100,Low
+563,234,Coastal Diamond Seafood,600,High
+564,234,Fish Curry House,330,Mid
+565,235,Forest Crown Royal Café,560,High
+566,235,Local Snack Point,130,Low
+567,236,Valley View Fine Dine,580,High
+568,236,Family Veg Thali Center,260,Mid
+569,237,Temple Side Bhojanalay,200,Low
+570,237,Quick Bite Counter,120,Low
+571,238,Lake Horizon Luxury Dining,600,High
+572,238,Evening Street Food,110,Low
+573,239,Forest Escape Fine Dine,550,High
+574,239,Local Meal Kitchen,190,Low
+575,240,Ridge Summit Café,500,High
+576,240,Energy Snack Bar,140,Low
+577,241,Harbor Lights Royal Dining,630,High
+578,241,Seafood Fry Counter,340,Mid
+579,242,Temple Court Bhojanalay,210,Low
+580,242,Fresh Veg Snack Stall,120,Low
+581,243,Hill Edge Fine Dine,540,High
+582,243,Local Rice Plate Center,190,Low
+583,244,Backwater Palace Café,580,High
+584,244,Quick Lunch Counter,160,Low
+585,245,Sunset Ridge Luxury Dining,610,High
+586,245,Chaat Juice Plaza,130,Low
+587,246,Mountain Foot Restaurant,360,Mid
+588,246,Tea Bun Maska Point,80,Low
+589,247,Harbor Crown Elite Seafood,650,High
+590,247,Sea Fry Express,350,Mid
+591,248,Temple Road Bhojanalay,210,Low
+592,248,Quick Veg Lunch,120,Low
+593,249,Forest Pearl Royal Dining,600,High
+594,249,Simple Home Kitchen,180,Low
+595,250,Old Town Heritage Café,490,High
+596,250,Local Breakfast Stop,100,Low
+597,251,Riverfront Signature Dining,620,High
+598,251,Family Fish Thali House,350,Mid
+599,252,Misty Peak Café,460,High
+600,252,Hot Chai Snacks Stall,80,Low
+

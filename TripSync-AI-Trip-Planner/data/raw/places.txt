@@ -1,0 +1,91 @@
+place_id,place_name,state,description
+1,Mahabaleshwar,Maharashtra,Hill station famous for strawberries scenic viewpoints and pleasant climate
+2,Lonavala,Maharashtra,Popular hill station near Mumbai known for waterfalls and chikki
+3,Khandala,Maharashtra,Hill station offering valleys misty hills and trekking routes
+4,Matheran,Maharashtra,Vehicle free hill station known for viewpoints and toy train
+5,Alibaug,Maharashtra,Coastal town famous for beaches forts and water sports
+6,Murud,Maharashtra,Beach destination known for Murud Janjira fort
+7,Tarkarli,Maharashtra,Beach town famous for scuba diving and clear waters
+8,Ganpatipule,Maharashtra,Pilgrimage beach town with Ganpati temple and scenic coast
+9,Ratnagiri,Maharashtra,Coastal city known for beaches mangoes and historical forts
+10,Sindhudurg,Maharashtra,Historic coastal fort and beach destination
+11,Panchgani,Maharashtra,Hill station known for table land and scenic valleys
+12,Igatpuri,Maharashtra,Hill town famous for Vipassana meditation center
+13,Bhandardara,Maharashtra,Nature destination with lakes waterfalls and trekking spots
+14,Ajanta,Maharashtra,World famous rock cut caves with ancient Buddhist paintings
+15,Ellora,Maharashtra,UNESCO site with Hindu Buddhist and Jain rock cut caves
+16,Aurangabad,Maharashtra,Historic city near Ajanta Ellora with rich Mughal heritage
+17,Nashik,Maharashtra,Religious city famous for vineyards and Kumbh Mela
+18,Shirdi,Maharashtra,Pilgrimage town of Sai Baba temple
+19,Kolhapur,Maharashtra,City known for Mahalaxmi temple and traditional cuisine
+20,Satara,Maharashtra,Historic city surrounded by forts and waterfalls
+21,Raigad,Maharashtra,Historic fort capital of Chhatrapati Shivaji Maharaj
+22,Pratapgad,Maharashtra,Famous fort with historical significance and scenic views
+23,Chiplun,Maharashtra,Scenic town on Konkan coast with rivers and greenery
+24,Dapoli,Maharashtra,Coastal hill town with beaches and calm atmosphere
+25,Harihareshwar,Maharashtra,Beach town with temple and serene surroundings
+26,Guhagar,Maharashtra,Peaceful beach destination in Konkan region
+27,Amboli,Maharashtra,Hill station known for mist waterfalls and biodiversity
+28,Lavasa,Maharashtra,Planned hill city inspired by European architecture
+29,Pune,Maharashtra,Cultural city known for education IT and historical sites
+30,Mumbai,Maharashtra,Financial capital of India known for beaches nightlife and landmarks
+31,Nagpur,Maharashtra,Orange city and geographical center of India
+32,Amravati,Maharashtra,City near Melghat tiger reserve
+33,Chandrapur,Maharashtra,City famous for Tadoba Andhari tiger reserve
+34,Tadoba,Maharashtra,Popular wildlife sanctuary and tiger reserve
+35,Melghat,Maharashtra,Tiger reserve in Satpura mountain ranges
+36,Solapur,Maharashtra,City known for temples and textile industry
+37,Akkalkot,Maharashtra,Pilgrimage town of Swami Samarth Maharaj
+38,Osmanabad,Maharashtra,Historic city near Tuljapur temple
+39,Tuljapur,Maharashtra,Famous for Tulja Bhavani temple
+40,Beed,Maharashtra,Historic city with forts and temples
+41,Jalgaon,Maharashtra,City near Ajanta caves known for banana production
+42,Dhule,Maharashtra,Gateway to Satpura ranges with tribal culture
+43,Nanded,Maharashtra,Religious city famous for Hazur Sahib Gurudwara
+44,Parbhani,Maharashtra,City known for agriculture and education
+45,Hingoli,Maharashtra,Religious town with Aundha Nagnath temple
+46,Washim,Maharashtra,Historic town with temples and forts
+47,Wardha,Maharashtra,Associated with Mahatma Gandhi and Sevagram Ashram
+48,Yavatmal,Maharashtra,City near forest regions and wildlife
+49,Karjat,Maharashtra,Hill town popular for trekking and weekend getaways
+50,Bhimashankar,Maharashtra,Wildlife sanctuary and one of the Jyotirlingas
+51,Kaas Plateau,Maharashtra,UNESCO world heritage site known for seasonal wildflowers
+52,Jawhar,Maharashtra,Tribal hill station with waterfalls and scenic viewpoints
+53,Wilson Hills,Maharashtra,Less crowded hill station with panoramic valley views
+54,Toranmal,Maharashtra,Hill station in Satpura ranges popular among locals
+55,Harishchandragad,Maharashtra,Ancient fort famous for trekking and Konkan Kada
+56,Lohagad,Maharashtra,Popular trekking fort near Lonavala
+57,Visapur Fort,Maharashtra,Large fort known for monsoon treks and ruins
+58,Sinhagad,Maharashtra,Historic fort near Pune with scenic views
+59,Rajmachi,Maharashtra,Twin forts popular for night trekking and camping
+60,Devkund,Maharashtra,Waterfall trek destination near Bhira village
+61,Tamhini Ghat,Maharashtra,Mountain pass famous for monsoon waterfalls
+62,Malshej Ghat,Maharashtra,Scenic mountain pass with mist and bird watching
+63,Rajapur,Maharashtra,Konkan town famous for Alphonso mangoes
+64,Velas,Maharashtra,Beach village known for turtle festival
+65,Kashid,Maharashtra,White sand beach destination near Alibaug
+66,Nagaon,Maharashtra,Popular beach near Mumbai for water sports
+67,Aarey Colony,Maharashtra,Green forest area inside Mumbai city
+68,Elephanta Island,Maharashtra,UNESCO heritage site with ancient cave temples
+69,Kanheri Caves,Maharashtra,Buddhist caves located in Sanjay Gandhi National Park
+70,Sanjay Gandhi National Park,Maharashtra,Urban national park with wildlife and caves
+71,Girgaon Chowpatty,Maharashtra,Popular city beach in Mumbai
+72,Junnar,Maharashtra,Historic town with ancient caves and forts
+73,Bhimashankar Wildlife Sanctuary,Maharashtra,Forest reserve around Bhimashankar temple
+74,Rajgad,Maharashtra,Capital fort of Shivaji Maharaj with trekking routes
+75,Panhala,Maharashtra,Historic fort near Kolhapur with scenic views
+76,Vengurla,Maharashtra,Coastal town with serene beaches and greenery
+77,Malvan,Maharashtra,Coastal town famous for beaches and Malvani cuisine
+78,Sawantwadi,Maharashtra,Historic town with royal palace and lakes
+79,Chikhaldara,Maharashtra,Only hill station in Vidarbha region
+80,Paithan,Maharashtra,Ancient town known for Paithani sarees
+81,Aurangabad Caves,Maharashtra,Rock cut caves near Aurangabad city
+82,Pench National Park,Maharashtra,Wildlife reserve famous for tigers
+83,Umred Karhandla,Maharashtra,Tiger reserve near Nagpur
+84,Devgad,Maharashtra,Coastal town with fort and beaches
+85,Shivneri Fort,Maharashtra,Birthplace of Chhatrapati Shivaji Maharaj
+86,Bhandara,Maharashtra,Known for lakes and natural beauty
+87,Gondia,Maharashtra,City surrounded by forests and rivers
+88,Chandoli National Park,Maharashtra,Wildlife sanctuary in Western Ghats
+89,Koyna Wildlife Sanctuary,Maharashtra,Forest reserve with dam and wildlife
+90,Kolad,Maharashtra,Adventure destination famous for river rafting

@@ -1,0 +1,651 @@
+stay_id,spot_id,stay_name,price_per_night,budget_range
+1,1,Venna Lake View Lodge,1200,Low
+2,1,Mapro Garden Homestay,2800,Mid
+3,2,Bhushi Dam Guest House,1500,Low
+4,2,Lion Point Hill Resort,4200,High
+5,3,Khandala Valley Inn,2200,Mid
+6,3,Duke Nose Cliff Stay,4800,High
+7,4,Matheran Forest Cottage,1800,Mid
+8,4,Panorama Point Resort,5200,High
+9,5,Alibaug Beachside Lodge,2500,Mid
+10,5,Kolaba Fort Sea View Resort,6000,High
+11,6,Murud Janjira Homestay,1500,Low
+12,6,Murud Beach Resort,4500,High
+13,7,Tarkarli MTDC Cottage,2000,Mid
+14,7,Devbagh Beach Resort,5500,High
+15,8,Ganpatipule Temple Stay,1200,Low
+16,8,Ganpatipule Beach Resort,4800,High
+17,9,Raigad Fort Base Lodge,1400,Low
+18,9,Raigad Hill View Resort,3500,Mid
+19,10,Elephanta Island Guest House,1800,Mid
+20,10,Mumbai Harbour View Hotel,5200,High
+21,11,Ajanta Cave View Lodge,1600,Low
+22,11,Ajanta Heritage Resort,4200,High
+23,12,Ellora Cave Stay Inn,1700,Low
+24,12,Ellora Royal Resort,4800,High
+25,13,Aurangabad City Lodge,2000,Mid
+26,13,Aurangabad Palace Hotel,5500,High
+27,14,Panchgani Hilltop Homestay,2200,Mid
+28,14,Panchgani Valley Resort,5000,High
+29,15,Sinhagad Base Lodge,1200,Low
+30,15,Sinhagad Mountain Resort,3800,Mid
+31,16,Lavasa Lakeside Inn,2600,Mid
+32,16,Lavasa Luxury Resort,6200,High
+33,17,Bhimashankar Forest Lodge,1800,Mid
+34,17,Bhimashankar Eco Resort,4500,High
+35,18,Nashik Vineyard Stay,2800,Mid
+36,18,Nashik Wine Resort,6500,High
+37,19,Trimbakeshwar Temple Lodge,1000,Low
+38,19,Trimbak Hill Resort,4000,High
+39,20,Shirdi Sai Guest House,1200,Low
+40,20,Shirdi Comfort Hotel,3000,Mid
+41,21,Kolhapur City Inn,1800,Mid
+42,21,Kolhapur Heritage Palace,5200,High
+43,22,Ratnagiri Coastal Homestay,1500,Low
+44,22,Ratnagiri Sea View Resort,4800,High
+45,23,Chiplun Riverside Lodge,1400,Low
+46,23,Chiplun Green Valley Resort,3600,Mid
+47,24,Amboli Hill Homestay,1600,Low
+48,24,Amboli Misty Resort,4200,High
+49,25,Sindhudurg Fort Lodge,1300,Low
+50,25,Sindhudurg Coastal Resort,3900,Mid
+51,26,Dapoli Beach Cottage,1800,Mid
+52,26,Dapoli Sea Breeze Resort,4500,High
+53,27,Alibaug Nagaon Stay,2000,Mid
+54,27,Nagaon Beach Resort,5200,High
+55,28,Tamhini Ghat Nature Lodge,1400,Low
+56,28,Tamhini Forest Resort,3800,Mid
+57,29,Lonavala Hill View Hotel,2600,Mid
+58,29,Lonavala Luxury Villa Stay,7000,High
+59,30,Karla Cave Guest House,1500,Low
+60,30,Karla Heritage Resort,4200,High
+61,31,Bhandardara Lake Lodge,1800,Mid
+62,31,Bhandardara Lakeside Resort,5000,High
+63,32,Igatpuri Hill Stay,2000,Mid
+64,32,Igatpuri Wellness Resort,6500,High
+65,33,Satara City Lodge,1600,Low
+66,33,Satara Hilltop Resort,4200,High
+67,34,Kaas Plateau Homestay,1400,Low
+68,34,Kaas Nature Resort,3600,Mid
+69,35,Solapur City Inn,1800,Mid
+70,35,Solapur Business Hotel,4500,High
+71,36,Pandharpur Temple Lodge,1000,Low
+72,36,Pandharpur Comfort Stay,2800,Mid
+73,37,Osmanabad Guest House,1400,Low
+74,37,Osmanabad Hill Resort,3500,Mid
+75,38,Latur City Stay,1600,Low
+76,38,Latur Premium Hotel,4200,High
+77,39,Aurangabad Airport Inn,2200,Mid
+78,39,Aurangabad Grand Hotel,5800,High
+79,40,Nanded Riverside Lodge,1500,Low
+80,40,Nanded Royal Stay,4000,High
+81,41,Yavatmal Forest Lodge,1600,Low
+82,41,Yavatmal Nature Resort,3600,Mid
+83,42,Chandrapur Tiger Stay,2000,Mid
+84,42,Chandrapur Jungle Resort,5500,High
+85,43,Nagpur City Guest House,1800,Mid
+86,43,Nagpur Luxury Hotel,6200,High
+87,44,Wardha Ashram Stay,1200,Low
+88,44,Wardha Heritage Resort,3800,Mid
+89,45,Amravati City Lodge,1500,Low
+90,45,Amravati Comfort Hotel,3200,Mid
+91,46,Melghat Forest Lodge,1800,Mid
+92,46,Melghat Tiger Resort,5200,High
+93,47,Akola Guest House,1400,Low
+94,47,Akola Business Hotel,3600,Mid
+95,48,Buldhana Countryside Stay,1200,Low
+96,48,Buldhana Hill Resort,3400,Mid
+97,49,Jalgaon City Inn,1600,Low
+98,49,Jalgaon Premium Hotel,4200,High
+99,50,Dhule Highway Lodge,1400,Low
+100,50,Dhule Comfort Stay,3200,Mid
+101,51,Nandurbar Guest House,1300,Low
+102,51,Nandurbar Green Resort,3500,Mid
+103,52,Palghar Coastal Stay,1800,Mid
+104,52,Palghar Beach Resort,4800,High
+105,53,Dahanu Sea View Lodge,2000,Mid
+106,53,Dahanu Beach Resort,5200,High
+107,54,Jawhar Tribal Homestay,1200,Low
+108,54,Jawhar Hill Resort,3600,Mid
+109,55,Vikramgad Nature Stay,1500,Low
+110,55,Vikramgad Eco Resort,3900,Mid
+111,56,Shahapur Lake Lodge,1800,Mid
+112,56,Shahapur Lakeside Resort,4500,High
+113,57,Malshej Ghat Hill Stay,2000,Mid
+114,57,Malshej Mountain Resort,5500,High
+115,58,Junnar Heritage Lodge,1600,Low
+116,58,Junnar Fort View Resort,4200,High
+117,59,Shivneri Base Homestay,1400,Low
+118,59,Shivneri Hill Resort,3600,Mid
+119,60,Pune City Guest House,2200,Mid
+120,60,Pune Business Hotel,6000,High
+121,61,Mumbai Budget Inn,2500,Mid
+122,61,Mumbai Luxury Sea Hotel,8000,High
+123,62,Thane City Lodge,2000,Mid
+124,62,Thane Lake View Resort,5200,High
+125,63,Kalyan Highway Stay,1500,Low
+126,63,Kalyan Comfort Hotel,3200,Mid
+127,64,Bhiwandi Transit Lodge,1400,Low
+128,64,Bhiwandi Business Hotel,3000,Mid
+129,65,Ulhasnagar City Inn,1600,Low
+130,65,Ulhasnagar Premium Stay,4200,High
+131,66,Karjat Hill Lodge,1800,Mid
+132,66,Karjat Valley Resort,4800,High
+133,67,Panvel Nature Stay,2000,Mid
+134,67,Panvel Hill Resort,5200,High
+135,68,Pen Riverside Lodge,1400,Low
+136,68,Pen Countryside Resort,3500,Mid
+137,69,Rajapur Coastal Stay,1500,Low
+138,69,Rajapur Sea View Resort,4200,High
+139,70,Malvan Beach Homestay,1800,Mid
+140,70,Malvan Sea Pearl Resort,5000,High
+141,71,Kudal Town Lodge,1400,Low
+142,71,Kudal Comfort Hotel,3200,Mid
+143,72,Sawantwadi Heritage Stay,1800,Mid
+144,72,Sawantwadi Palace Resort,5500,High
+145,73,Vengurla Beach Cottage,2000,Mid
+146,73,Vengurla Ocean Resort,5200,High
+147,74,Devgad Fort Lodge,1500,Low
+148,74,Devgad Sea Cliff Resort,4200,High
+149,75,Parbhani City Inn,1600,Low
+150,75,Parbhani Business Hotel,3600,Mid
+151,76,Hingoli Guest House,1400,Low
+152,76,Hingoli Comfort Stay,3000,Mid
+153,77,Washim City Lodge,1500,Low
+154,77,Washim Premium Hotel,3800,Mid
+155,78,Gondia Forest Lodge,1800,Mid
+156,78,Gondia Lake Resort,4500,High
+157,79,Gadchiroli Jungle Stay,1600,Low
+158,79,Gadchiroli Nature Resort,4200,High
+159,80,Bhandara Riverside Lodge,1500,Low
+160,80,Bhandara Lake View Resort,3800,Mid
+161,81,Yavatmal Countryside Stay,1400,Low
+162,81,Yavatmal Comfort Resort,3600,Mid
+163,82,Wani Coal Town Lodge,1300,Low
+164,82,Wani Business Hotel,3000,Mid
+165,83,Chimur Forest Stay,1600,Low
+166,83,Chimur Nature Resort,4200,High
+167,84,Umred Karhandla Lodge,2000,Mid
+168,84,Umred Tiger Resort,5500,High
+169,85,Deolapar Jungle Camp,1800,Mid
+170,85,Deolapar Wildlife Resort,5200,High
+171,86,Pauni Riverside Lodge,1400,Low
+172,86,Pauni Heritage Stay,3600,Mid
+173,87,Tadoba Base Homestay,2000,Mid
+174,87,Tadoba Jungle Resort,6500,High
+175,88,Ballarpur City Lodge,1500,Low
+176,88,Ballarpur Comfort Hotel,3200,Mid
+177,89,Chandrapur Lake View Stay,1800,Mid
+178,89,Chandrapur Premium Resort,5200,High
+179,90,Wardha River Lodge,1400,Low
+180,90,Wardha Nature Resort,3800,Mid
+181,91,Sevagram Ashram Stay,1200,Low
+182,91,Sevagram Heritage Lodge,3000,Mid
+183,92,Arvi Town Guest House,1300,Low
+184,92,Arvi Comfort Stay,3200,Mid
+185,93,Pulgaon City Inn,1400,Low
+186,93,Pulgaon Premium Hotel,3600,Mid
+187,94,Kalamb Forest Lodge,1500,Low
+188,94,Kalamb Hill Resort,3900,Mid
+189,95,Seloo Countryside Stay,1200,Low
+190,95,Seloo Comfort Resort,3000,Mid
+191,96,Katol City Lodge,1500,Low
+192,96,Katol Business Hotel,3400,Mid
+193,97,Saoner Riverside Stay,1600,Low
+194,97,Saoner Lake View Resort,4200,High
+195,98,Parseoni Nature Lodge,1800,Mid
+196,98,Parseoni Eco Resort,4800,High
+197,99,Narkhed Town Inn,1400,Low
+198,99,Narkhed Comfort Stay,3000,Mid
+199,100,Kalmeshwar Guest House,1500,Low
+200,100,Kalmeshwar Premium Hotel,3800,Mid
+201,101,Katol Lake View Lodge,1600,Low
+202,101,Katol Hill Resort,4200,High
+203,102,Warora City Guest House,1400,Low
+204,102,Warora Comfort Stay,3200,Mid
+205,103,Chandur Railway Inn,1500,Low
+206,103,Chandur Green Resort,3800,Mid
+207,104,Daryapur Town Lodge,1300,Low
+208,104,Daryapur Business Hotel,3000,Mid
+209,105,Achalpur Heritage Stay,1800,Mid
+210,105,Achalpur Royal Resort,5200,High
+211,106,Morshi Countryside Lodge,1500,Low
+212,106,Morshi Hill View Resort,3600,Mid
+213,107,Teosa City Inn,1400,Low
+214,107,Teosa Comfort Hotel,3200,Mid
+215,108,Patur Riverside Stay,1600,Low
+216,108,Patur Lake Resort,4000,High
+217,109,Balapur Town Lodge,1300,Low
+218,109,Balapur Premium Stay,3400,Mid
+219,110,Risod City Guest House,1400,Low
+220,110,Risod Business Hotel,3600,Mid
+221,111,Malegaon Highway Lodge,1500,Low
+222,111,Malegaon Comfort Hotel,3200,Mid
+223,112,Manmad Railway Inn,1800,Mid
+224,112,Manmad Transit Hotel,3800,Mid
+225,113,Nandgaon Temple Stay,1200,Low
+226,113,Nandgaon Heritage Resort,3500,Mid
+227,114,Kalwan Hill Lodge,1600,Low
+228,114,Kalwan Valley Resort,4200,High
+229,115,Peint Tribal Homestay,1400,Low
+230,115,Peint Nature Resort,3800,Mid
+231,116,Trimbak Ghat Lodge,1800,Mid
+232,116,Trimbak Spiritual Resort,4500,High
+233,117,Surgana Forest Stay,1500,Low
+234,117,Surgana Eco Resort,4000,High
+235,118,Deola Town Lodge,1300,Low
+236,118,Deola Comfort Hotel,3000,Mid
+237,119,Chandwad Fort View Stay,1600,Low
+238,119,Chandwad Heritage Resort,4200,High
+239,120,Igatpuri Station Inn,1800,Mid
+240,120,Igatpuri Mountain Resort,6500,High
+241,121,Yeola Town Lodge,1400,Low
+242,121,Yeola Comfort Stay,3200,Mid
+243,122,Niphad Vineyard Stay,2200,Mid
+244,122,Niphad Wine Resort,5800,High
+245,123,Sinnar Highway Lodge,1500,Low
+246,123,Sinnar Premium Hotel,3800,Mid
+247,124,Kopargaon City Inn,1600,Low
+248,124,Kopargaon Business Hotel,3600,Mid
+249,125,Shirdi Temple View Stay,1800,Mid
+250,125,Shirdi Premium Resort,5200,High
+251,126,Rahata Town Lodge,1400,Low
+252,126,Rahata Comfort Stay,3200,Mid
+253,127,Newasa Ghat Lodge,1500,Low
+254,127,Newasa Riverside Resort,3800,Mid
+255,128,Shrigonda City Inn,1400,Low
+256,128,Shrigonda Business Hotel,3600,Mid
+257,129,Karjat Foothill Stay,1800,Mid
+258,129,Karjat Luxury Valley Resort,6200,High
+259,130,Khalapur Highway Lodge,1500,Low
+260,130,Khalapur Green Resort,3800,Mid
+261,131,Tala Forest Stay,2000,Mid
+262,131,Tala Wildlife Resort,5500,High
+263,132,Mangaon Town Lodge,1400,Low
+264,132,Mangaon Comfort Hotel,3200,Mid
+265,133,Roha Riverside Stay,1600,Low
+266,133,Roha Lake View Resort,4000,High
+267,134,Poladpur Ghat Lodge,1500,Low
+268,134,Poladpur Valley Resort,3800,Mid
+269,135,Chiplun Hill Stay,1800,Mid
+270,135,Chiplun Riverside Resort,4500,High
+271,136,Guhagar Beach Lodge,2000,Mid
+272,136,Guhagar Sea Pearl Resort,5200,High
+273,137,Sangameshwar Temple Stay,1200,Low
+274,137,Sangameshwar Heritage Lodge,3500,Mid
+275,138,Lanja Town Inn,1400,Low
+276,138,Lanja Comfort Hotel,3200,Mid
+277,139,Rajapur Fort View Stay,1600,Low
+278,139,Rajapur Sea Cliff Resort,4200,High
+279,140,Devrukh Hill Lodge,1500,Low
+280,140,Devrukh Valley Resort,3800,Mid
+281,141,Dapoli Coastal Stay,2000,Mid
+282,141,Dapoli Luxury Sea Resort,5500,High
+283,142,Mandangad Fort Base Lodge,1400,Low
+284,142,Mandangad Hill Resort,3600,Mid
+285,143,Khed Town Guest House,1500,Low
+286,143,Khed Comfort Hotel,3200,Mid
+287,144,Patan Hill Stay,1600,Low
+288,144,Patan Valley Resort,4200,High
+289,145,Karad Riverside Lodge,1800,Mid
+290,145,Karad Business Hotel,3800,Mid
+291,146,Koyna Backwater Stay,2000,Mid
+292,146,Koyna Lake Resort,5200,High
+293,147,Wai Temple View Stay,1500,Low
+294,147,Wai Heritage Resort,3800,Mid
+295,148,Satara City Guest House,1600,Low
+296,148,Satara Premium Hotel,4200,High
+297,149,Phaltan Town Lodge,1400,Low
+298,149,Phaltan Comfort Stay,3200,Mid
+299,150,Koregaon Hill Stay,1600,Low
+300,150,Koregaon Valley Resort,4200,High
+301,151,Shirur Riverside Lodge,1500,Low
+302,151,Shirur Comfort Hotel,3200,Mid
+303,152,Daund Highway Stay,1400,Low
+304,152,Daund Business Hotel,3000,Mid
+305,153,Baramati Vineyard Stay,2200,Mid
+306,153,Baramati Luxury Resort,5800,High
+307,154,Indapur Town Lodge,1400,Low
+308,154,Indapur Comfort Stay,3200,Mid
+309,155,Jejuri Temple Stay,1200,Low
+310,155,Jejuri Heritage Lodge,3500,Mid
+311,156,Velhe Ghat Lodge,1500,Low
+312,156,Velhe Nature Resort,3800,Mid
+313,157,Bhor Lake Stay,1800,Mid
+314,157,Bhor Valley Resort,4200,High
+315,158,Mulshi Lakeside Lodge,2000,Mid
+316,158,Mulshi Luxury Resort,6500,High
+317,159,Pirangut Hill Stay,1600,Low
+318,159,Pirangut Comfort Hotel,3200,Mid
+319,160,Pawna Lake Camping Stay,1800,Mid
+320,160,Pawna Lake Resort,5200,High
+321,161,Ambegaon Base Lodge,1500,Low
+322,161,Ambegaon Hill Resort,3800,Mid
+323,162,Junnar Temple Stay,1200,Low
+324,162,Junnar Heritage Resort,3500,Mid
+325,163,Manchar City Inn,1400,Low
+326,163,Manchar Comfort Hotel,3200,Mid
+327,164,Shirwal Highway Lodge,1500,Low
+328,164,Shirwal Business Stay,3000,Mid
+329,165,Medha Valley Stay,1600,Low
+330,165,Medha Nature Resort,4200,High
+331,166,Patan Ghat Lodge,1500,Low
+332,166,Patan Hill Resort,3800,Mid
+333,167,Kolhapur City Guest House,1800,Mid
+334,167,Kolhapur Palace Hotel,5500,High
+335,168,Ichalkaranji Town Lodge,1600,Low
+336,168,Ichalkaranji Comfort Hotel,3200,Mid
+337,169,Gaganbawda Hill Stay,2000,Mid
+338,169,Gaganbawda Valley Resort,5200,High
+339,170,Radhanagari Wildlife Stay,1800,Mid
+340,170,Radhanagari Forest Resort,4500,High
+341,171,Kagal Town Lodge,1400,Low
+342,171,Kagal Comfort Stay,3200,Mid
+343,172,Gadhinglaj City Inn,1500,Low
+344,172,Gadhinglaj Business Hotel,3600,Mid
+345,173,Ajra Countryside Stay,1400,Low
+346,173,Ajra Hill Resort,3800,Mid
+347,174,Chandgad Forest Lodge,1600,Low
+348,174,Chandgad Nature Resort,4200,High
+349,175,Savarde Ghat Stay,1500,Low
+350,175,Savarde Valley Resort,3800,Mid
+351,176,Sangli City Guest House,1800,Mid
+352,176,Sangli Premium Hotel,4200,High
+353,177,Miraj Transit Lodge,1600,Low
+354,177,Miraj Comfort Stay,3200,Mid
+355,178,Tasgaon Vineyard Stay,2200,Mid
+356,178,Tasgaon Wine Resort,5800,High
+357,179,Jat Desert Stay,1400,Low
+358,179,Jat Comfort Lodge,3000,Mid
+359,180,Atpadi Town Inn,1300,Low
+360,180,Atpadi Premium Stay,3400,Mid
+361,181,Khanapur Forest Stay,1500,Low
+362,181,Khanapur Nature Resort,3800,Mid
+363,182,Vita City Guest House,1600,Low
+364,182,Vita Business Hotel,3600,Mid
+365,183,Islampur Riverside Stay,1800,Mid
+366,183,Islampur Comfort Hotel,3200,Mid
+367,184,Shirala Hill Stay,1600,Low
+368,184,Shirala Valley Resort,4200,High
+369,185,Palus Sugar Belt Stay,1500,Low
+370,185,Palus Comfort Lodge,3200,Mid
+371,186,Malshiras Town Inn,1400,Low
+372,186,Malshiras Business Stay,3000,Mid
+373,187,Barshi City Guest House,1600,Low
+374,187,Barshi Premium Hotel,4200,High
+375,188,Akkalkot Temple Stay,1200,Low
+376,188,Akkalkot Heritage Lodge,3500,Mid
+377,189,Mohol Town Lodge,1400,Low
+378,189,Mohol Comfort Stay,3200,Mid
+379,190,Karmala Highway Stay,1500,Low
+380,190,Karmala Business Hotel,3000,Mid
+381,191,Madha Countryside Stay,1400,Low
+382,191,Madha Green Resort,3600,Mid
+383,192,Sangola Desert Stay,1500,Low
+384,192,Sangola Premium Lodge,3400,Mid
+385,193,Mangalwedha Temple Stay,1200,Low
+386,193,Mangalwedha Heritage Resort,3500,Mid
+387,194,Pandharpur River Lodge,1600,Low
+388,194,Pandharpur Comfort Hotel,3200,Mid
+389,195,Akluj Riverside Stay,1800,Mid
+390,195,Akluj Lake Resort,4200,High
+391,196,Indapur Ghat Lodge,1500,Low
+392,196,Indapur Valley Resort,3800,Mid
+393,197,Tembhurni Highway Stay,1400,Low
+394,197,Tembhurni Comfort Hotel,3000,Mid
+395,198,Kurduwadi City Lodge,1600,Low
+396,198,Kurduwadi Business Stay,3600,Mid
+397,199,Solapur City Guest House,1800,Mid
+398,199,Solapur Luxury Hotel,5200,High
+399,200,Akkalkot Road Lodge,1500,Low
+400,200,Akkalkot Premium Stay,3800,Mid
+401,201,Green Valley Homestay,1200
+402,202,Sunrise View Lodge,1800
+403,203,Hilltop Residency,3200
+404,204,River Bend Guest House,1400
+405,205,Forest Edge Stay,2500
+406,206,Misty Morning Resort,4200
+407,207,Shivneri Tourist Lodge,900
+408,208,Lakefront Homestay,2200
+409,209,Heritage Stone Palace,4800
+410,210,Valley Breeze Inn,1600
+411,211,Mountain Crest Resort,3600
+412,212,Rural Roots Homestay,1100
+413,213,Serene Woods Cottage,2700
+414,214,Cloud Nine Resort,5200
+415,215,Temple View Lodge,1300
+416,216,Riverside Retreat,3000
+417,217,Nature Nest Homestay,1000
+418,218,Skyline Residency,3400
+419,219,Colonial Heritage Stay,4500
+420,220,Backwater Bliss Lodge,2000
+421,221,Golden Horizon Hotel,3800
+422,222,Traveller’s Rest Inn,1200
+423,223,Hill Shadow Homestay,1800
+424,224,Evergreen Forest Resort,4100
+425,225,Sunset Point Lodge,1500
+426,226,Quiet Corner Guest House,900
+427,227,Royal Deccan Palace,6000
+428,228,Lakeside Comfort Stay,2300
+429,229,Windmill View Resort,3400
+430,230,Urban Nomad Hostel,800
+431,231,Ancient Fort View Stay,2600
+432,232,Green Canopy Eco Lodge,2900
+433,233,River Pearl Residency,3700
+434,234,Village Charm Homestay,1000
+435,235,Western Ghats Retreat,4200
+436,236,Sunbeam Tourist Lodge,1100
+437,237,Hillway Executive Stay,3100
+438,238,Peace Valley Cottage,1700
+439,239,Heritage Wada Stay,2800
+440,240,Luxura Hill Resort,5500
+441,241,Budget Backpackers Inn,700
+442,242,Saffron Valley Resort,3900
+443,243,Meadow View Homestay,1400
+444,244,Crystal Lake Residency,3600
+445,245,Rainforest Hideout,4800
+446,246,Pilgrim Comfort Lodge,900
+447,247,Blue Ridge Mountain Stay,3200
+448,248,Country Roads Homestay,1200
+449,249,Royal Konkan Retreat,4500
+450,250,Sunset Bliss Cottage,2600
+451,251,Highland Breeze Resort,4100
+452,252,Simple Stay Guest House,850
+453,253,Riverbank View Inn,1900
+454,254,Grand Heritage Hotel,6200
+455,255,Green Pastures Homestay,1300
+456,256,Misty Trails Lodge,2800
+457,257,Urban Comfort Residency,3400
+458,258,Nature Walk Eco Stay,1600
+459,259,Hill Monarch Resort,5300
+460,260,Old Town Tourist Lodge,1000
+461,261,Skyview Executive Rooms,3100
+462,262,Lakeshore Budget Stay,1100
+463,263,Wildlife Safari Lodge,4200
+464,264,Sunrise Valley Homestay,1500
+465,265,Premium Ghats Resort,5700
+466,266,Traveller’s Nest Hostel,750
+467,267,Calm Waters Retreat,2900
+468,268,Stone Arch Heritage Stay,3600
+469,269,Green Fields Homestay,1200
+470,270,Hill Crest Luxury Resort,6500
+471,271,Rustic Village Lodge,1400
+472,272,Forest Whisper Cottage,2700
+473,273,City Edge Residency,3300
+474,274,Sacred Stay Pilgrim Lodge,900
+475,275,Sun Valley Premium Resort,5200
+476,276,Minimalist Budget Inn,800
+477,277,Riverstone Boutique Stay,3900
+478,278,Countryside Homestay,1600
+479,279,Majestic Plateau Resort,4800
+480,280,Hilltop View Guest House,1800
+481,281,Zen Valley Eco Retreat,3500
+482,282,Local Comfort Lodge,1000
+483,283,Golden Ghats Palace,7000
+484,284,Quiet Nights Homestay,1300
+485,285,Morning Dew Cottage,2400
+486,286,Executive Hill Residency,3800
+487,287,Forest Line Budget Stay,950
+488,288,Riverfront Premium Lodge,4200
+489,289,Heritage Courtyard Stay,3100
+490,290,Windy Cliff Resort,5600
+491,291,Basic Traveller Lodge,850
+492,292,Hill Bloom Homestay,1700
+493,293,Serenity Springs Resort,4600
+494,294,Town Square Residency,2800
+495,295,Konkan Coast Luxury Stay,6200
+496,296,Peaceful Night Guest House,1100
+497,297,Misty Peak Cottage,2600
+498,298,Executive Comfort Inn,3400
+499,299,Wildwood Forest Resort,5200
+500,300,Sunset Ridge Homestay,1900
+501,301,Riverbend Budget Lodge,1200
+502,302,Elite Hill Palace,7500
+503,303,Green Roof Eco Stay,2300
+504,304,Traveller’s Choice Inn,1500
+505,305,Cloud View Luxury Resort,6800
+506,306,Simple Roots Homestay,1000
+507,307,Royal Ghats Residency,4200
+508,308,Forest Path Cottage,2100
+509,309,Urban Hill Hotel,3600
+510,310,Quiet Horizon Lodge,1400
+511,311,Skyline Premium Suites,5900
+512,312,Backpacker Base Hostel,700
+513,313,Lake Mist Homestay,1800
+514,314,Mountain Jewel Resort,4700
+515,315,Temple Town Lodge,900
+516,316,Green Valley Executive Stay,3300
+517,317,Country Bliss Homestay,1500
+518,318,River Crown Resort,5200
+519,319,Old Fort Heritage Stay,3900
+520,320,Sunrise Budget Inn,1100
+521,321,Forest Dew Eco Resort,4100
+522,322,Minimal Comfort Lodge,850
+523,323,Premium Valley View Hotel,5600
+524,324,Rural Charm Homestay,1300
+525,325,Silver Peak Resort,4800
+526,326,Nature Rest Guest House,1200
+527,327,Hilltop Executive Lodge,3500
+528,328,Backwater View Homestay,1900
+529,329,Grand Konkan Palace,7200
+530,330,Simple Stay Inn,900
+531,331,Morning Sun Cottage,2400
+532,332,Forest Edge Premium Stay,4300
+533,333,Traveller’s Budget Lodge,800
+534,334,Lakeview Residency,3100
+535,335,Mountain Aura Resort,5500
+536,336,Village Path Homestay,1400
+537,337,Urban Retreat Hotel,3700
+538,338,Riverside Eco Lodge,2600
+539,339,Heritage Royal Wada,6200
+540,340,Quiet Woods Guest House,1200
+541,341,Cliff Edge Luxury Resort,7800
+542,342,Green Nest Homestay,1500
+543,343,Highway Comfort Inn,2000
+544,344,Wildlife View Lodge,4200
+545,345,Budget Traveller Stay,850
+546,346,Hill Crest Executive Rooms,3300
+547,347,Sunset Forest Cottage,2800
+548,348,Royal Heritage Palace,6900
+549,349,Local Rest House,1000
+550,350,Premium Valley Retreat,5200
+551,351,Backpacker Comfort Hostel,750
+552,352,Misty River Homestay,1700
+553,353,Elite Ghats Resort,6100
+554,354,Quiet Village Lodge,1300
+555,355,Sky Peak Luxury Suites,7400
+556,356,Forest Trail Guest House,1100
+557,357,Urban Elite Residency,3900
+558,358,Nature Bliss Cottage,2500
+559,359,Heritage Hill Palace,6800
+560,360,Simple Night Stay,900
+561,361,Green Horizon Eco Resort,4300
+562,362,Lake Breeze Homestay,1600
+563,363,Mountain King Resort,5900
+564,364,Traveller’s Budget Inn,800
+565,365,Sun Valley Executive Stay,3500
+566,366,Rural Comfort Homestay,1400
+567,367,River Pearl Luxury Lodge,6200
+568,368,Forest Whisper Inn,2100
+569,369,Urban Prime Hotel,4200
+570,370,Quiet Hills Guest House,1200
+571,371,Golden Peak Palace,7800
+572,372,Minimal Stay Lodge,900
+573,373,Morning Light Homestay,1800
+574,374,Valley Crown Resort,5200
+575,375,Temple View Budget Stay,1000
+576,376,Elite Forest Retreat,4600
+577,377,Backpacker Hub Hostel,700
+578,378,Hill Breeze Residency,3200
+579,379,Heritage Royal Inn,4100
+580,380,Sunrise Woods Cottage,2400
+581,381,Premium Lakefront Resort,6500
+582,382,Simple Comfort Inn,1100
+583,383,Green Roots Homestay,1500
+584,384,Mountain Pearl Resort,5800
+585,385,Traveller’s Lodge,900
+586,386,Urban Signature Hotel,4300
+587,387,Forest Dew Cottage,2600
+588,388,Royal Ghats Palace,7200
+589,389,Village Stay Homestay,1300
+590,390,Sunset Valley Resort,4900
+591,391,Quiet Road Guest House,1200
+592,392,Hill Majesty Luxury Stay,7600
+593,393,Nature Walk Budget Lodge,850
+594,394,River Sky Residency,3400
+595,395,Forest Crown Resort,5600
+596,396,Local Traveller Inn,1000
+597,397,Premium Hill Suites,6100
+598,398,Green Canopy Homestay,1700
+599,399,Heritage Grand Palace,8200
+600,400,Peaceful Stay Lodge,1100
+601,401,Mountain Nest Homestay,1800
+602,402,Elite Valley Resort,5900
+603,403,Budget Comfort Inn,900
+604,404,Forest Edge Executive Stay,3600
+605,405,Royal Horizon Palace,7800
+606,406,Traveller’s Safe Stay,1000
+607,407,Sunrise Peak Cottage,2600
+608,408,Urban Comfort Plus Hotel,4200
+609,409,Heritage Forest Wada,5100
+610,410,Quiet Meadow Guest House,1300
+611,411,Cliff View Premium Resort,6900
+612,412,Simple Roots Lodge,1200
+613,413,Misty Hill Homestay,1900
+614,414,Valley Queen Resort,5600
+615,415,Temple Rest House,900
+616,416,Elite Green Retreat,4700
+617,417,Backpacker Zone Hostel,700
+618,418,Hillway Executive Hotel,3800
+619,419,Heritage Gold Palace,7400
+620,420,Sunset Comfort Cottage,2400
+621,421,Forest Bliss Eco Resort,4300
+622,422,Local Budget Inn,850
+623,423,Mountain Royal Suites,6200
+624,424,Village Soul Homestay,1400
+625,425,Premium Cliff Resort,5800
+626,426,Traveller’s Night Stay,1000
+627,427,Urban Grand Residency,4600
+628,428,River Song Cottage,2800
+629,429,Heritage Stone Palace,6900
+630,430,Quiet Path Guest House,1200
+631,431,Sun Valley Eco Lodge,4100
+632,432,Basic Stay Inn,900
+633,433,Green Hill Homestay,1600
+634,434,Luxury Mountain Retreat,7500
+635,435,Forest Line Lodge,1100
+636,436,Elite Urban Hotel,4300
+637,437,Misty Ridge Cottage,2600
+638,438,Royal Heritage Suites,7100
+639,439,Country Comfort Homestay,1500
+640,440,Sunrise Valley Resort,5200
+641,441,Backpacker’s Den Hostel,750
+642,442,Hill Crest Palace,6800
+643,443,Quiet Nest Guest House,1200
+644,444,Forest Queen Resort,5600
+645,445,Local Charm Homestay,1400
+646,446,Premium Urban Suites,4900
+647,447,Riverfront Bliss Lodge,3200
+648,448,Heritage Royal Courtyard,7200
+649,449,Simple Village Stay,1000
+650,450,Golden Horizon Resort,5800

@@ -1,0 +1,14 @@
+{
+  "name": "trip-planner",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Trip planner application",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
