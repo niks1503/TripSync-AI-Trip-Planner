@@ -1,6 +1,27 @@
 export function buildPrompt(user, context = {}) {
   const { destination, source, budget, budgetTier, people, days, transportMode, preferences } = user;
 
+  // Local helpers (kept inside module for portability)
+  const formatDining = (dining) => {
+    const items = Array.isArray(dining) ? dining : [dining];
+    if (!items || items.length === 0) return "";
+    const foodOptions = items
+      .filter(Boolean)
+      .map(f => `${f.food_place_name || f.name || "Food Option"} (₹${f.price_per_person || f.price || "?"})`)
+      .join(", ");
+    return foodOptions ? `\n     * Verified Food: ${foodOptions}` : "";
+  };
+
+  const formatStay = (accommodation) => {
+    const items = Array.isArray(accommodation) ? accommodation : [accommodation];
+    if (!items || items.length === 0) return "";
+    const stayOptions = items
+      .filter(Boolean)
+      .map(s => `${s.stay_name || s.name || "Stay Option"} (₹${s.price_per_night || s.price || "?"})`)
+      .join(", ");
+    return stayOptions ? `\n     * Verified Stay: ${stayOptions}` : "";
+  };
+
   // Format Ranked Places with Scores and Deep Details (Food/Stay)
   // Format Ranked Places: Check if we have ML-generated Day Plan or fallback to linear list
   let placesList = "No specific places found.";
@@ -13,11 +34,29 @@ export function buildPrompt(user, context = {}) {
         // Safe access to numerical score if present
         const val = p.ml_score || p.score || 0;
         const scoreStr = `(Score: ${typeof val === 'number' ? val.toFixed(2) : val})`;
+        const name = p.place_name || p.name || p.spot_name || "Unknown Spot";
 
-        let details = `${i + 1}. ${p.place_name || p.name} ${scoreStr} - ${p.description || p.category}`;
+        let details = `${i + 1}. ${name} ${scoreStr} - ${p.description || p.category}`;
 
-        // Add Nested Details (Food/Stay)
-        if (p.attractions && p.attractions.length > 0) {
+        // Handle Flattened Attraction Details (Dining/Stay)
+        if (p.dining || p.accommodation) {
+          if (p.dining) {
+            const items = Array.isArray(p.dining) ? p.dining : [p.dining];
+            if (items.length > 0) {
+              const foodOptions = items.map(f => `${f.food_place_name || f.name} (₹${f.price_per_person || '?'})`).join(", ");
+              details += `\n     * Verified Food: ${foodOptions}`;
+            }
+          }
+          if (p.accommodation) {
+            const items = Array.isArray(p.accommodation) ? p.accommodation : [p.accommodation];
+            if (items.length > 0) {
+              const stayOptions = items.map(s => `${s.stay_name || s.name} (₹${s.price_per_night || '?'})`).join(", ");
+              details += `\n     * Verified Stay: ${stayOptions}`;
+            }
+          }
+        }
+        // Legacy/Fallback for Hierarchical Data
+        else if (p.attractions && p.attractions.length > 0) {
           p.attractions.forEach(spot => {
             details += `\n   - [Spot] ${spot.spot_name}: ${spot.description}`;
             if (spot.dining && spot.dining.length > 0) {
@@ -38,28 +77,37 @@ export function buildPrompt(user, context = {}) {
   } else if (context.places && context.places.length > 0) {
     // Strategy B: Linear List (Fallback)
     placesList = context.places.map((p, i) => {
-      const score = p.score ? `(Relevance Score: ${p.score.toFixed(2)})` : "";
+      const score = p.score ? `(Relevance Score: ${Number(p.score).toFixed(2)})` : "";
       const cost = p.budget_range ? `[Cost: ${p.budget_range}]` : "";
+      const name = p.place_name || p.name || p.spot_name || "Unknown Place";
+      const desc = p.description || p.category || "";
 
-      let details = `${i + 1}. ${p.place_name || p.name} ${cost} ${score} - ${p.description || p.category}`;
+      let details = `${i + 1}. ${name} ${cost} ${score} - ${desc}`;
 
-      // 1. Add Specific Attractions (Spots)
+      // CASE 1: Hierarchical (Destination -> Attractions)
       if (p.attractions && p.attractions.length > 0) {
         p.attractions.forEach(spot => {
           details += `\n   - [Spot] ${spot.spot_name}: ${spot.description}`;
-
-          // 2. Add Dining Options for this Spot
-          if (spot.dining && spot.dining.length > 0) {
-            const foodOptions = spot.dining.map(f => `${f.food_place_name} (₹${f.price_per_person})`).join(", ");
-            details += `\n     * Verified Food Options: ${foodOptions}`;
-          }
-
-          // 3. Add Stay Options for this Spot
-          if (spot.accommodation && spot.accommodation.length > 0) {
-            const stayOptions = spot.accommodation.map(s => `${s.stay_name} (₹${s.price_per_night})`).join(", ");
-            details += `\n     * Verified Stays: ${stayOptions}`;
-          }
+          if (spot.dining) details += formatDining(spot.dining);
+          if (spot.accommodation) details += formatStay(spot.accommodation);
         });
+      }
+      // CASE 2: Flattened Attraction (Directly has dining/stay)
+      else if (p.dining || p.accommodation) {
+        if (p.dining) {
+          const items = Array.isArray(p.dining) ? p.dining : [p.dining];
+          if (items.length > 0) {
+            const foodOptions = items.map(f => `${f.food_place_name || f.name} (₹${f.price_per_person || '?'})`).join(", ");
+            details += `\n   * Verified Food: ${foodOptions}`;
+          }
+        }
+        if (p.accommodation) {
+          const items = Array.isArray(p.accommodation) ? p.accommodation : [p.accommodation];
+          if (items.length > 0) {
+            const stayOptions = items.map(s => `${s.stay_name || s.name} (₹${s.price_per_night || '?'})`).join(", ");
+            details += `\n   * Verified Stay: ${stayOptions}`;
+          }
+        }
       }
 
       return details;

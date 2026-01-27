@@ -28,7 +28,8 @@ document.getElementById('tripForm').addEventListener('submit', async (e) => {
     };
 
     // Budget Validation
-    const minPerPersonPerDay = 1500;
+    // Budget Validation (Aligned with Backend: ~800/person/day for food + stay share)
+    const minPerPersonPerDay = 800;
     const requiredBudget = minPerPersonPerDay * formData.people * formData.days;
 
     if (parseInt(formData.budget) < requiredBudget) {

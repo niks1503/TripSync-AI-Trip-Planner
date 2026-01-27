@@ -9,12 +9,20 @@ import { getRestaurants } from "./services/dining.service.js";
 import { getHotels } from "./services/hotel.service.js";
 import { getMapData, getAccessToken, getDistanceInfo } from "./services/mappls.service.js";
 import { getPlaceImages } from "./services/image.service.js";
+import {
+  loadLocalDb,
+  saveLocalDb,
+  findDestination,
+  upsertDestination,
+  buildDestinationFromApi
+} from "./services/localDb.service.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
+
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -93,31 +101,60 @@ app.post("/api/plan-trip", async (req, res) => {
     const dbPath = path.join(__dirname, "data/processed/database.json");
 
     let allPlaces = [];
-    if (fs.existsSync(dbPath)) {
-      allPlaces = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-    } else {
-      console.warn("⚠️ Database not found. Falling back to live API only.");
+    try {
+      allPlaces = loadLocalDb(dbPath);
+      if (!allPlaces.length) console.warn("⚠️ Local database empty/not found. Will use live APIs and hydrate DB.");
+    } catch (e) {
+      console.warn("⚠️ Failed to load local database. Falling back to live APIs only.", e?.message || e);
+      allPlaces = [];
     }
 
     // --- STEP 2: CONTEXT GATHERING ---
     // Optimistic Local Lookup for Coordinates
     let coords = null;
-    const localDest = allPlaces.find(p => p.place_name.toLowerCase() === destination.toLowerCase() || p.place_name.toLowerCase().includes(destination.toLowerCase()));
+    let localDest = findDestination(allPlaces, destination);
 
     if (localDest) {
       if (localDest.lat && localDest.lon) {
         console.log(`📍 Found ${destination} in local database. Using stored coordinates.`);
         coords = { lat: parseFloat(localDest.lat), lon: parseFloat(localDest.lon) };
       } else {
-        console.log(`📍 Found ${destination} in local database (No Lat/Lon). Using mock coordinates to enable ML pipeline.`);
-        coords = { lat: 18.0, lon: 73.0 }; // Default to general Maharashtra region approximately
+        // Try to hydrate coordinates from API once, then persist.
+        console.log(`📍 Found ${destination} in local database (No Lat/Lon). Fetching coords from API...`);
+        const apiCoords = await getCoordinates(destination);
+        if (apiCoords) {
+          coords = { lat: parseFloat(apiCoords.lat), lon: parseFloat(apiCoords.lon) };
+          const updated = { ...localDest, lat: coords.lat, lon: coords.lon };
+          const up = upsertDestination(allPlaces, updated);
+          allPlaces = up.db;
+          localDest = up.destination || localDest;
+          try { saveLocalDb(allPlaces, dbPath); } catch {}
+        } else {
+          console.log(`📍 Coords API failed. Using mock coordinates to keep pipeline running.`);
+          coords = { lat: 18.0, lon: 73.0 }; // Default to general Maharashtra region approximately
+        }
       }
     } else {
       coords = await getCoordinates(destination);
+      // If destination isn't in DB, fetch places and persist a minimal destination record.
+      if (coords) {
+        console.log(`🆕 ${destination} not in local DB. Fetching missing data from APIs and saving locally...`);
+        const apiPlaces = await getPlacesByName(destination);
+        const newDest = buildDestinationFromApi({ destinationName: destination, coords, places: apiPlaces }, allPlaces);
+        const up = upsertDestination(allPlaces, newDest);
+        allPlaces = up.db;
+        localDest = up.destination;
+        try {
+          saveLocalDb(allPlaces, dbPath);
+          console.log(`💾 Saved '${destination}' into local database (${up.created ? "created" : "updated"}).`);
+        } catch (e) {
+          console.warn("⚠️ Failed saving hydrated destination to local DB:", e?.message || e);
+        }
+      }
     }
 
     // RAG & Distance
-    const ragQuery = `Travel rules and safety for ${destination} in Maharashtra during this season.`;
+    const ragQuery = `Travel rules and safety for ${destination} during this season.`;
     const ragPromise = queryRag(ragQuery);
     const distancePromise = getDistanceInfo(source, destination);
 
@@ -129,7 +166,7 @@ app.post("/api/plan-trip", async (req, res) => {
     // --- STEP 3: FEATURE ENGINEERING & RANKING ---
     let rankedPlaces = [];
 
-    if (coords && allPlaces.length > 0) {
+    if (localDest && coords && allPlaces.length > 0) {
       const { CacheService } = await import("./services/cache.service.js");
       const rankingKey = CacheService.generateRankingKey(destination, preferences);
       const cachedRankingIds = CacheService.getRanking(rankingKey);
@@ -144,17 +181,40 @@ app.post("/api/plan-trip", async (req, res) => {
 
         // --- ML RECOMENDATION ENGINE INTEGRATION ---
         const { getMLRecommendations } = await import("./services/recommendation.service.js");
-        console.log("🤖 Asking ML Engine to rank places based on:", userPreferences);
+        console.log("🤖 Asking ML Engine to rank attractions in", destination, "based on:", userPreferences);
 
-        let mlResults = await getMLRecommendations(userPreferences, allPlaces);
+        // Pass destination to ML engine
+        let mlResults = await getMLRecommendations(userPreferences, allPlaces, destination);
 
         if (mlResults && mlResults.length > 0) {
           console.log(`✅ ML Engine returned ${mlResults.length} matches`);
-          // Map ML results back to full place objects, preserving the ML score
+
+          // The ML engine now returns "Attractions" (spots), not "Destinations".
+          // We need to find these spots within the localDest object (or allPlaces if we search)
+          // Since we filtered by destination in ML, we should look in localDest.attractions if available.
+
+          const sourceAttractions = localDest ? localDest.attractions : [];
+
           rankedPlaces = mlResults.map(mlItem => {
-            const fullPlace = allPlaces.find(p => p.place_id == mlItem.place_id);
+            // Find the full attraction object
+            // mlItem has 'spot_name' or 'place_name' depending on data
+            const nameToFind = mlItem.spot_name || mlItem.place_name;
+            const fullPlace = sourceAttractions.find(p => p.spot_name === nameToFind);
+
             if (fullPlace) {
-              return { ...fullPlace, score: mlItem.ml_score, features: { ml_score: mlItem.ml_score } };
+              return {
+                ...fullPlace,
+                // Ensure name is consistent for frontend
+                place_name: fullPlace.spot_name,
+                score: mlItem.ml_score,
+                features: {
+                  ml_score: mlItem.ml_score,
+                  popularity_score: mlItem.scores ? mlItem.scores.preference : 0,
+                  distance_score: mlItem.scores ? mlItem.scores.distance : 0,
+                  time_feasibility_score: mlItem.scores ? mlItem.scores.feasibility : 0,
+                  budget_score: 0.5 // Default/Neutral
+                }
+              };
             }
             return null;
           }).filter(Boolean);
@@ -190,6 +250,8 @@ app.post("/api/plan-trip", async (req, res) => {
     } else {
       console.log("Using live API fallback for places...");
       rankedPlaces = await getPlacesByName(destination);
+      console.log(`Live API returned ${rankedPlaces.length} places.`);
+      if (rankedPlaces.length === 0) console.warn("WARNING: Live API returned 0 places!");
     }
 
     // --- STEP 4: PROMPT CONSTRUCTION ---
@@ -198,11 +260,10 @@ app.post("/api/plan-trip", async (req, res) => {
     // DEBUG: Check if rankedPlaces has attractions/dining
     if (rankedPlaces.length > 0) {
       const p1 = rankedPlaces[0];
-      console.log(`DEBUG: Top Place: ${p1.place_name} (ID: ${p1.place_id})`);
-      console.log(`DEBUG: Attractions Count: ${p1.attractions ? p1.attractions.length : 0}`);
-      if (p1.attractions && p1.attractions.length > 0) {
-        console.log(`DEBUG: Spot 1 Dining: ${JSON.stringify(p1.attractions[0].dining)}`);
-      }
+      console.log(`DEBUG: Top Place: ${p1.place_name || p1.name} (keys: ${Object.keys(p1).join(',')})`);
+      // console.log(`DEBUG: Dataset structure check - has attractions? ${!!p1.attractions}`);
+    } else {
+      console.log("DEBUG: rankedPlaces is empty!");
     }
 
     const prompt = buildPrompt(
