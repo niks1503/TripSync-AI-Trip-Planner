@@ -27,8 +27,38 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// ✅ STARTUP VALIDATION
+console.log("\n🔍 Validating Configuration...");
+const requiredEnvVars = ["GEOAPIFY_API_KEY", "GROQ_API_KEY"];
+const missingVars = requiredEnvVars.filter(v => !process.env[v]);
+
+if (missingVars.length > 0) {
+  console.warn("⚠️  Missing Environment Variables:", missingVars.join(", "));
+  console.warn("   Please add to .env file and restart server.");
+} else {
+  console.log("✅ All required API keys configured");
+}
+
+console.log(`✅ Server configured on PORT ${PORT}\n`);
+
+// ✅ Helper Function: Load Places from Database
+async function loadPlacesData() {
+  const fs = await import("fs");
+  const dbPath = path.join(__dirname, "data/processed/database.json");
+  
+  let allPlaces = [];
+  if (fs.existsSync(dbPath)) {
+    allPlaces = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+  }
+  return allPlaces;
+}
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/agent", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "agent.html"));
 });
 
 // Stream itinerary generation
@@ -97,12 +127,10 @@ app.post("/api/plan-trip", async (req, res) => {
     // --- STEP 1: LOAD INTELLIGENCE ---
     const { buildFeatureVector } = await import("./services/featureEngineering/featureBuilder.js");
     const { queryRag } = await import("./services/rag/queryRag.js");
-    const fs = await import("fs");
-    const dbPath = path.join(__dirname, "data/processed/database.json");
 
     let allPlaces = [];
     try {
-      allPlaces = loadLocalDb(dbPath);
+      allPlaces = loadLocalDb(path.join(__dirname, "data/processed/database.json"));
       if (!allPlaces.length) console.warn("⚠️ Local database empty/not found. Will use live APIs and hydrate DB.");
     } catch (e) {
       console.warn("⚠️ Failed to load local database. Falling back to live APIs only.", e?.message || e);
@@ -128,7 +156,7 @@ app.post("/api/plan-trip", async (req, res) => {
           const up = upsertDestination(allPlaces, updated);
           allPlaces = up.db;
           localDest = up.destination || localDest;
-          try { saveLocalDb(allPlaces, dbPath); } catch {}
+          try { saveLocalDb(allPlaces, path.join(__dirname, "data/processed/database.json")); } catch { }
         } else {
           console.log(`📍 Coords API failed. Using mock coordinates to keep pipeline running.`);
           coords = { lat: 18.0, lon: 73.0 }; // Default to general Maharashtra region approximately
@@ -145,7 +173,7 @@ app.post("/api/plan-trip", async (req, res) => {
         allPlaces = up.db;
         localDest = up.destination;
         try {
-          saveLocalDb(allPlaces, dbPath);
+          saveLocalDb(allPlaces, path.join(__dirname, "data/processed/database.json"));
           console.log(`💾 Saved '${destination}' into local database (${up.created ? "created" : "updated"}).`);
         } catch (e) {
           console.warn("⚠️ Failed saving hydrated destination to local DB:", e?.message || e);
@@ -167,91 +195,107 @@ app.post("/api/plan-trip", async (req, res) => {
     let rankedPlaces = [];
 
     if (localDest && coords && allPlaces.length > 0) {
-      const { CacheService } = await import("./services/cache.service.js");
-      const rankingKey = CacheService.generateRankingKey(destination, preferences);
-      const cachedRankingIds = CacheService.getRanking(rankingKey);
+      // Direct computation without caching
+      console.log(`Computing ranking for ${destination}`);
 
-      if (cachedRankingIds) {
-        console.log(`CACHE HIT: Using cached ranking for ${rankingKey}`);
-        rankedPlaces = cachedRankingIds
-          .map(id => allPlaces.find(p => p.place_id == id))
-          .filter(Boolean);
+      // --- ML RECOMENDATION ENGINE INTEGRATION ---
+      const { getMLRecommendations } = await import("./services/recommendation.service.js");
+      console.log("🤖 Asking ML Engine to rank attractions in", destination, "based on:", userPreferences);
+
+      // Pass destination to ML engine
+      let mlResults = await getMLRecommendations(userPreferences, allPlaces, destination);
+
+      if (mlResults && mlResults.length > 0) {
+        console.log(`✅ ML Engine returned ${mlResults.length} matches`);
+
+        // The ML engine now returns "Attractions" (spots), not "Destinations".
+        // We need to find these spots within the localDest object (or allPlaces if we search)
+        // Since we filtered by destination in ML, we should look in localDest.attractions if available.
+
+        const sourceAttractions = localDest ? localDest.attractions : [];
+
+        rankedPlaces = mlResults.map(mlItem => {
+          // Find the full attraction object
+          // mlItem has 'spot_name' or 'place_name' depending on data
+          const nameToFind = mlItem.spot_name || mlItem.place_name;
+          const fullPlace = sourceAttractions.find(p => p.spot_name === nameToFind);
+
+          if (fullPlace) {
+            return {
+              ...fullPlace,
+              // Ensure name is consistent for frontend
+              place_name: fullPlace.spot_name,
+              score: mlItem.ml_score,
+              features: {
+                ml_score: mlItem.ml_score,
+                popularity_score: mlItem.scores ? mlItem.scores.preference : 0,
+                distance_score: mlItem.scores ? mlItem.scores.distance : 0,
+                time_feasibility_score: mlItem.scores ? mlItem.scores.feasibility : 0,
+                budget_score: 0.5 // Default/Neutral
+              }
+            };
+          }
+          return null;
+        }).filter(Boolean);
       } else {
-        console.log(`CACHE MISS: Computing ranking for ${rankingKey}`);
+        console.warn("⚠️ ML Engine returned no results. Falling back to Heuristic Scoring.");
+        const context = {
+          userLat: coords.lat,
+          userLon: coords.lon,
+          budget_level: budgetTier === 'High' ? 3 : (budgetTier === 'Low' ? 1 : 2),
+          available_time_hours: 4
+        };
 
-        // --- ML RECOMENDATION ENGINE INTEGRATION ---
-        const { getMLRecommendations } = await import("./services/recommendation.service.js");
-        console.log("🤖 Asking ML Engine to rank attractions in", destination, "based on:", userPreferences);
+        const scoredPlaces = allPlaces.map(p => {
+          // Always calculate fresh features
+          const features = buildFeatureVector(p, context);
 
-        // Pass destination to ML engine
-        let mlResults = await getMLRecommendations(userPreferences, allPlaces, destination);
+          const score = (features.distance_score * 0.4) +
+            (features.popularity_score * 0.3) +
+            (features.budget_score * 0.2) +
+            (features.time_feasibility_score * 0.1);
+          return { ...p, score, features };
+        });
 
-        if (mlResults && mlResults.length > 0) {
-          console.log(`✅ ML Engine returned ${mlResults.length} matches`);
-
-          // The ML engine now returns "Attractions" (spots), not "Destinations".
-          // We need to find these spots within the localDest object (or allPlaces if we search)
-          // Since we filtered by destination in ML, we should look in localDest.attractions if available.
-
-          const sourceAttractions = localDest ? localDest.attractions : [];
-
-          rankedPlaces = mlResults.map(mlItem => {
-            // Find the full attraction object
-            // mlItem has 'spot_name' or 'place_name' depending on data
-            const nameToFind = mlItem.spot_name || mlItem.place_name;
-            const fullPlace = sourceAttractions.find(p => p.spot_name === nameToFind);
-
-            if (fullPlace) {
-              return {
-                ...fullPlace,
-                // Ensure name is consistent for frontend
-                place_name: fullPlace.spot_name,
-                score: mlItem.ml_score,
-                features: {
-                  ml_score: mlItem.ml_score,
-                  popularity_score: mlItem.scores ? mlItem.scores.preference : 0,
-                  distance_score: mlItem.scores ? mlItem.scores.distance : 0,
-                  time_feasibility_score: mlItem.scores ? mlItem.scores.feasibility : 0,
-                  budget_score: 0.5 // Default/Neutral
-                }
-              };
-            }
-            return null;
-          }).filter(Boolean);
-        } else {
-          console.warn("⚠️ ML Engine returned no results. Falling back to Heuristic Scoring.");
-          const context = {
-            userLat: coords.lat,
-            userLon: coords.lon,
-            budget_level: budgetTier === 'High' ? 3 : (budgetTier === 'Low' ? 1 : 2),
-            available_time_hours: 4
-          };
-
-          const scoredPlaces = allPlaces.map(p => {
-            let features = CacheService.getFeatureVector(p.place_id);
-            if (!features) {
-              features = buildFeatureVector(p, context);
-              CacheService.setFeatureVector(p.place_id, features);
-            }
-            const score = (features.distance_score * 0.4) +
-              (features.popularity_score * 0.3) +
-              (features.budget_score * 0.2) +
-              (features.time_feasibility_score * 0.1);
-            return { ...p, score, features };
-          });
-
-          scoredPlaces.sort((a, b) => b.score - a.score);
-          rankedPlaces = scoredPlaces.slice(0, 15);
-        }
-
-        CacheService.setRanking(rankingKey, rankedPlaces.map(p => p.place_id));
-        CacheService.saveFeatures();
+        scoredPlaces.sort((a, b) => b.score - a.score);
+        rankedPlaces = scoredPlaces.slice(0, 15);
       }
     } else {
       console.log("Using live API fallback for places...");
       rankedPlaces = await getPlacesByName(destination);
       console.log(`Live API returned ${rankedPlaces.length} places.`);
       if (rankedPlaces.length === 0) console.warn("WARNING: Live API returned 0 places!");
+    }
+
+    // --- STEP 3.5: FETCH AMENITIES (Hotels & Dining) ---
+    console.log("Fetching Hotels & Dining options...");
+    const [restaurants, hotels] = await Promise.all([
+      getRestaurants(coords.lat, coords.lon),
+      getHotels(coords.lat, coords.lon)
+    ]);
+    console.log(`Found ${restaurants?.length || 0} restaurants and ${hotels?.length || 0} hotels.`);
+
+    // --- STEP 3.1: FLATTEN DESTINATION IF NEEDED ---
+    // If we have a matching destination object, UNPACK its attractions so the LLM gets granular spots.
+    // This fixes the "Itinerary Repetition" issue where the LLM only sees "1. Jaipur" and repeats it.
+    if (rankedPlaces.length > 0) {
+      const topMatch = rankedPlaces[0];
+      const matchName = topMatch.place_name || topMatch.name || "";
+
+      // If the top ranked item IS the destination (approx match) AND has nested attractions
+      if (matchName.toLowerCase().includes(destination.toLowerCase()) && topMatch.attractions && topMatch.attractions.length > 0) {
+        console.log(`📦 Unpacking ${topMatch.attractions.length} attractions from '${matchName}' for granular itinerary planning...`);
+
+        // Replace the "City Object" with its "Attraction Objects"
+        rankedPlaces = topMatch.attractions.map(attr => ({
+          ...attr,
+          name: attr.spot_name, // Normalize name
+          score: topMatch.score || 0.8, // Inherit score 
+          // Ensure dining/stay are preserved
+          dining: attr.dining,
+          accommodation: attr.accommodation
+        }));
+      }
     }
 
     // --- STEP 4: PROMPT CONSTRUCTION ---
@@ -268,7 +312,14 @@ app.post("/api/plan-trip", async (req, res) => {
 
     const prompt = buildPrompt(
       { destination, source, budget: totalBudget, budgetTier, people, days, transportMode, preferences: userPreferences },
-      { places: rankedPlaces, ragContext, distanceInfo, dayPlan: rankedPlaces.mlItinerary }
+      {
+        places: rankedPlaces,
+        ragContext,
+        distanceInfo,
+        dayPlan: rankedPlaces.mlItinerary,
+        restaurants: restaurants || [],
+        hotels: hotels || []
+      }
     );
 
     // DEBUG: Print a snippet of the generated prompt
@@ -304,16 +355,13 @@ app.post("/api/debug/decision-trace", async (req, res) => {
     // Import Services
     const { buildFeatureVector } = await import("./services/featureEngineering/featureBuilder.js");
     const { queryRag } = await import("./services/rag/queryRag.js");
-    const { CacheService } = await import("./services/cache.service.js");
+    // Removed CacheService import
     const { explainRanking } = await import("./services/explainability/explainRank.js");
-    const fs = await import("fs");
-    const dbPath = path.join(__dirname, "data/processed/database.json");
 
     // 1. Load Data
-    let allPlaces = [];
+    let allPlaces = await loadPlacesData();
     let processingNotes = [];
-    if (fs.existsSync(dbPath)) {
-      allPlaces = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+    if (allPlaces.length > 0) {
       processingNotes.push(`Loaded ${allPlaces.length} places from database.`);
     } else {
       processingNotes.push("Database not found. Using empty list.");
@@ -333,64 +381,38 @@ app.post("/api/debug/decision-trace", async (req, res) => {
     let cacheHit = false;
 
     if (coords && allPlaces.length > 0) {
-      const rankingKey = CacheService.generateRankingKey(destination, preferences);
-      const cachedRankingIds = CacheService.getRanking(rankingKey);
+      // Always compute fresh
+      processingNotes.push(`Computing ranking for ${destination}`);
 
-      if (cachedRankingIds) {
-        processingNotes.push(`CACHE HIT: Using cached ranking for key '${rankingKey}'`);
-        cacheHit = true;
-        rankedPlaces = cachedRankingIds
-          .map(id => allPlaces.find(p => p.place_id == id))
-          .filter(Boolean)
-          .map(p => {
-            const cachedFeatures = CacheService.getFeatureVector(p.place_id);
-            const logic = explainRanking(cachedFeatures);
-            return {
-              ...p,
-              features: cachedFeatures || {},
-              score: 'CACHED',
-              reasoning: logic
-            };
-          });
-      } else {
-        processingNotes.push(`CACHE MISS: Computing ranking for key '${rankingKey}'`);
+      const totalBudget = parseInt(budget) || 20000;
+      let budgetLevel = 2;
+      if (totalBudget < 20000) budgetLevel = 1;
+      else if (totalBudget > 30000) budgetLevel = 3;
 
-        const totalBudget = parseInt(budget) || 20000;
-        let budgetLevel = 2;
-        if (totalBudget < 20000) budgetLevel = 1;
-        else if (totalBudget > 30000) budgetLevel = 3;
+      const context = {
+        userLat: coords.lat,
+        userLon: coords.lon,
+        budget_level: budgetLevel,
+        available_time_hours: 4
+      };
 
-        const context = {
-          userLat: coords.lat,
-          userLon: coords.lon,
-          budget_level: budgetLevel,
-          available_time_hours: 4
-        };
+      const scoredPlaces = allPlaces.map(p => {
+        // Always compute fresh features
+        const features = buildFeatureVector(p, context);
 
-        const scoredPlaces = allPlaces.map(p => {
-          let features = CacheService.getFeatureVector(p.place_id);
-          if (!features) {
-            features = buildFeatureVector(p, context);
-            CacheService.setFeatureVector(p.place_id, features);
-          }
+        const score = (features.distance_score * 0.4) +
+          (features.popularity_score * 0.3) +
+          (features.budget_score * 0.2) +
+          (features.time_feasibility_score * 0.1);
 
-          const score = (features.distance_score * 0.4) +
-            (features.popularity_score * 0.3) +
-            (features.budget_score * 0.2) +
-            (features.time_feasibility_score * 0.1);
+        const logic = explainRanking(features);
+        featureVectors.push({ place_id: p.place_id, name: p.place_name, ...features });
 
-          const logic = explainRanking(features);
-          featureVectors.push({ place_id: p.place_id, name: p.place_name, ...features });
+        return { ...p, score, features, reasoning: logic };
+      });
 
-          return { ...p, score, features, reasoning: logic };
-        });
-
-        scoredPlaces.sort((a, b) => b.score - a.score);
-        rankedPlaces = scoredPlaces.slice(0, 20);
-
-        CacheService.setRanking(rankingKey, rankedPlaces.map(p => p.place_id));
-        CacheService.saveFeatures();
-      }
+      scoredPlaces.sort((a, b) => b.score - a.score);
+      rankedPlaces = scoredPlaces.slice(0, 20);
     }
 
     res.json({

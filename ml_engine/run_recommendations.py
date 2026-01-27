@@ -20,6 +20,8 @@ def main():
         
         # Parse Context
         preferences = request.get('preferences', '')
+        destination_name = request.get('destination', '')
+        
         context = {
             'user_lat': request.get('user_lat'),
             'user_lon': request.get('user_lon'),
@@ -33,23 +35,40 @@ def main():
              return
 
         with open(DATA_PATH, 'r', encoding='utf-8') as f:
-            places_data = json.load(f)
+            all_places = json.load(f)
 
-        # 3. Train Model
+        # 3. Filter by Destination
+        # The DB is a list of destinations, each containing 'attractions'
+        destination_obj = None
+        if destination_name:
+            destination_obj = next((p for p in all_places if p['place_name'].lower() == destination_name.lower()), None)
+            
+        if not destination_obj:
+            # Fallback: If no specific destination found, maybe we act on all (but likely not what's needed)
+            print(json.dumps({"error": f"Destination '{destination_name}' not found in database"}))
+            return
+
+        attractions_data = destination_obj.get('attractions', [])
+        
+        if not attractions_data:
+             print(json.dumps({"error": "No attractions found for this destination"}))
+             return
+
+        # 4. Train Model on ATTRACTIONS
         recommender = ContentRecommender()
-        recommender.train(places_data)
+        recommender.train(attractions_data)
 
-        # 4. Get Recommendations (Trip-Aware)
+        # 5. Get Recommendations
         recommendations = recommender.recommend(preferences, context, top_n=15)
         
-        # 5. Day-Wise Allocation
+        # 6. Day-Wise Allocation (Note: Attractions might lack lat/lon, so clustering might fallback)
         itinerary = recommender.allocate_itinerary(recommendations, context['days'])
         
-        # 6. Output JSON structure
+        # 7. Output JSON structure
         response = {
             "meta": {
                 "count": len(recommendations),
-                "strategy": "Multi-Objective + Clustering"
+                "strategy": "Content-Based Filtering on Attractions"
             },
             "recommendations": recommendations,
             "itinerary": itinerary

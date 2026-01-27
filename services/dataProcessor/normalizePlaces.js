@@ -26,7 +26,7 @@ export function normalizePlaces(rawPlaces) {
     if (seen.has(id)) continue;
     
     // Skip if no name or coordinates
-    if (!props.name || (!props.lat && !props.lat !== 0) || (!props.lon && !props.lon !== 0)) {
+    if (!props.name || (props.lat === null && props.lat === undefined) || (props.lon === null && props.lon === undefined)) {
        continue;
     }
     

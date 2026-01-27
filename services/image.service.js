@@ -61,16 +61,6 @@ export async function getPlaceImageFromGoogle(placeName, destination) {
 }
 
 /**
- * Get image for a place using Google Places API
- * @param {string} placeName - Name of the place
- * @param {string} destination - Destination city for context
- * @returns {Promise<string|null>} - Image URL or null
- */
-export async function getPlaceImage(placeName, destination) {
-    return await getPlaceImageFromGoogle(placeName, destination);
-}
-
-/**
  * Fetch images for multiple places in parallel
  * @param {Array<{name: string}>} places - Array of place objects
  * @param {string} destination - Destination city
@@ -78,7 +68,7 @@ export async function getPlaceImage(placeName, destination) {
  */
 export async function getPlaceImages(places, destination) {
     const imagePromises = places.map(async (place) => {
-        const imageUrl = await getPlaceImage(place.name, destination);
+        const imageUrl = await getPlaceImageFromGoogle(place.name, destination);
         return { name: place.name, imageUrl };
     });
 

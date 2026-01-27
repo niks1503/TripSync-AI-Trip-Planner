@@ -47,7 +47,13 @@ export async function getAccessToken() {
  */
 export async function geocode(location) {
     try {
-        const GEOAPIFY_API_KEY = process.env.PLACES_API_KEY;
+        const GEOAPIFY_API_KEY = process.env.GEOAPIFY_API_KEY || process.env.PLACES_API_KEY;
+        
+        if (!GEOAPIFY_API_KEY) {
+            console.error("❌ GEOAPIFY_API_KEY not configured in .env");
+            return null;
+        }
+        
         const response = await axios.get(
             `https://api.geoapify.com/v1/geocode/search`,
             {
@@ -186,41 +192,41 @@ export async function getDistanceInfo(source, destination) {
 }
 
 /**
- * Search for places/attractions near a location
+ * Search for places/attractions near a location using Geoapify
+ * (Replacing Mappls due to reliability issues)
  */
-export async function searchPlaces(lat, lng, query = "tourist attraction", radius = 10000) {
+export async function searchPlaces(lat, lng, query = "tourist attraction", radius = 5000) {
     try {
-        const token = await getAccessToken();
+        const GEOAPIFY_API_KEY = process.env.PLACES_API_KEY; // Reusing the Geoapify key
 
+        // Geoapify Places API
         const response = await axios.get(
-            `https://atlas.mappls.com/api/places/nearby/json`,
+            `https://api.geoapify.com/v2/places`,
             {
                 params: {
-                    keywords: query,
-                    refLocation: `${lat},${lng}`,
-                    radius: radius,
-                    page: 1
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`
+                    categories: 'tourism.sights,tourism.attraction,entertainment.museum,religion,natural',
+                    filter: `circle:${lng},${lat},${radius}`,
+                    bias: `proximity:${lng},${lat}`,
+                    limit: 15,
+                    apiKey: GEOAPIFY_API_KEY
                 }
             }
         );
 
-        if (response.data.suggestedLocations) {
-            return response.data.suggestedLocations.map(place => ({
-                name: place.placeName,
-                address: place.placeAddress,
-                lat: parseFloat(place.latitude),
-                lng: parseFloat(place.longitude),
-                type: place.type,
-                eLoc: place.eLoc
-            }));
+        if (response.data.features) {
+            return response.data.features.map(feature => ({
+                name: feature.properties.name || feature.properties.formatted,
+                address: feature.properties.address_line2 || feature.properties.formatted,
+                lat: feature.properties.lat,
+                lng: feature.properties.lon,
+                type: feature.properties.categories ? feature.properties.categories[0] : 'point_of_interest',
+                eLoc: null // Geoapify doesn't use eLoc
+            })).filter(p => p.name); // Filter out unnamed places
         }
 
         return [];
     } catch (error) {
-        console.error("Error searching places:", error.response?.data || error.message);
+        console.error("Error searching places (Geoapify):", error.response?.data || error.message);
         return [];
     }
 }

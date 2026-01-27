@@ -1,5 +1,51 @@
+// Calculate budget distribution across categories
+function calculateBudgetDistribution(totalBudget, days, people) {
+  const budget = typeof totalBudget === 'string' ? parseFloat(totalBudget) : totalBudget;
+  
+  if (!budget || budget <= 0 || isNaN(budget)) {
+    return {
+      daily: 0,
+      accommodation: "Budget not specified",
+      food: "Budget not specified",
+      transportation: "Budget not specified",
+      activities: "Budget not specified",
+      miscellaneous: "Budget not specified",
+      total: "₹0"
+    };
+  }
+
+  // Ensure days and people are valid numbers
+  const numDays = parseInt(days, 10) || 1;
+  const numPeople = parseInt(people, 10) || 1;
+
+  // Daily budget per person
+  const dailyPerPerson = budget / numDays / numPeople;
+  
+  // Distribution percentages
+  const dist = {
+    accommodation: 0.40,    // 40% - Hotels/Stays
+    food: 0.25,             // 25% - Restaurants/Meals
+    transportation: 0.20,   // 20% - Travel
+    activities: 0.10,       // 10% - Entry fees/Guides
+    miscellaneous: 0.05     // 5% - Tips/Emergencies
+  };
+
+  return {
+    daily: Math.round(dailyPerPerson),
+    accommodation: `₹${Math.round(budget * dist.accommodation).toLocaleString('en-IN')}`,
+    food: `₹${Math.round(budget * dist.food).toLocaleString('en-IN')}`,
+    transportation: `₹${Math.round(budget * dist.transportation).toLocaleString('en-IN')}`,
+    activities: `₹${Math.round(budget * dist.activities).toLocaleString('en-IN')}`,
+    miscellaneous: `₹${Math.round(budget * dist.miscellaneous).toLocaleString('en-IN')}`,
+    total: `₹${Math.round(budget).toLocaleString('en-IN')}`
+  };
+}
+
 export function buildPrompt(user, context = {}) {
   const { destination, source, budget, budgetTier, people, days, transportMode, preferences } = user;
+
+  // Calculate budget breakdown
+  const budgetDist = calculateBudgetDistribution(budget, days, people);
 
   // Local helpers (kept inside module for portability)
   const formatDining = (dining) => {
@@ -132,32 +178,124 @@ LOGISTICS:
   }
 
   return `
-SYSTEM:
-You are an expert Travel Narrator and Logic Solver.
-Your goal is NOT to search for new places, but to **weave a narrative itinerary** using the PRE-RANKED list provided below.
+SYSTEM INSTRUCTIONS:
+You are an expert Travel Planner. Generate a detailed, practical itinerary in FORMATTED TEXT (not JSON).
 
-RULES:
-1. **Strict Adherence**: Use the provided "Top Ranked Candidates" list. Do not hallucinate places not listed.
-2. **Specific Recommendations**: When suggesting Lunch/Dinner or Accommodation, you **MUST** use the exact names from "Verified Food Options" or "Verified Stays" provided in the list. Do NOT say "a local restaurant" or "budget hotel". Name the specific place.
-3. **Constraint Resolution**: Check the "IMPORTANT ADVISORY". If a temple rule says "No shorts", ensure the itinerary mentions dressing appropriately on that day.
-4. **Budget Alignment**: The user budget is ₹${budget} (${budgetTier}). Ensure recommended activities fit this.
-5. **Formatted Narrative**: Explain *why* these places fit the ${preferences} vibe.
+KEY REQUIREMENTS:
+- Use only place names from the lists below
+- Include realistic costs (never ₹0)
+- Provide specific, actionable activities
+- Format as a clear, readable markdown guide with emojis, sections, and details
+- Include budget breakdown table
+- Include day-by-day activities with times (Morning, Afternoon, Evening, Night)
+- Include food recommendations
+- Include transport tips and final tips
+
+OUTPUT FORMAT (example structure to follow):
+- Start with a brief intro
+- Include 💰 Budget Breakdown as a clear table
+- For each day: 📍 Day X – Theme
+  - Morning: bullet points with costs
+  - Afternoon: bullet points with costs
+  - Evening/Night: bullet points with costs
+  - Stay recommendation
+  - Day spend estimate
+- Include 🍽 Food recommendations
+- Include 🏨 Stay suggestions
+- Include 🛵 Transport tips  
+- Include ✅ Final tips
+
+Use these emojis: 💰 📍 🍽 🏨 🛵 ⸻ ✅ 🔹 🛏 💸
+
+Make it practical, budget-conscious, and fun!
 
 CONTEXT:
 ${distanceInfo}
 ${ragInfo}
 
-TOP RANKED CANDIDATES (Use these):
+AVAILABLE PLACES:
 ${placesList}
 
-USER REQUEST:
-- Trip: ${source} to ${destination}
-- Duration: ${days} days
-- People: ${people}
-- Preference: ${preferences}
-- Mode: ${transportMode}
+VERIFIED HOTELS:
+${context.hotels && context.hotels.length > 0
+      ? context.hotels.slice(0, 10).map(h => `- ${h.name || "Hotel"} (${h.city ? `City: ${h.city}` : "Various"}, Phone: ${h.phone || "N/A"}, Website: ${h.website || "N/A"})`).join("\n")
+      : "No verified hotels found. Suggest generic options based on destination."}
 
-OUTPUT:
-Generate a rich, engaging itinerary. Start with a "Trip Summary" explaining how the selected places match the preferences and safety guidelines.
-`;
+VERIFIED RESTAURANTS:
+${context.restaurants && context.restaurants.length > 0
+      ? context.restaurants.slice(0, 15).map(r => `- ${r.name || "Restaurant"} (Cuisine: ${r.cuisine || "Local"}, Address: ${r.address || "Various"})`).join("\n")
+      : "No verified restaurants found. Suggest generic options based on destination."}
+
+BUDGET BREAKDOWN:
+${budgetDist.accommodation} for accommodation
+${budgetDist.food} for food
+${budgetDist.transportation} for transport
+${budgetDist.activities} for activities
+${budgetDist.miscellaneous} for miscellaneous
+
+=== START REQUIRED JSON OUTPUT BELOW THIS LINE ===
+RESPOND WITH ONLY THE JSON, NO OTHER TEXT.
+
+{
+  "overview": {
+    "title": "Exciting Trip to [Destination]",
+    "vibe": "Energetic / Relaxed / Cultural",
+    "highlights": ["Highlight 1", "Highlight 2", "Highlight 3"]
+  },
+  "transportation": {
+    "mode": "Flight / Train / etc",
+    "cost": "Estimated cost"
+  },
+  "budget": {
+    "accommodation": "₹Amount",
+    "food": "₹Amount",
+    "transportation": "₹Amount",
+    "activities": "₹Amount",
+    "miscellaneous": "₹Amount",
+    "total": "₹Amount"
+  },
+  "days": [
+    {
+      "day": 1,
+      "title": "Theme of the Day",
+      "morning": { 
+        "activity": "Activity Name", 
+        "cost": "₹500", 
+        "place": "Place Name", 
+        "tip": "Useful tip (entry fees or transport)" 
+      },
+      "lunch": {
+        "activity": "Lunch at [Recommended Place]",
+        "cost": "₹400",
+        "place": "Exact Restaurant Name",
+        "tip": "Dish recommendation (₹200-600 per person)"
+      },
+      "afternoon": { 
+        "activity": "Activity Name", 
+        "cost": "₹800", 
+        "place": "Place Name", 
+        "tip": "Tip (entry/activity fees)" 
+      },
+      "evening": { 
+        "activity": "Activity Name", 
+        "cost": "₹300", 
+        "place": "Place Name", 
+        "tip": "Tip (transport/snacks)" 
+      },
+      "dinner": {
+        "activity": "Dinner at [Recommended Place]",
+        "cost": "₹600",
+        "place": "Exact Restaurant Name",
+        "tip": "Cuisine style (₹300-800 per person)"
+      },
+      "accommodation": {
+        "activity": "Overnight Stay",
+        "cost": "₹2500",
+        "place": "Exact Hotel/Resort Name",
+        "tip": "Room type or amenity to check (budget/mid-range)"
+      }
+    }
+  ],
+  "tips": ["Tip 1", "Tip 2", "Tip 3"]
+}`;
 }

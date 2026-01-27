@@ -16,20 +16,28 @@ class ContentRecommender:
     def train(self, places_data):
         self.df = pd.DataFrame(places_data)
         
-        # 1. Text Features
-        self.df['content'] = self.df['category'] + " " + self.df['description'].fillna('')
-        self.tfidf_matrix = self.tfidf.fit_transform(self.df['content'])
-        self.indices = pd.Series(self.df.index, index=self.df['place_name']).drop_duplicates()
+        # 1. Text Features (Handle missing columns)
+        # Attractions might not have 'category', so we focus on name + description
+        content_parts = []
+        if 'category' in self.df.columns:
+            content_parts.append(self.df['category'].fillna(''))
+            
+        content_parts.append(self.df['spot_name'].fillna('') if 'spot_name' in self.df.columns else self.df['place_name'].fillna(''))
+        content_parts.append(self.df['description'].fillna(''))
         
-        # 2. Train Clustering
-        if 'lat' in self.df.columns and 'lon' in self.df.columns:
-             self.cluster_map = self.clustering.train(places_data)
-             self.df['cluster'] = self.df['place_id'].astype(str).map(self.cluster_map).fillna(-1)
+        # Join all available text parts
+        self.df['content'] = pd.concat(content_parts, axis=1).apply(lambda x: ' '.join(x), axis=1)
+            
+        self.tfidf_matrix = self.tfidf.fit_transform(self.df['content'])
+        
+        # Reset index to ensure we can look up by position
+        self.df = self.df.reset_index(drop=True)
         
         return self
 
     def _haversine(self, lat1, lon1, lat2, lon2):
-        if pd.isnull(lat1) or pd.isnull(lat2): return 1000 # Max distance penalty
+        if pd.isnull(lat1) or pd.isnull(lat2) or lat1 is None or lat2 is None: 
+            return 1000 # Max distance penalty
         R = 6371
         phi1, phi2 = np.radians(lat1), np.radians(lat2)
         dphi = np.radians(lat2 - lat1)
@@ -42,96 +50,89 @@ class ContentRecommender:
         Multi-Objective Recommendation Logic
         context: { user_lat, user_lon, budget, days }
         """
-        if self.tfidf_matrix is None: return []
+        if self.tfidf_matrix is None or self.df.empty: return []
 
         # 1. Preference Score (TF-IDF)
         user_tfidf = self.tfidf.transform([user_profile])
         cosine_sim = linear_kernel(user_tfidf, self.tfidf_matrix).flatten()
         
         results = []
-        selected_categories = set()
         
         for idx, row in self.df.iterrows():
             # --- Feature 1: Preference ---
             pref_score = cosine_sim[idx]
             
             # --- Feature 2: Distance ---
+            # Attractions often lack lat/lon in this specific dataset struct, so we might skip or use parent
             dist_score = 0
-            if context.get('user_lat'):
+            if context.get('user_lat') and row.get('lat'):
                 d = self._haversine(context['user_lat'], context['user_lon'], row.get('lat'), row.get('lon'))
-                dist_score = np.exp(-(d/50)**2) # Gaussian decay, sigma=50km
+                dist_score = np.exp(-(d/50)**2) # Gaussian decay
             else:
                 dist_score = 0.5 # Neutral if no location
                 
             # --- Feature 3: Budget ---
+            # Parsing dining/accomodation costs is complex, simple heuristic for now
             budget_score = 1.0
-            place_cost = 2000 # Default if unknown
-            user_budget = float(context.get('budget', 5000))
-            if place_cost > user_budget:
-                budget_score = 0.0
             
-            # --- Feature 4: Time Feasibility ---
-            time_score = 1.0
-            # Simple heuristic: penalize if trip is short (1-2 days) but place is remote
-            if context.get('days', 3) < 2 and dist_score < 0.2:
-                time_score = 0.5
-
             # --- Score Aggregation ---
-            # Weights: Pref(0.4) + Dist(0.3) + Time(0.2) + Budget(0.1)
-            final_score = (pref_score * 0.4) + (dist_score * 0.3) + (time_score * 0.2) + (budget_score * 0.1)
-            
-            # --- Feature 5: Diversity Penalty ---
-            if row['category'] in selected_categories:
-                final_score *= 0.8 # Penalize repeat categories
+            # Weights: Pref(0.6) + Dist(0.2) + Budget(0.2)
+            # Increased preference weight since distance is often missing for attractions
+            final_score = (pref_score * 0.6) + (dist_score * 0.2) + (budget_score * 0.2)
             
             results.append({
                 **row.to_dict(),
                 'ml_score': float(final_score),
                 'scores': {
                     'preference': float(pref_score),
-                    'distance': float(dist_score),
-                    'feasibility': float(time_score)
+                    'distance': float(dist_score)
                 }
             })
             
         # Sort and Pick
         results = sorted(results, key=lambda x: x['ml_score'], reverse=True)
         top_picks = results[:top_n]
-        
-        # Track categories for diversity in next iteration (if simulated)
-        for p in top_picks:
-            selected_categories.add(p['category'])
             
         return top_picks
 
     def allocate_itinerary(self, places, days):
         """
-        Groups selected places into 'days' based on geographic clustering.
+        Groups selected places into 'days'.
+        If lat/lon exists, use clustering. Otherwise, simple chunking.
         """
         if not places or days < 1: return {}
         
-        # Extract lat/lon for clustering
-        coords = [[p.get('lat', 0), p.get('lon', 0)] for p in places]
+        # Check if we have valid coordinates for at least 50% of places
+        has_coords = sum(1 for p in places if p.get('lat') and p.get('lon'))
+        use_clustering = has_coords > (len(places) / 2)
         
-        # If we have valid coords, cluster them into 'days'
         day_groups = {}
-        try:
-            # k = days (or less if fewer places)
-            k = min(len(places), days)
-            day_kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-            labels = day_kmeans.fit_predict(coords)
-            
-            # Group by label
-            for idx, label in enumerate(labels):
-                day_num = int(label) + 1
-                if day_num not in day_groups: day_groups[day_num] = []
-                day_groups[day_num].append(places[idx])
+        
+        if use_clustering:
+            try:
+                coords = [[p.get('lat', 0), p.get('lon', 0)] for p in places]
+                k = min(len(places), days)
+                # Lazy import to avoid circular dependency if called earlier
+                from sklearn.cluster import KMeans
+                day_kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
+                labels = day_kmeans.fit_predict(coords)
                 
-        except Exception as e:
-            # Fallback: Simple chunking
-            chunk_size = (len(places) // days) + 1
-            for i in range(days):
-                day_groups[i+1] = places[i*chunk_size : (i+1)*chunk_size]
+                for idx, label in enumerate(labels):
+                    day_num = int(label) + 1
+                    if day_num not in day_groups: day_groups[day_num] = []
+                    day_groups[day_num].append(places[idx])
+                return day_groups
+            except Exception as e:
+                pass # Fallback to chunking
                 
-        # Sort days to ensure Day 1 is closest to user start ? (Optional optimization)
+        # Fallback: Simple chunking
+        # Distribute places evenly across days
+        items_per_day = int(np.ceil(len(places) / days))
+        for i in range(days):
+            start_idx = i * items_per_day
+            end_idx = start_idx + items_per_day
+            day_slice = places[start_idx:end_idx]
+            if day_slice:
+                day_groups[i+1] = day_slice
+                
         return day_groups

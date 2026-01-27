@@ -1,16 +1,13 @@
-export const getPlaces = async (query) => {
-  // TODO: implement places service
-  return [];
-};
-
-export const getPlaceDetails = async (placeId) => {
-  // TODO: implement place details
-  return null;
-};
+import { geocode, searchPlaces } from "./mappls.service.js";
 
 export const getPlacesByLocation = async (lat, lon, radius = 5000, category = "tourism") => {
   try {
-    const GEOAPIFY_API_KEY = process.env.PLACES_API_KEY;
+    const GEOAPIFY_API_KEY = process.env.GEOAPIFY_API_KEY || process.env.PLACES_API_KEY;
+    
+    if (!GEOAPIFY_API_KEY) {
+      console.error("❌ GEOAPIFY_API_KEY not configured in .env");
+      return [];
+    }
 
     // Calculate bounding box from center point and radius
     const latOffset = radius / 111000; // 1 degree latitude ≈ 111 km
@@ -50,20 +47,16 @@ export const getPlacesByLocation = async (lat, lon, radius = 5000, category = "t
 
 export const getCoordinates = async (destination) => {
   try {
-    const GEOAPIFY_API_KEY = process.env.PLACES_API_KEY;
-    const geoUrl = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(destination)}&apiKey=${GEOAPIFY_API_KEY}`;
+    // Use the robust geocoding from Mappls service (Geoapify + Nominatim fallback)
+    const result = await geocode(destination);
 
-    const geoResponse = await fetch(geoUrl);
-    const geoData = await geoResponse.json();
-
-    if (!geoData.features || geoData.features.length === 0) {
-      return null;
+    if (result) {
+      return {
+        lat: result.lat,
+        lon: result.lng // Mappls service returns 'lng', we use 'lon'
+      };
     }
-
-    return {
-      lat: geoData.features[0].properties.lat,
-      lon: geoData.features[0].properties.lon
-    };
+    return null;
   } catch (error) {
     console.error("Error fetching coordinates:", error);
     return null;
@@ -80,8 +73,30 @@ export const getPlacesByName = async (destination) => {
 
     const { lat, lon } = coords;
 
-    // Now get places around this location
-    return await getPlacesByLocation(lat, lon);
+    // Now get places around this location using partial robustness
+    // 1. Try Geoapify (default)
+    const places = await getPlacesByLocation(lat, lon);
+
+    if (places && places.length > 0) {
+      return places;
+    }
+
+    // 2. Fallback to Mappls Search
+    console.log(`Places: Geoapify returned 0 results for ${destination}. Trying Mappls fallback...`);
+    const mapplsPlaces = await searchPlaces(lat, lon);
+
+    if (mapplsPlaces && mapplsPlaces.length > 0) {
+      return mapplsPlaces.map(p => ({
+        name: p.name,
+        address: p.address,
+        category: p.type || "tourist_attraction",
+        lat: p.lat,
+        lon: p.lng,
+        type: "tourism"
+      }));
+    }
+
+    return [];
   } catch (error) {
     console.error("Error fetching places by name:", error);
     return [];

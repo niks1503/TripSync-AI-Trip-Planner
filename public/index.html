@@ -103,56 +103,60 @@
             <div class="error" id="error"></div>
         </div>
 
-        <!-- Output Section -->
-        <div class="output-section" id="outputSection">
-            <h2>Your Itinerary</h2>
-            <div class="chat-message" id="output">
-                <p style="color: var(--text-muted); font-style: italic;">Your personalized trip plan will appear here...
-                </p>
-            </div>
-        </div>
-
-        <!-- Map Section -->
-        <div class="map-section" id="mapSection">
-            <h2>🗺️ Route Map</h2>
-            <div id="mapContainer">
-                <div class="map-loading">Loading map...</div>
-            </div>
-
-            <!-- Map Legend -->
-            <div class="map-legend">
-                <div class="legend-item">
-                    <span class="legend-dot source"></span>
-                    <span>Starting Point</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot destination"></span>
-                    <span>Destination</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-dot place"></span>
-                    <span>Attractions</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-line"></span>
-                    <span>Route</span>
+        <!-- Results Column -->
+        <div class="results-column">
+            <!-- Output Section -->
+            <div class="output-section" id="outputSection">
+                <h2>Your Itinerary</h2>
+                <div class="chat-message" id="output">
+                    <div class="empty-state">
+                        <span class="empty-icon">✈️</span>
+                        <p>Fill in the details to generate your dream trip!</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Places to Visit -->
-            <h3 class="section-title">📍 Places to Explore <span
-                    style="font-size: 12px; font-weight: 400; color: var(--text-muted);">(drag to add to
-                    itinerary)</span></h3>
-            <div class="places-grid" id="placesGrid">
-                <!-- Places will be dynamically inserted here -->
-            </div>
-        </div>
+            <!-- Map Section -->
+            <div class="map-section" id="mapSection">
+                <h2>🗺️ Route Map</h2>
+                <div id="mapContainer">
+                    <div class="map-loading">Loading map...</div>
+                </div>
 
-        <!-- Itinerary Builder -->
-        <div class="itinerary-builder" id="itineraryBuilder">
-            <h2>📅 Customize Your Itinerary</h2>
-            <div class="days-container" id="daysContainer">
-                <!-- Day columns will be dynamically inserted here -->
+                <!-- Map Legend -->
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot source"></span>
+                        <span>Start</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot destination"></span>
+                        <span>End</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot place"></span>
+                        <span>Attractions</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-line"></span>
+                        <span>Route</span>
+                    </div>
+                </div>
+
+                <!-- Places to Visit -->
+                <h3 class="section-title">📍 Places to Explore <span
+                        style="font-size: 12px; font-weight: 400; color: var(--text-muted);">(drag to add)</span></h3>
+                <div class="places-grid" id="placesGrid">
+                    <!-- Places will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Itinerary Builder -->
+            <div class="itinerary-builder" id="itineraryBuilder">
+                <h2>📅 Customize Itinerary</h2>
+                <div class="days-container" id="daysContainer">
+                    <!-- Day columns will be dynamically inserted here -->
+                </div>
             </div>
         </div>
     </div>

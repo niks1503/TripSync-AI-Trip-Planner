@@ -2,50 +2,58 @@ import axios from "axios";
 
 export async function callLLM(prompt) {
   try {
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    
+    if (!GROQ_API_KEY) {
+      console.error("❌ GROQ_API_KEY not configured in .env");
+      return generateFallbackItinerary(prompt);
+    }
+
     const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
+      "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "openai/gpt-4o-mini",
+        model: "llama-3.3-70b-versatile",  
         messages: [
           { role: "user", content: prompt }
         ],
-        temperature: 0.7
+        temperature: 0.7,
+        max_tokens: 3000
       },
       {
         headers: {
-          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-          "HTTP-Referer": "http://localhost:3000",
-          "X-Title": "Trip Planner"
+          "Authorization": `Bearer ${GROQ_API_KEY}`,
+          "Content-Type": "application/json"
         }
       }
     );
 
     if (!response.data || !response.data.choices || !response.data.choices[0]) {
-      throw new Error("Invalid response format from OpenRouter");
+      throw new Error("Invalid response format from Groq API");
     }
 
     return response.data.choices[0].message.content;
   } catch (error) {
     if (error.response && error.response.status === 401) {
-      console.error("LLM API Key Invalid or Expired. Using fallback generator.");
+      console.error("❌ LLM API Key Invalid or Expired. Using fallback generator.");
       return generateFallbackItinerary(prompt);
     }
 
     if (error.response) {
-      console.error("LLM API Error:", error.response.status, error.response.data);
-      // Fallback for other errors too
+      console.error("❌ LLM API Error:", error.response.status, error.response.data);
       return generateFallbackItinerary(prompt);
     } else {
-      console.error("LLM Request Error:", error.message);
+      console.error("❌ LLM Request Error:", error.message);
       return generateFallbackItinerary(prompt);
     }
   }
 }
 
+
 function generateFallbackItinerary(prompt) {
-  // Extract details from prompt using simple regex
-  const destinationMatch = prompt.match(/Destination: (.*?)\n/);
-  const destination = destinationMatch ? destinationMatch[1] : "your destination";
+  // Extract details
+  // Matches "Trip: Source to Destination" OR "Destination: Name"
+  const destinationMatch = prompt.match(/Trip: .*? to (.*?)$/m) || prompt.match(/Destination: (.*?)$/m);
+  const destination = destinationMatch ? destinationMatch[1].trim() : "your destination";
 
   const daysMatch = prompt.match(/Duration: (\d+) days/);
   const days = daysMatch ? parseInt(daysMatch[1]) : 3;
@@ -53,32 +61,96 @@ function generateFallbackItinerary(prompt) {
   const budgetMatch = prompt.match(/Budget Limit: (.*?)\n/);
   const budget = budgetMatch ? budgetMatch[1] : "your budget";
 
-  let itinerary = `NOTE: This is an automatically generated backup itinerary because the AI service is currently unavailable.\n\n`;
-  itinerary += `TRIP OVERVIEW\n`;
-  itinerary += `A fantastic ${days}-day trip to ${destination} with a budget of ${budget}. This plan covers the main highlights and experiences.\n\n`;
+  // Scrape Real Candidates from Prompt
+  const candidateMatches = [...prompt.matchAll(/^\d+\.\s*(.*?)\s*\(/gm)].map(m => m[1]);
+  const candidates = candidateMatches.length > 0 ? candidateMatches : [`${destination} Landmark`, `${destination} City Center`, `${destination} Museum`];
 
-  itinerary += `TRANSPORTATION\n`;
-  itinerary += `Travel to ${destination} via your preferred mode. Verified distance is approximately calculated based on standard routes.\n\n`;
+  // Scrape Hotels
+  const hotelMatches = [...prompt.matchAll(/^- (.*?) \(Approx/gm)].map(m => m[1]);
+  const hotels = hotelMatches.length > 0 ? hotelMatches : [`${destination} Grand Hotel`, `${destination} Stay Inn`];
 
-  itinerary += `DAY-BY-DAY ITINERARY\n\n`;
+  // Scrape Restaurants
+  const restaurantMatches = [...prompt.matchAll(/^- (.*?) \(/gm)].filter(m => !m[1].includes("Approx")).map(m => m[1]);
+  const restaurants = restaurantMatches.length > 0 ? restaurantMatches : [`${destination} Local Eatery`, `Famous ${destination} Cafe`];
+
+  // Construct JSON object strictly matching schema
+  const fallbackJson = {
+    overview: {
+      title: `Explore ${destination}`,
+      vibe: "Adventure & Culture",
+      highlights: candidates.slice(0, 3)
+    },
+    transportation: {
+      mode: "Personal Preference",
+      cost: "Variable"
+    },
+    budget: {
+      accommodation: "40%",
+      food: "25%",
+      transportation: "20%",
+      activities: "15%",
+      miscellaneous: "Variable",
+      total: budget
+    },
+    days: [],
+    tips: [
+      "Carry local currency",
+      "Stay hydrated",
+      "Check weather before heading out"
+    ]
+  };
+
+  // Varied activities for fallback
+  const morningActivities = ["Heritage Walk", "Local Museum Visit", "Nature Park Stroll", "Temple Visit", "City Landmark Tour"];
+  const afternoonActivities = ["Traditional Thali Lunch", "Street Food Exploration", "Shopping at Local Bazaar", "Art Gallery Visit", "Relax at Cafe"];
+  const eveningActivities = ["Sunset Point", "Cultural Dance Show", "Night Market", "River/Lake Side Walk", "Fine Dining Experience"];
 
   for (let i = 1; i <= days; i++) {
-    itinerary += `DAY ${i}: Exploring ${destination} - Day ${i}\n`;
-    itinerary += `- Morning: Visit popular local landmarks and historical sites. Start early to avoid crowds.\n`;
-    itinerary += `- Afternoon: Enjoy local cuisine at a top-rated restaurant. Explore markets or museums.\n`;
-    itinerary += `- Evening: Relax at a scenic spot or enjoy the local nightlife. Dinner at a recommended local eatery.\n\n`;
+    const daySpot = candidates[(i - 1) % candidates.length];
+    const dayHotel = hotels[(i - 1) % hotels.length];
+    const dayFood = restaurants[(i - 1) % restaurants.length];
+
+    fallbackJson.days.push({
+      day: i,
+      title: `Exploring ${destination} - Day ${i}`,
+      morning: {
+        activity: `Visit ${daySpot}`,
+        cost: "₹500",
+        place: daySpot,
+        tip: "Go early to avoid crowds"
+      },
+      lunch: {
+        activity: afternoonActivities[(i - 1) % afternoonActivities.length],
+        cost: "₹800",
+        place: dayFood,
+        tip: "Try the signature dish"
+      },
+      afternoon: {
+        activity: "Leisure & Shopping",
+        cost: "₹1000",
+        place: "Main Bazaar",
+        tip: "Bargain for best prices"
+      },
+      evening: {
+        activity: eveningActivities[(i - 1) % eveningActivities.length],
+        cost: "₹200",
+        place: "Scenic Viewpoint",
+        tip: "Perfect for photos"
+      },
+      dinner: {
+        activity: "Dinner & Vibes",
+        cost: "₹1200",
+        place: restaurants[(i) % restaurants.length], // Alternate restaurant
+        tip: "Reservation recommended"
+      },
+      accommodation: {
+        activity: "Overnight Stay",
+        cost: "₹3000",
+        place: dayHotel,
+        tip: "Central location"
+      }
+    });
   }
 
-  itinerary += `BUDGET BREAKDOWN\n`;
-  itinerary += `- Accommodation: 40%\n`;
-  itinerary += `- Food: 25%\n`;
-  itinerary += `- Transportation: 20%\n`;
-  itinerary += `- Activities & Misc: 15%\n\n`;
-
-  itinerary += `TRAVEL TIPS\n`;
-  itinerary += `- Carry local currency (INR) for small vendors.\n`;
-  itinerary += `- Stay hydrated and wear comfortable walking shoes.\n`;
-  itinerary += `- Check local weather before heading out.\n`;
-
-  return itinerary;
+  return JSON.stringify(fallbackJson, null, 2);
 }

@@ -5,21 +5,19 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export async function getMLRecommendations(preferences, allPlaces) {
+export async function getMLRecommendations(preferences, allPlaces, destination) {
     return new Promise((resolve, reject) => {
         // console.log("🧠 Calling ML Engine for Recommendations...");
 
         const pyScript = path.join(__dirname, "../ml_engine/run_recommendations.py");
-        const pythonProcess = spawn("python", [pyScript]);
+        const pythonProcess = spawn("python3", [pyScript]);
 
         let dataString = "";
         let errorString = "";
 
         // Prepare payload
-        // We send preferences. If we wanted to avoid file I/O overhead in python, 
-        // we could send 'allPlaces' here too, but the script currently reads the JSON file directly 
-        // for consistency.
-        const payload = JSON.stringify({ preferences });
+        // We send preferences and destination.
+        const payload = JSON.stringify({ preferences, destination });
 
         pythonProcess.stdin.write(payload);
         pythonProcess.stdin.end();

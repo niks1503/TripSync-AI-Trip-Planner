@@ -161,8 +161,33 @@ document.getElementById('tripForm').addEventListener('submit', async (e) => {
                 cleanText = cleanText.substring(start, end + 1);
                 const tripData = JSON.parse(cleanText);
 
+                // Save itinerary to localStorage for display page
+                localStorage.setItem('generatedItinerary', JSON.stringify(tripData));
+
                 // If valid JSON, render structured itinerary
                 output.innerHTML = renderFormattedItinerary(tripData);
+
+                // Add button to view in beautiful UI
+                const viewButton = document.createElement('button');
+                viewButton.style.cssText = `
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 12px 30px;
+                    border: none;
+                    border-radius: 50px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    font-size: 1em;
+                    margin-top: 20px;
+                    transition: transform 0.2s;
+                `;
+                viewButton.textContent = '✨ View Beautiful Itinerary ✨';
+                viewButton.onmouseover = () => viewButton.style.transform = 'scale(1.05)';
+                viewButton.onmouseout = () => viewButton.style.transform = 'scale(1)';
+                viewButton.onclick = () => {
+                    window.open('itinerary-display-pro.html', '_blank');
+                };
+                output.appendChild(viewButton);
 
                 // Initialize itinerary builder with the parsed data
                 if (tripData.days && Array.isArray(tripData.days)) {
@@ -468,19 +493,25 @@ function renderPlacesGrid(places, destinationName, map, placeMarkers) {
 
     // Render with placeholder images and draggable attribute
     placesGrid.innerHTML = places.map((place, index) => {
-        const placeholderUrl = getPlaceImage(place.type || 'POI', place.name);
+        // Robust property access
+        const name = place.name || place.placeName || place.spot_name || "Unknown Place";
+        const type = (place.type || place.category || 'POI').toUpperCase();
+        const address = place.address || place.vicinity || (place.properties && place.properties.address) || 'Near ' + destinationName;
+
+        const placeholderUrl = getPlaceImage(type, name);
+
         return `
             <div class="place-card" 
                  data-index="${index}" 
-                 data-name="${escapeHtml(place.name)}"
+                 data-name="${escapeHtml(name)}"
                  draggable="true"
                  onclick="openPlaceModal(${index})"
                  ondragstart="handleDragStart(event, ${index})"
                  ondragend="handleDragEnd(event)">
-                <img src="${placeholderUrl}" alt="${place.name}" loading="lazy" class="place-img">
+                <img src="${placeholderUrl}" alt="${escapeHtml(name)}" loading="lazy" class="place-img" onerror="this.src='${placeholderUrl}'">
                 <div class="place-card-content">
-                    <h4>${place.name}</h4>
-                    <p>${place.address || 'Near ' + destinationName}</p>
+                    <h4>${escapeHtml(name)}</h4>
+                    <p>${escapeHtml(address)}</p>
                 </div>
             </div>
         `;
@@ -846,7 +877,7 @@ function renderDayCard(day, index) {
         <div class="day-card ${isFirstDay ? 'active' : ''}" id="day-card-${index}">
             <div class="day-header" onclick="toggleDay(${index})">
                 <span class="day-title">
-                    <span style="background: var(--accent); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px;">${day.day}</span>
+                    <span style="background: var(--accent); color: white; border-radius: 4px; padding: 2px 8px; font-weight: bold; font-size: 14px; margin-right: 8px;">Day-${day.day}</span>
                     ${escapeHtml(day.title)}
                 </span>
                 <div class="day-toggle-icon">▼</div>
@@ -855,8 +886,11 @@ function renderDayCard(day, index) {
             <div class="day-content">
                 <div class="timeline-container">
                     ${renderTimeBlock(day.morning, 'Morning', 'morning')}
+                    ${renderTimeBlock(day.lunch, 'Lunch', 'lunch')}
                     ${renderTimeBlock(day.afternoon, 'Afternoon', 'afternoon')}
                     ${renderTimeBlock(day.evening, 'Evening', 'evening')}
+                    ${renderTimeBlock(day.dinner, 'Dinner', 'dinner')}
+                    ${renderTimeBlock(day.accommodation, 'Stay', 'accommodation')}
                 </div>
             </div>
         </div>
