@@ -114,7 +114,7 @@ def build_destination_from_api(data, existing_db):
         
         attractions.append({
             "spot_id": str(max_spot_id + 1 + i),
-            "place_id": placeId,
+            "place_id": place_id,
             "spot_name": name,
             "description": p.get("address") or p.get("category") or "Attraction",
             "lat": p.get("lat"),

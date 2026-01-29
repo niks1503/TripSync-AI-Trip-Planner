@@ -52,10 +52,11 @@ def build_prompt(user, context=None):
         # improving rendering logic - assuming list of dicts
         places_details = []
         for i, p in enumerate(context["places"]):
-            name = p.get("place_name") or p.get("name") or "Unknown"
-            score = p.get("score", 0)
+            # Check multiple possible name fields from database
+            name = p.get("spot_name") or p.get("place_name") or p.get("name") or "Unknown"
+            score = p.get("score", p.get("ml_score", 0))
             desc = p.get("description", "")
-            places_details.append(f"{i+1}. {name} (Score: {score}) - {desc}")
+            places_details.append(f"{i+1}. {name} - {desc}")
         places_list = "\n".join(places_details)
 
     rag_info = f"\nIMPORTANT ADVISORY:\n{context.get('ragContext')}\n" if context.get("ragContext") else ""
