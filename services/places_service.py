@@ -96,3 +96,6 @@ def get_places_by_name(destination):
     except Exception as e:
         logger.error(f"Error fetching places by name: {e}")
         return []
+
+# Alias for compatibility
+get_places_for_destination = get_places_by_name

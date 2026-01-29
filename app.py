@@ -12,7 +12,8 @@ from services.mappls_service import get_map_data, get_access_token, get_distance
 from services.local_db_service import load_local_db, upsert_destination, build_destination_from_api, find_destination, save_local_db
 from services.image_service import get_place_images
 
-# Load environment variables
+from ml_engine.recommender import get_recommendations
+
 load_dotenv()
 
 # Configure Logging
@@ -98,6 +99,19 @@ def plan_trip():
 
             # 3. Distance Info
             distance_info = get_distance_info(source, destination)
+
+            # 4. ML Recommendation
+            logger.info("🧠 Running ML Recommender...")
+            try:
+                ml_recs = get_recommendations(destination, preferences, days, budget)
+                if ml_recs:
+                    logger.info(f"✅ ML Recommender returned {len(ml_recs)} places")
+                    ranked_places = ml_recs
+                else:
+                    logger.info("⚠️ ML Recommender returned no results, using default ranking")
+            except Exception as ml_err:
+                logger.error(f"❌ ML Recommender Error: {ml_err}")
+                # Fallback to default ranking if ML fails
 
             # 4. Prompt Construction
             # Format preferences

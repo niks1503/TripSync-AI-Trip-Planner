@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
+import os
+import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-from clustering import PlaceClustering
+from ml_engine.clustering import PlaceClustering
 
 class ContentRecommender:
     def __init__(self):
@@ -136,3 +138,43 @@ class ContentRecommender:
                 day_groups[i+1] = day_slice
                 
         return day_groups
+
+def get_recommendations(destination, preferences, days=3, budget=5000):
+    try:
+        # Resolve path relative to this file
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        data_path = os.path.join(base_dir, '../data/processed/database.json')
+
+        if not os.path.exists(data_path):
+            return []
+
+        with open(data_path, 'r', encoding='utf-8') as f:
+            all_places = json.load(f)
+            
+        destination_obj = next((p for p in all_places if p['place_name'].lower() == destination.lower()), None)
+        
+        if not destination_obj:
+            return []
+            
+        attractions_data = destination_obj.get('attractions', [])
+        if not attractions_data:
+            return []
+            
+        recommender = ContentRecommender()
+        recommender.train(attractions_data)
+        
+        context = {
+            'user_lat': None, 
+            'user_lon': None,
+            'budget': budget,
+            'days': days
+        }
+        
+        # User profile is just the preferences string for now
+        user_profile = " ".join(preferences) if isinstance(preferences, list) else str(preferences)
+        
+        return recommender.recommend(user_profile, context)
+        
+    except Exception as e:
+        print(f"Error getting recommendations: {e}")
+        return []

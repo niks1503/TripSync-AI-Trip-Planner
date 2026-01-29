@@ -86,6 +86,9 @@ KEY REQUIREMENTS:
 - Include realistic costs (never ₹0)
 - Provide specific, actionable activities
 - Follow the exact JSON schema provided
+- **CRITICAL**: Do NOT use generic names like "Local Restaurant", "Local Hotel", "Nice Cafe", "Street Food".
+- **REQUIRED**: Provide REAL, SPECIFIC names for every "place" field (e.g., "Saravana Bhavan", "Hotel Taj", "Blue Tokai Cafe").
+- If the specific name is not in the context, use your internal knowledge to suggest a high-rated, real place in that city.
 
 IMPORTANT: Only return valid JSON. No explanations, markdown, or extra text.
 
@@ -109,6 +112,7 @@ RESPOND WITH ONLY THE JSON, NO OTHER TEXT.
   "overview": {{
     "title": "Exciting Trip to [Destination]",
     "vibe": "Energetic / Relaxed / Cultural",
+    "trip_distance_info": "e.g. Distance from Source: 250km (approx 5h drive)",
     "highlights": ["Highlight 1", "Highlight 2", "Highlight 3"]
   }},
   "transportation": {{

@@ -6,3 +6,9 @@ build/
 coverage/
 .vscode/
 INTERVIEW_STUDY_GUIDE
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.python-version

@@ -528,13 +528,22 @@ function renderPlacesGrid(places, destinationName, map, placeMarkers) {
 }
 
 // Fetch real images for places from the API
+// Fetch real images for places from the API
 async function fetchPlaceImages(places, destination) {
     try {
+        // Prepare list of names with robust fallback
+        const placesWithNames = places.map((p, index) => {
+            const name = p.name || p.placeName || p.spot_name || "Unknown Place";
+            return { originalIndex: index, name: name };
+        }).filter(p => p.name && p.name !== "Unknown Place");
+
+        if (placesWithNames.length === 0) return;
+
         const response = await fetch('/api/place-images', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                places: places.map(p => ({ name: p.name })),
+                places: placesWithNames.map(p => ({ name: p.name })),
                 destination
             })
         });
@@ -550,10 +559,12 @@ async function fetchPlaceImages(places, destination) {
         // Store image map globally for modal use
         window.placeImages = imageMap;
 
-        // Update each place card with the real image
-        Object.entries(imageMap).forEach(([placeName, imageUrl]) => {
+        // Update each place card with the real image using index
+        placesWithNames.forEach(item => {
+            const imageUrl = imageMap[item.name];
             if (imageUrl) {
-                const card = document.querySelector(`.place-card[data-name="${escapeHtml(placeName)}"]`);
+                // Select by index which is safer than name
+                const card = document.querySelector(`.place-card[data-index="${item.originalIndex}"]`);
                 if (card) {
                     const img = card.querySelector('.place-img');
                     if (img) {
@@ -568,7 +579,7 @@ async function fetchPlaceImages(places, destination) {
                             }, 150);
                         };
                         newImg.onerror = () => {
-                            console.log(`Failed to load image for ${placeName}`);
+                            console.log(`Failed to load image for ${item.name}`);
                         };
                         newImg.src = imageUrl;
                     }
@@ -789,8 +800,21 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+function getTransportIcon(mode) {
+    if (!mode) return '🚗';
+    const m = mode.toLowerCase();
+    if (m.includes('flight') || m.includes('air')) return '✈️';
+    if (m.includes('train') || m.includes('rail')) return '🚆';
+    if (m.includes('bus')) return '🚌';
+    if (m.includes('bike') || m.includes('motorcycle')) return '🏍️';
+    if (m.includes('walk') || m.includes('foot')) return '🚶';
+    return '🚗';
+}
+
 function renderFormattedItinerary(data) {
     if (!data.overview || !data.days) return `<div class="chat-message">${escapeHtml(JSON.stringify(data, null, 2))}</div>`;
+
+    const transportIcon = getTransportIcon(data.transportation ? data.transportation.mode : '');
 
     return `
         <div class="itinerary-container">
@@ -799,6 +823,7 @@ function renderFormattedItinerary(data) {
                 <div class="overview-header">
                     <h2 class="overview-title">${escapeHtml(data.overview.title)}</h2>
                     <div class="overview-vibe">"${escapeHtml(data.overview.vibe)}"</div>
+                    ${data.overview.trip_distance_info ? `<div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">${transportIcon} ${escapeHtml(data.overview.trip_distance_info)}</div>` : ''}
                     <div class="highlights-container">
                         ${data.overview.highlights.map(h => `<span class="highlight-tag">✨ ${escapeHtml(h)}</span>`).join('')}
                     </div>

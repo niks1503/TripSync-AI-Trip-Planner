@@ -212,3 +212,9 @@ def get_map_data(source, destination):
     except Exception as e:
         logger.error(f"Error getting map data: {e}")
         return {"error": str(e)}
+
+# Aliases for compatibility
+get_coordinates = geocode
+
+def get_route_data(source_coords, dest_coords, access_token=None):
+    return get_route(source_coords, dest_coords)

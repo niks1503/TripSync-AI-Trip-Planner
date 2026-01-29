@@ -798,25 +798,15 @@ button[type="submit"]:active {
 
 .budget-total {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, var(--primary-light), #fff);
-    border-color: var(--primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-2) var(--space-3);
 }
 
-.budget-total .budget-amount {
-    color: var(--primary);
-}
-
-/* Tips Card */
+/* Tips Card - Reconstructed */
 .tips-card {
-    background: #1e293b;
+    background: #fff;
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--space-3);
-    margin-top: var(--space-3);
-    color: white;
+    margin-top: var(--space-4);
 }
 
 .tips-grid {
@@ -827,126 +817,37 @@ button[type="submit"]:active {
 .tip-card-item {
     display: flex;
     gap: var(--space-2);
-    background: rgba(255, 255, 255, 0.05);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
     align-items: flex-start;
-}
-
-.tip-content {
+    padding: var(--space-2);
+    background: #f0f9ff;
+    border-left: 3px solid var(--secondary);
+    border-radius: var(--radius-sm);
     font-size: 0.9rem;
-    color: #cbd5e1;
 }
 
-/* --- Modals --- */
-
-/* Modal Overlay */
-.modal-overlay,
-.error-modal {
+/* --- Modal --- */
+.modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(5px);
-    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
     display: none;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3);
+    z-index: 1000;
 }
 
-.modal-overlay.active,
-.error-modal.visible {
+.modal-overlay.active {
     display: flex;
-    animation: fadeIn 0.2s;
 }
 
-.modal-content,
-.error-modal-content {
+.modal-content {
     background: #fff;
-    width: 100%;
+    width: 90%;
     max-width: 500px;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     position: relative;
-}
-
-/* Place Modal Details */
-.modal-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.modal-body {
-    padding: var(--space-4);
-}
-
-.modal-title {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-1);
-}
-
-.modal-address {
-    color: var(--text-muted);
-    margin-bottom: var(--space-3);
-    display: block;
-    font-size: 0.9rem;
-}
-
-.modal-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-}
-
-.day-btn {
-    padding: 8px 12px;
-    border: 1px solid #e2e8f0;
-    background: #fff;
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.day-btn:hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-/* Validation Modal */
-.error-modal-content {
-    padding: var(--space-4);
-}
-
-.error-details ul {
-    margin: var(--space-2) 0;
-    padding-left: 20px;
-    color: var(--error);
-}
-
-.suggestion-box {
-    background: #f0f9ff;
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    margin-top: var(--space-2);
-    color: #0369a1;
-}
-
-.error-close-btn {
-    width: 100%;
-    padding: 12px;
-    background: var(--text-main);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    margin-top: var(--space-3);
-    cursor: pointer;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .modal-close {
@@ -956,45 +857,67 @@ button[type="submit"]:active {
     background: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
 }
 
-/* Additional Timeline Styles for Lunch/Dinner/Stay */
-.time-block.lunch .timeline-dot {
-    border-color: #ef4444;
-    background: #ef4444;
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.7);
 }
 
-.time-block.dinner .timeline-dot {
-    border-color: #8b5cf6;
-    background: #8b5cf6;
+.modal-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.time-block.accommodation .timeline-dot {
-    border-color: #3b82f6;
-    background: #3b82f6;
+.modal-body {
+    padding: var(--space-3);
 }
 
-.time-block.lunch .time-label {
-    background: #fee2e2;
-    color: #b91c1c;
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-1);
+    color: var(--text-main);
 }
 
-.time-block.dinner .time-label {
-    background: #ede9fe;
-    color: #5b21b6;
+.modal-address {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.time-block.accommodation .time-label {
-    background: #dbeafe;
-    color: #1e3a8a;
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
 }
 
-.time-block.accommodation {
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    background: rgba(239, 246, 255, 0.4);
+.action-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
 }
