@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Trip Itinerary - TripSync</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - VARIABLES & FOUNDATION
+           ============================================ */
+        :root {
+            /* Color System */
+            --color-bg-primary: #f8f9fb;
+            --color-bg-secondary: #ffffff;
+            --color-bg-tertiary: #f0f2f7;
+            
+            --color-text-primary: #0f172a;
+            --color-text-secondary: #475569;
+            --color-text-tertiary: #64748b;
+            
+            --color-accent-primary: #f97316;
+            --color-accent-primary-hover: #ea580c;
+            --color-accent-secondary: #0ea5e9;
+            --color-accent-secondary-hover: #0284c7;
+            
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            
+            --color-border: #e2e8f0;
+            --color-border-hover: #cbd5e1;
+            
+            /* Spacing (8px Grid) */
+            --space-1: 0.5rem;
+            --space-2: 1rem;
+            --space-3: 1.5rem;
+            --space-4: 2rem;
+            --space-5: 2.5rem;
+            --space-6: 3rem;
+            --space-8: 4rem;
+            
+            /* Typography */
+            --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--color-bg-primary) 0%, #f5f7fb 100%);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            padding: var(--space-4);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--color-text-primary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: var(--space-2);
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            line-height: 1.3;
+            margin-bottom: var(--space-3);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            line-height: 1.4;
+            margin-bottom: var(--space-2);
+        }
+        
+        h4 {
+            font-size: 1.125rem;
+            line-height: 1.4;
+        }
+        
+        p {
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-2);
+        }
+        
+        small, .text-small {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+        }
+        
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-wrapper {
+            max-width: 100%;
+            width: 100%;
+        }
+        
+        /* ============================================
+           HEADER SECTION
+           ============================================ */
+        .header {
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-6) var(--space-4);
+            margin-bottom: var(--space-6);
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-1);
+        }
+        
+        .header-subtitle {
+            color: var(--color-text-tertiary);
+            font-size: 1rem;
+        }
+        
+        .header-meta {
+            display: flex;
+            gap: var(--space-6);
+            margin-top: var(--space-4);
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+        
+        .meta-label {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+        
+        .meta-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        /* ============================================
+           OVERVIEW CARD
+           ============================================ */
+        .overview-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+        }
+        
+        .overview-card:hover {
+            border-color: var(--color-accent-primary);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .vibe-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-xl);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: var(--space-3);
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+        
+        .highlight-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            border: 1px solid #fcd34d;
+            text-align: center;
+            font-weight: 600;
+            color: #92400e;
+            transition: all var(--transition-base);
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* ============================================
+           BUDGET SECTION
+           ============================================ */
+        .budget-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-3);
+        }
+        
+        .budget-item {
+            background: var(--color-bg-tertiary);
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: all var(--transition-base);
+        }
+        
+        .budget-item:hover {
+            background: #e8ecf6;
+            border-color: var(--color-accent-secondary);
+        }
+        
+        .budget-label {
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+            margin-bottom: var(--space-1);
+            font-weight: 500;
+        }
+        
+        .budget-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent-primary);
+            font-family: var(--font-display);
+        }
+        
+        /* ============================================
+           DAYS CONTAINER
+           ============================================ */
+        .days-container {
+            display: grid;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        /* ============================================
+           DAY CARD
+           ============================================ */
+        .day-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+        }
+        
+        .day-card:hover {
+            border-color: var(--color-accent-primary);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--space-4);
+        }
+        
+        .day-header-info h3 {
+            color: white;
+            margin-bottom: var(--space-1);
+            font-size: 1.5rem;
+        }
+        
+        .day-header-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+        
+        .day-budget-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+        
+        .day-content {
+            padding: var(--space-6);
+        }
+        
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        /* ============================================
+           ACTIVITY CARD
+           ============================================ */
+        .activity-item {
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3);
+            transition: all var(--transition-base);
+        }
+        
+        .activity-item:hover {
+            background: #e8ecf6;
+            border-color: var(--color-accent-secondary);
+            transform: translateY(-1px);
+        }
+        
+        .activity-time-badge {
+            display: inline-block;
+            background: var(--color-accent-primary);
+            color: white;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .activity-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .activity-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2) 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.95rem;
+        }
+        
+        .activity-detail:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .detail-value {
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+        
+        .cost-badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .tip-text {
+            background: #fef3c7;
+            border-left: 3px solid var(--color-warning);
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-2);
+            font-size: 0.9rem;
+            color: #92400e;
+            font-style: italic;
+        }
+        
+        /* ============================================
+           TIPS SECTION
+           ============================================ */
+        .tips-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-6);
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+        
+        .tip-card {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 1px solid #93c5fd;
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            font-weight: 500;
+            text-align: center;
+            color: #1e40af;
+            transition: all var(--transition-base);
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-accent-secondary);
+        }
+        
+        /* ============================================
+           ACTION BUTTONS
+           ============================================ */
+        .actions {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            margin-top: var(--space-6);
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: var(--space-3) var(--space-5);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            min-height: 44px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--color-bg-tertiary);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-border);
+            border-color: var(--color-accent-secondary);
+        }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--space-2);
+            }
+            
+            .header {
+                padding: var(--space-4) var(--space-3);
+                margin-bottom: var(--space-4);
+            }
+            
+            .header-meta {
+                gap: var(--space-3);
+            }
+            
+            .overview-card,
+            .budget-section,
+            .tips-section {
+                padding: var(--space-4);
+            }
+            
+            .day-card {
+                border-radius: var(--radius-lg);
+            }
+            
+            .day-header {
+                flex-direction: column;
+                gap: var(--space-2);
+                padding: var(--space-4);
+            }
+            
+            .day-content {
+                padding: var(--space-4);
+            }
+            
+            .day-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .day-card {
+                page-break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .day-header {
+                background: linear-gradient(135deg, #f97316, #0ea5e9);
+                color: white;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Your Perfect Trip Awaits</h1>
+                <p class="header-subtitle">Personalized itinerary crafted with AI intelligence</p>
+                <div class="header-meta" id="headerMeta">
+                    <!-- Meta info will be inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="container">
+            <!-- Overview Card -->
+            <div class="overview-card" id="overviewCard">
+                <!-- Overview will be inserted here -->
+            </div>
+            
+            <!-- Budget Section -->
+            <div class="budget-section" id="budgetSection">
+                <!-- Budget will be inserted here -->
+            </div>
+            
+            <!-- Days Container -->
+            <div class="days-container" id="daysContainer">
+                <!-- Day cards will be inserted here -->
+            </div>
+            
+            <!-- Tips Section -->
+            <div class="tips-section" id="tipsSection">
+                <!-- Tips will be inserted here -->
+            </div>
+            
+            <!-- Actions -->
+            <div class="actions">
+                <button class="btn btn-primary" onclick="window.print()">
+                    <span>🖨️</span> Print / Save as PDF
+                </button>
+                <button class="btn btn-secondary" onclick="loadSample()" title="Load a small sample itinerary for quick testing">
+                    <span>📌</span> Load sample itinerary
+                </button>
+                <button class="btn btn-secondary" onclick="window.history.back()">
+                    <span>←</span> Back to Form
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Read URL parameter by name
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function showNoItinerary() {
+            document.body.innerHTML = '<div class="container" style="padding-top: 4rem; text-align: center;"><h2>No itinerary found</h2><p>Please generate a trip first or use the "Load sample itinerary" button.</p></div>';
+        }
+
+        // Load itinerary preferring a `data` URL parameter (raw JSON or base64), then localStorage
+        function loadItinerary() {
+            const raw = getUrlParam('data');
+            if (raw) {
+                let parsed = null;
+                // Try decodeURIComponent JSON first
+                try {
+                    parsed = JSON.parse(decodeURIComponent(raw));
+                } catch (e1) {
+                    try {
+                        // Fallback: base64 encoded JSON
+                        parsed = JSON.parse(atob(raw));
+                    } catch (e2) {
+                        console.error('Failed to parse URL data param (tried URI decode and base64):', e1, e2);
+                    }
+                }
+
+                if (parsed) {
+                    renderItinerary(parsed);
+                    return;
+                }
+            }
+
+            const data = localStorage.getItem('generatedItinerary');
+            if (!data) {
+                showNoItinerary();
+                return;
+            }
+
+            try {
+                const itinerary = JSON.parse(data);
+                renderItinerary(itinerary);
+            } catch (e) {
+                console.error('Failed to parse itinerary from localStorage:', e);
+                showNoItinerary();
+            }
+        }
+        
+        function renderItinerary(data) {
+            // Render header meta
+            if (data.destination) {
+                const headerMeta = document.getElementById('headerMeta');
+                headerMeta.innerHTML = `
+                    <div class="meta-item">
+                        <span class="meta-label">Destination</span>
+                        <span class="meta-value">${data.destination}</span>
+                    </div>
+                    ${data.days ? `
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">${data.days.length} Days</span>
+                    </div>
+                    ` : ''}
+                `;
+            }
+            
+            // Render overview
+            if (data.overview) {
+                const overview = document.getElementById('overviewCard');
+                overview.innerHTML = `
+                    <h2>Trip Overview</h2>
+                    <span class="vibe-badge">${data.overview.vibe || 'Adventure & Culture'}</span>
+                    <p>${data.overview.title}</p>
+                    <div class="highlights-grid">
+                        ${(data.overview.highlights || []).map(h => `
+                            <div class="highlight-card">🎯 ${h}</div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Render budget
+            if (data.budget) {
+                const budget = document.getElementById('budgetSection');
+                budget.innerHTML = `
+                    <h2>Budget Breakdown</h2>
+                    <div class="budget-grid">
+                        <div class="budget-item">
+                            <div class="budget-label">🏨 Accommodation</div>
+                            <div class="budget-amount">${data.budget.accommodation || '—'}</div>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-label">🍽️ Food</div>
+                            <div class="budget-amount">${data.budget.food || '—'}</div>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-label">🚗 Transport</div>
+                            <div class="budget-amount">${data.budget.transportation || '—'}</div>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-label">🎭 Activities</div>
+                            <div class="budget-amount">${data.budget.activities || '—'}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Render days
+            if (data.days && Array.isArray(data.days)) {
+                const daysContainer = document.getElementById('daysContainer');
+                daysContainer.innerHTML = data.days.map((day, index) => {
+                    const activities = [
+                        { key: 'morning', emoji: '🌅', time: 'Morning' },
+                        { key: 'lunch', emoji: '🍽️', time: 'Lunch' },
+                        { key: 'afternoon', emoji: '☀️', time: 'Afternoon' },
+                        { key: 'evening', emoji: '🌅', time: 'Evening' },
+                        { key: 'dinner', emoji: '🍜', time: 'Dinner' },
+                        { key: 'accommodation', emoji: '🛏️', time: 'Night' }
+                    ];
+                    
+                    const dayActivities = activities
+                        .filter(a => day[a.key])
+                        .map(a => {
+                            const activity = day[a.key];
+                            return `
+                                <div class="activity-item">
+                                    <span class="activity-time-badge">${a.emoji} ${a.time}</span>
+                                    <h4 class="activity-title">${activity.activity || a.time}</h4>
+                                    <div class="activity-detail">
+                                        <span class="detail-label">📍 Place</span>
+                                        <span class="detail-value">${activity.place || 'TBD'}</span>
+                                    </div>
+                                    <div class="activity-detail">
+                                        <span class="detail-label">💵 Cost</span>
+                                        <span class="cost-badge">${activity.cost || '₹500'}</span>
+                                    </div>
+                                    ${activity.tip ? `<div class="tip-text">💡 ${activity.tip}</div>` : ''}
+                                </div>
+                            `;
+                        })
+                        .join('');
+                    
+                    return `
+                        <div class="day-card">
+                            <div class="day-header">
+                                <div class="day-header-info">
+                                    <h3>Day ${day.day || index + 1}</h3>
+                                    <p class="day-header-subtitle">${day.title || 'Exploring'}</p>
+                                </div>
+                                ${day.budget ? `<div class="day-budget-badge">Budget: ${day.budget}</div>` : ''}
+                            </div>
+                            <div class="day-content">
+                                <div class="day-grid">
+                                    ${dayActivities}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Render tips
+            if (data.tips && Array.isArray(data.tips)) {
+                const tips = document.getElementById('tipsSection');
+                tips.innerHTML = `
+                    <h2>Pro Tips for Your Journey</h2>
+                    <div class="tips-grid">
+                        ${data.tips.map(tip => `
+                            <div class="tip-card">✨ ${tip}</div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        function loadSample() {
+            const sample = {
+                destination: 'Mahabaleshwar',
+                overview: {
+                    vibe: 'Relaxed Nature',
+                    title: 'A calm 3-day escape exploring hill views and local eats',
+                    highlights: ['Venna Lake boat ride', 'Arthur Seat sunrise', 'Strawberry picking']
+                },
+                budget: {
+                    accommodation: '₹3,500',
+                    food: '₹1,200',
+                    transportation: '₹800',
+                    activities: '₹1,000'
+                },
+                days: [
+                    {
+                        day: 1,
+                        title: 'Arrival & Lakeside Stroll',
+                        morning: { activity: 'Check-in & relax', place: 'Hotel by the lake', cost: '₹0' },
+                        afternoon: { activity: 'Boat ride at Venna Lake', place: 'Venna Lake', cost: '₹400', tip: 'Carry water and a hat' },
+                        evening: { activity: 'Local market walk', place: 'Main Bazaar', cost: '₹200' },
+                        accommodation: { activity: 'Stay at boutique hotel', place: 'Hillside Retreat', cost: '₹3,500' }
+                    },
+                    {
+                        day: 2,
+                        title: 'Viewpoints & Strawberry Farm',
+                        morning: { activity: 'Sunrise at Arthur Seat', place: 'Arthur Seat', cost: 'Free', tip: 'Arrive early for clear views' },
+                        afternoon: { activity: 'Visit Mapro Garden', place: 'Mapro Garden', cost: '₹300' },
+                        evening: { activity: 'Dinner at local cafe', place: 'Cafe 21', cost: '₹600' }
+                    }
+                ],
+                tips: ['Carry layered clothing for mornings', 'Book lake boats in advance during weekends']
+            };
+
+            try {
+                renderItinerary(sample);
+            } catch (e) {
+                console.error('Failed to render sample itinerary:', e);
+            }
+        }
+
+        // Load on page load
+        window.addEventListener('load', loadItinerary);
+    </script>
+</body>
+</html>

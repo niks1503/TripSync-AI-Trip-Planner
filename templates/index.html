@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripSync - AI Trip Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h1>
+                <img src="/static/images/logo.png" alt="TripSync Logo" class="logo">
+                TripSync
+            </h1>
+            <p class="subtitle">AI-powered travel planning at your fingertips</p>
+
+            <form id="tripForm">
+                <div class="form-group">
+                    <label for="source">Starting Point</label>
+                    <input type="text" id="source" name="source" placeholder="e.g., Mumbai, Delhi" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" name="destination" placeholder="e.g., Mahabaleshwar, Goa"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">Total Budget (₹)</label>
+                    <input type="number" id="budget" name="budget" min="1000" placeholder="e.g., 25000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="people">Number of Travelers</label>
+                    <input type="number" id="people" name="people" min="1" max="50" placeholder="e.g., 2" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="days">Trip Duration (Days)</label>
+                    <input type="number" id="days" name="days" min="1" max="365" placeholder="e.g., 3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="transport">Preferred Transportation</label>
+                    <select id="transport" name="transport" required>
+                        <option value="any">Any (Best Available)</option>
+                        <option value="flight">✈️ Flight</option>
+                        <option value="train">🚆 Train</option>
+                        <option value="bus">🚌 Bus</option>
+                        <option value="car">🚗 Car / Self-Drive</option>
+                        <option value="bike">🏍️ Bike</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Travel Preferences</label>
+                    <div class="preferences-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="spiritual"> 🙏 Spiritual
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="adventure"> 🧗 Adventure
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="nature"> 🌿 Nature
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="history"> 🏛️ History
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="beach"> 🏖️ Beach
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="romantic"> 💑 Romantic
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="shopping"> 🛍️ Shopping
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="preferences" value="nightlife"> 🌙 Nightlife
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn">Generate Itinerary ✨</button>
+            </form>
+
+            <div class="error" id="error"></div>
+        </div>
+
+        <!-- Results Column -->
+        <div class="results-column">
+            <!-- Output Section -->
+            <div class="output-section" id="outputSection">
+                <h2>Your Itinerary</h2>
+                <div class="chat-message" id="output">
+                    <div class="empty-state">
+                        <span class="empty-icon">✈️</span>
+                        <p>Fill in the details to generate your dream trip!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section" id="mapSection">
+                <h2>🗺️ Route Map</h2>
+                <div id="mapContainer">
+                    <div class="map-loading">Loading map...</div>
+                </div>
+
+                <!-- Map Legend -->
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot source"></span>
+                        <span>Start</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot destination"></span>
+                        <span>End</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot place"></span>
+                        <span>Attractions</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-line"></span>
+                        <span>Route</span>
+                    </div>
+                </div>
+
+                <!-- Places to Visit -->
+                <h3 class="section-title">📍 Places to Explore <span
+                        style="font-size: 12px; font-weight: 400; color: var(--text-muted);">(drag to add)</span></h3>
+                <div class="places-grid" id="placesGrid">
+                    <!-- Places will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Itinerary Builder -->
+            <div class="itinerary-builder" id="itineraryBuilder">
+                <h2>📅 Customize Itinerary</h2>
+                <div class="days-container" id="daysContainer">
+                    <!-- Day columns will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Place Details Modal -->
+    <div class="modal-overlay" id="placeModal" onclick="closePlaceModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePlaceModal()">✕</button>
+            <img class="modal-image" id="modalImage" src="" alt="Place image">
+            <div class="modal-body">
+                <h3 class="modal-title" id="modalTitle">Place Name</h3>
+                <p class="modal-address" id="modalAddress">
+                    <span>📍</span>
+                    <span id="modalAddressText">Address</span>
+                </p>
+                <div class="modal-actions" id="modalActions">
+                    <!-- Day buttons will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
