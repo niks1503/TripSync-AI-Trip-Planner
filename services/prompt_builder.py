@@ -71,8 +71,17 @@ def build_prompt(user, context=None):
 SYSTEM INSTRUCTIONS:
 You are an expert Travel Planner. Generate a detailed, practical JSON itinerary.
 
+TRIP DETAILS:
+- Trip: {source} to {destination}
+- Duration: {days} days
+- Travelers: {people} people
+- Budget: ₹{budget}
+- Transport Mode: {transport_mode}
+- Travel Preferences: {preferences}
+
 KEY REQUIREMENTS:
 - You MUST generate an itinerary for EXACTLY {days} days. NOT less, NOT more.
+- PRIORITIZE activities that match the user's preferences: {preferences}
 - Use only place names from the lists below where possible
 - Include realistic costs (never ₹0)
 - Provide specific, actionable activities
